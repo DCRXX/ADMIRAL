@@ -1,0 +1,97 @@
+.CoachingStaff{
+    display: grid;
+    grid-template-columns: clamp(5px, 5%, 100vw) auto;
+}
+.Content-Staff{
+    display: grid;
+    grid-column: 2;
+}
+.Staff{
+    display: flex;
+    gap: clamp(5px, 1vw, 50px);
+    overflow: hidden;
+}
+.Our-trainers{
+    width: clamp(100px, 23vw, 100vw);
+    min-width: 200px;
+    background-color: #252525;
+    display: grid;
+    gap: clamp(10px, 1vw, 50px);
+    grid-template-rows: .2fr auto .2fr;
+    grid-row: 1 / 3;
+    padding: clamp(10px, 2vw, 100px);
+}
+.Trainer-Description h1,
+.Our-trainers h1{
+    font-size: clamp(16px, 2vw, 150px);
+    color: #FFFFFF;
+}
+.Trainer-Description p1,
+.Trainer-Description p,
+.Our-trainers p{
+    color: #9F9F9F;
+    font-size: clamp(10px, 1vw, 100px);
+    font-weight: 300;
+    font-family: 'F37GingerCyrillic';
+}
+.Trainer{
+    display: flex;
+}
+.Trainer-Description{
+    width: clamp(100px, 11vw, 100vw);
+    position: relative;
+    background-color: #252525;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+.Description{
+    display: grid;
+    padding-block: clamp(10px, 2vw, 100px);
+    padding-inline: clamp(10px, 1vw, 100px);
+    row-gap: clamp(5px, 1vw, 50px);
+    grid-template-rows: 1fr 2.6fr auto;
+}
+.Description h1{
+    grid-row: 1;
+}
+.Trainer-Description img{
+    position:absolute;
+    transform: translate(-20%);
+}
+.Description p{
+    grid-row: 2;
+}
+.Description p1{
+    grid-row: 3;
+}
+.Image-Trainer{
+    background: linear-gradient(to top, #132831,  #16161675 60%);
+    display: flex;
+    align-items: end;
+}
+.Image-Trainer img{
+    width: clamp(200px, 15vw, 100vw);
+}
+.list-of-coaches{
+    display: flex;
+    width: clamp(200px, 70vw, 100vw);
+    gap: clamp(5px, 1vw, 50px);
+    overflow: hidden;
+}
+.Buttons-Trainer{
+    padding-top: clamp(5px, .6vw, 50px);
+    padding-right: clamp(10px, 4vw, 40vw);
+    display: flex;
+    gap: clamp(5px, 1vw, 50px);
+    justify-content: end;
+}
+.arrow{
+    background-color: #252525;
+    padding: clamp(5px, .3vw, 50px);
+    cursor: pointer;
+    display: flex;
+}
+.arrow img{
+    width: clamp(20px, 2vw, 200px);
+}
