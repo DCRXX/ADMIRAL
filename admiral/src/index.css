@@ -1,17 +1,5 @@
-@font-face {
-  font-family: 'Bebas Neue';
-  src: url('./assets/fonts/bebasneuecyrillic.ttf') format(woff2); 
-  font-style: regular;
-  font-display: swap;
-  font-weight: normal;
-}
-@font-face {
-  font-family: 'F37GingerCyrillic';
-  src: url('./assets/fonts/F37GingerCyrillic-VF.ttf') format(woff2); ;
-  font-style: regular;
-  font-display: swap;
-  font-weight: normal;
-}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
 * {
   box-sizing: border-box;
 }
@@ -25,20 +13,17 @@ img {
   display: grid;
   gap: clamp(15px, 3vw, 50vw);
 }
-
-
 body{
-   background-image: url(../public/Rectangle\ 154.svg);
+   background-color: #1B1B1B;
    margin: 0;
    overflow-x: hidden;
 }
 a, p, p1, h1, li, span{
     margin: 0;
-    height: fit-content;
     text-decoration: none;
     line-height: 100%;
     font-synthesis: none;
-    font-family: "Bebas Neue", system-ui, -apple-system, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
