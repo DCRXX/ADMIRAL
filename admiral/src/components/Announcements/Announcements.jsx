@@ -1,35 +1,110 @@
-import { React, useState, useEffect, useRef } from 'react'
-import './Announcements.css'
-import arrow from './public/arrow.svg'
+import React from 'react';
+import './Announcements.css';
+import arrow from './public/arrow.svg';
+import { useCarousel } from './carouselFunction';
+
+export default function Announcements() {
+    const {
+        activeIndex,
+        offset,
+        containerRef,
+        isMobile,
+        mainRef,
+        nextSlide,
+        prevSlide,
+        isSlideActive,
+        slidesData,
+        animationDuration
+    } = useCarousel({
+        initialIndex: 0,
+        animationDuration: 600
+    });
 
 
-
-
-export default function Announcements(){
-    
-
-    return(
+    return (
         <section className='Announcements'>
             <div className='head_Announcements'>
                 <h1>Объявления</h1>
             </div>
-            <div className='main_Announcements'>
-                <div className='Elipse'></div>
-                <div className='slide_diagram'>
-                    <div className='title'>
-                        <h1>Новое отделение Царицыно</h1>
-                    </div>
-                    <div className='description'>
-                        <p>Осенью 2025 года футбольная школа «АдмиралВМФ» открыла новое отделение на базе современного стадиона «Огонёк» в районе Царицыно. Это значимый шаг в развитии школы: новая площадка позволяет существенно повысить качество подготовки. Стадион отвечает всем требованиям для тренировок и игр в формате 11 × 11! На базе нового объекта осуществляется подготовка команда к участию в соревнованиях под эгидой Московской Федерации футбола!</p>
-                    </div>
-                    <div className='arrow-left'>
-                        <img src={arrow}/>
-                    </div>
-                    <div className='arrow-right'>
-                        <img src={arrow}/>
-                    </div>
+
+            <div className='carusel-hidden' ref={containerRef}>
+                <div
+                    className='main_Announcements'
+                    ref={mainRef}
+                    style={{
+                        transform: `translateX(${offset}px)`,
+                        transition: `transform ${animationDuration}ms ease-in-out`
+                    }}
+                >
+                    {slidesData.map((slide, index) => {
+                        const isActive = isSlideActive(index);
+                        if (isMobile) {
+                            return (
+                                <section>
+                                    <div
+                                        key={slide.id}
+                                        className={isActive ? 'slide_active' : 'slide_inactive'}
+                                        style={{
+                                            backgroundImage: `url(${slide.image})`
+                                        }}
+                                    >
+                                        {isActive && (
+                                            <>
+                                                <div className='inner_oval'></div>
+
+                                                <div className='title'>
+                                                    <h1>{slide.title}</h1>
+                                                </div>
+                                                <div className='arrow-left' onClick={prevSlide}>
+                                                    <img src={arrow} alt="prev" />
+                                                </div>
+
+                                                <div className='arrow-right' onClick={nextSlide}>
+                                                    <img src={arrow} alt="next" />
+                                                </div>
+                                            </>
+                                        )}
+                                    </div>
+                                    <div className='description-mobile'>
+                                        <p>{slide.description}</p>
+                                    </div>
+                                </section>
+                            )
+                        }
+                        return (
+                            <div
+                                key={slide.id}
+                                className={isActive ? 'slide_active' : 'slide_inactive'}
+                                style={{
+                                    backgroundImage: `url(${slide.image})`
+                                }}
+                            >
+                                {isActive && (
+                                    <>
+                                        <div className='inner_oval'></div>
+
+                                        <div className='title'>
+                                            <h1>{slide.title}</h1>
+                                        </div>
+
+                                        <div className='description'>
+                                            <p>{slide.description}</p>
+                                        </div>
+
+                                        <div className='arrow-left' onClick={prevSlide}>
+                                            <img src={arrow} alt="prev" />
+                                        </div>
+
+                                        <div className='arrow-right' onClick={nextSlide}>
+                                            <img src={arrow} alt="next" />
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         </section>
-    )
+    );
 }

@@ -1,0 +1,171 @@
+.FAQ{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 3vw;
+}
+.main-block{
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    padding-inline: clamp(5px, 3vw, 500px);
+    padding-block: clamp(5px, 2vw, 200px);
+    background-color: #161616;
+    border-radius: clamp(5px, 1vw, 50px);
+    box-shadow: 
+        0 0 3vw .1vw #2e4184;
+    gap: clamp(5px, 2vw, 100px);
+}
+.write_header{
+    color: #FFFFFF;
+    font-size: clamp(12px, 1vw, 100px);
+}
+.write_block{
+    display:grid;
+    gap: clamp(10px, 1.6vw, 200px);
+}
+input:focus {
+    outline: none;
+}
+.DATA{
+    display: grid;
+    gap: clamp(2px, .3vw, 10px);
+}
+.Date_of_birth_label{
+    color: #656565;
+    font-size: clamp(8px, .9vw, 50px);
+    font-weight: 500;
+}
+.Phone_number,
+.FIO_parent,
+.Date_of_birth,
+.FIO_children{
+    border: none;
+    background: none;
+    border-bottom: clamp(1px, .1vw, 5px) solid #656565;
+    padding-bottom: clamp(2px, .5vw, 10px);
+    color: #FFFFFF;
+    font-size: clamp(10px, 1vw, 100px);
+}
+.branch,
+.Phone_number::placeholder,
+.FIO_parent::placeholder,
+.FIO_children::placeholder{
+    font-size: clamp(8px, .9vw, 100px);
+    color: #656565;
+    font-weight: 500;
+}
+.branch{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: clamp(1px, 1vw, 50px);
+    padding-block: clamp(1px, .5vw, 50px);
+    color: #FFFFFF;
+}
+.branch img{
+    width: clamp(10px, 1.3vw, 200px);
+    transition: transform 0.5s ease-in-out;
+}
+.branch img.rotate{
+    transform: rotate(-180deg);
+}
+.submitting_the_form,
+.dropdown-list,
+.branch{
+    font-size: clamp(8px, .9vw, 50px);
+    background-color: #2A2A2A;
+    border-radius: clamp(5px, .5vw, 50px);
+}
+.branch-wrapper {
+    display: grid;
+    grid-template-rows: .2fr 0fr; /* Закрыто: 0fr */
+    transition: all 0.5s ease-in-out;
+}
+
+.branch-wrapper.open {
+    grid-template-rows: .2fr 1fr;
+}
+.dropdown-list{
+    width: 100%;
+    min-height: 0;
+    overflow: hidden;
+    display: grid;
+    gap: clamp(5px, .8vw, 50px);
+    color: #656565;
+    padding-left: clamp(5px, .5vw, 50px);
+    transition: all .5s ease-out;
+}
+.dropdown-list.active{
+    height: 100%;
+    padding-block: clamp(5px, .5vw, 50px);
+    margin-top: clamp(10px, .6vw, 200px);
+}
+.dropdown-list p{
+    cursor: pointer;
+    transition: all .3s ease-out;
+}
+
+.dropdown-list p:hover{
+    color: #ffffff;
+}
+.submitting_the_form{
+    border: none;
+    background-color: #FFFFFF !important;
+    padding-block: clamp(1px, .5vw, 100px);
+    font-size: clamp(8px, 1.1vw, 100px);
+    cursor: pointer;
+}
+.map_block{
+    border-radius: clamp(5px, 1vw, 50px);
+    overflow: hidden;
+}
+.ymaps-2-1-79-map-copyrights-promo{
+    display: flex;
+    height: auto !important;
+}
+.ymaps-2-1-79-gotoymaps__container{
+    display: flex;
+    justify-content: center;
+    height: auto !important;
+    padding: clamp(2px, .3vw, 50px);
+    border-radius: clamp(5px, .5vw, 50px) !important;
+    border: .1vw solid #16161657;
+}
+.ymaps-2-1-79-gotoymaps__text{
+    font-size: clamp(8px, .9vw, 100px);
+    height: auto !important;
+    line-height: 100% !important;
+}
+.ymaps-2-1-79-gotoymaps__pin{
+    background-position: center !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-image: url(./public/Ymaps.svg) !important;
+    width: clamp(10px, 1vw, 100px) !important;
+    height: 1vw !important;
+}
+.ymaps-2-1-79-gotoymaps{
+    position: relative;
+    margin-left: clamp(2px, .5vw, 100px) !important;
+    margin-bottom: clamp(2px, .5vw, 100px) !important;
+    transition: all 0.3s ease-in-out;
+}
+.ymaps-2-1-79-gotoymaps:hover{
+    transform: translateY(-.1vw) !important;
+}
+.ymaps-2-1-79-gototaxi{
+    display: none !important;
+}
+.ymaps-2-1-79-gototech{
+    display: none !important;
+}
+.ymaps-2-1-79-copyright__layout{
+    display: none !important;
+}
+.ymaps-2-1-79-controls-pane{
+    display: none !important;
+}
+.ymaps-2-1-79-map{
+    width: 100% !important;
+    height: 100% !important;
+}
+
