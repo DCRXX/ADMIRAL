@@ -3,7 +3,7 @@
     overflow: hidden;
 }
 .description_CoachingStaff{
-    font-size: clamp(10px, 1vw, 50px);
+    font-size: clamp(12px, 1vw, 50px);
     color: #9A9A9A;
     font-weight: 600;
     padding-inline: clamp(10px, 4vw, 100vw);
@@ -70,14 +70,14 @@
 }
 .FIO{
     color: #FFFFFF;
-    font-size: clamp(14px, 2vw, 100px);
+    font-size: clamp(16px, 2vw, 100px);
     padding-bottom: clamp(5px, .7vw, 50px);
 }
 .profile,
 .Experience,
 .License{
     color: #9F9F9F;
-    font-size: clamp(9px, 0.9vw, 50px);
+    font-size: clamp(11px, 0.9vw, 50px);
 }
 .profile,
 .Experience{
