@@ -1,7 +1,8 @@
 .FAQ{
-    display: flex;
+    display: grid;
     justify-content: center;
     padding-bottom: 3vw;
+    padding-inline: clamp(10px, 4vw, 50px);
 }
 .main-block{
     display: grid;
@@ -11,7 +12,7 @@
     background-color: #161616;
     border-radius: clamp(5px, 1vw, 50px);
     box-shadow: 
-        0 0 3vw .1vw #2e4184;
+        0 0 clamp(20px, 3vw, 100px) .1vw #2e4184;
     gap: clamp(5px, 2vw, 100px);
 }
 .write_header{
@@ -20,18 +21,18 @@
 }
 .write_block{
     display:grid;
-    gap: clamp(10px, 1.6vw, 200px);
+    gap: clamp(20px, 1.6vw, 200px);
 }
 input:focus {
     outline: none;
 }
 .DATA{
     display: grid;
-    gap: clamp(2px, .3vw, 10px);
+    gap: clamp(7px, .3vw, 10px);
 }
 .Date_of_birth_label{
     color: #656565;
-    font-size: clamp(8px, .9vw, 50px);
+    font-size: clamp(13px, .9vw, 50px);
     font-weight: 500;
 }
 .Phone_number,
@@ -43,13 +44,13 @@ input:focus {
     border-bottom: clamp(1px, .1vw, 5px) solid #656565;
     padding-bottom: clamp(2px, .5vw, 10px);
     color: #FFFFFF;
-    font-size: clamp(10px, 1vw, 100px);
+    font-size: clamp(16px, 1vw, 100px);
 }
 .branch,
 .Phone_number::placeholder,
 .FIO_parent::placeholder,
 .FIO_children::placeholder{
-    font-size: clamp(8px, .9vw, 100px);
+    font-size: clamp(13px, .9vw, 100px);
     color: #656565;
     font-weight: 500;
 }
@@ -57,12 +58,12 @@ input:focus {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-inline: clamp(1px, 1vw, 50px);
-    padding-block: clamp(1px, .5vw, 50px);
+    padding-inline: clamp(10px, 1vw, 50px);
+    padding-block: clamp(10px, .5vw, 50px);
     color: #FFFFFF;
 }
 .branch img{
-    width: clamp(10px, 1.3vw, 200px);
+    width: clamp(15px, 1.3vw, 200px);
     transition: transform 0.5s ease-in-out;
 }
 .branch img.rotate{
@@ -71,7 +72,7 @@ input:focus {
 .submitting_the_form,
 .dropdown-list,
 .branch{
-    font-size: clamp(8px, .9vw, 50px);
+    font-size: clamp(14px, .9vw, 50px);
     background-color: #2A2A2A;
     border-radius: clamp(5px, .5vw, 50px);
 }
@@ -89,10 +90,10 @@ input:focus {
     min-height: 0;
     overflow: hidden;
     display: grid;
-    gap: clamp(5px, .8vw, 50px);
+    gap: clamp(15px, .8vw, 50px);
     color: #656565;
     padding-left: clamp(5px, .5vw, 50px);
-    transition: all .5s ease-out;
+    transition: all .4s ease-out;
 }
 .dropdown-list.active{
     height: 100%;
@@ -110,13 +111,18 @@ input:focus {
 .submitting_the_form{
     border: none;
     background-color: #FFFFFF !important;
-    padding-block: clamp(1px, .5vw, 100px);
-    font-size: clamp(8px, 1.1vw, 100px);
+    padding-block: clamp(10px, .5vw, 100px);
+    font-size: clamp(14px, 1.1vw, 100px);
+    font-weight: 600;
     cursor: pointer;
 }
 .map_block{
     border-radius: clamp(5px, 1vw, 50px);
     overflow: hidden;
+}
+.map_block.mobile-map{
+    grid-row: 3;
+    height: clamp(200px, 10vw, 500px);
 }
 .ymaps-2-1-79-map-copyrights-promo{
     display: flex;
@@ -126,12 +132,12 @@ input:focus {
     display: flex;
     justify-content: center;
     height: auto !important;
-    padding: clamp(2px, .3vw, 50px);
+    padding: clamp(5px, .3vw, 50px);
     border-radius: clamp(5px, .5vw, 50px) !important;
     border: .1vw solid #16161657;
 }
 .ymaps-2-1-79-gotoymaps__text{
-    font-size: clamp(8px, .9vw, 100px);
+    font-size: clamp(12px, .9vw, 100px);
     height: auto !important;
     line-height: 100% !important;
 }
@@ -140,8 +146,9 @@ input:focus {
     background-size: contain !important;
     background-repeat: no-repeat !important;
     background-image: url(./public/Ymaps.svg) !important;
-    width: clamp(10px, 1vw, 100px) !important;
-    height: 1vw !important;
+    width: clamp(20px, 1vw, 100px) !important;
+    height: clamp(20px, 1vw, 100px) !important;
+    margin-left: .5vw !important;
 }
 .ymaps-2-1-79-gotoymaps{
     position: relative;
@@ -168,4 +175,13 @@ input:focus {
     width: 100% !important;
     height: 100% !important;
 }
-
+@media screen and (max-width: 750px) {
+    .FAQ{
+        display: grid;
+        justify-content: initial;
+        row-gap: clamp(10px, 1vw, 50px);
+    }
+    .write_block{
+        grid-column: 1 / 3;
+    }
+}

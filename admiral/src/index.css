@@ -19,7 +19,7 @@ body{
    margin: 0;
    
 }
-a, p, p1, h1, li, span, ul, ::placeholder, label{
+a, p, p1, h1, li, span, ul, ::placeholder, label, input{
     margin: 0;
     text-decoration: none;
     line-height: 100%;
