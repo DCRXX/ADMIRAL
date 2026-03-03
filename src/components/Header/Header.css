@@ -1,0 +1,204 @@
+.Header_Hero {
+    background: linear-gradient(180deg,
+            #0C0E19 0%,
+            #1E2235 29%,
+            #252C48 51%,
+            #2E4084 66%,
+            #293567 81%,
+            #0C0E19 100%);
+    z-index: -20;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 15px 25px 0;
+    gap: 15px 30px;
+}
+
+.logo {
+    width: 240px;
+    height: auto;
+    max-width: 38vw;
+    flex-shrink: 0;
+}
+
+.nav-main {
+    flex: 1;
+    min-width: 280px;
+    text-align: center;
+}
+
+.nav-1 {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    font-size: 21px;
+    white-space: nowrap;
+}
+
+.nav-1 a {
+    color: #E1E0E0;
+    text-decoration: none;
+}
+
+.nav-1 a:hover {
+    text-decoration: underline;
+}
+
+.right-group {
+    display: flex;
+    align-items: center;
+    gap: 30px 50px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.button {
+    width: 190px;
+    height: 58px;
+    font-size: 21px;
+    background-color: #E1E0E0;
+    color: #0C0E19;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.nav-2 {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 18px;
+    color: #FFFFFF;
+    white-space: nowrap;
+    text-align: right;
+}
+
+.nav-3 {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 16px;
+}
+
+.nav-3 img {
+    width: 36px;
+    height: 36px;
+    display: block;
+}
+
+
+.strip {
+    width: 100%;
+    max-width: 1300px;
+    margin: 30px auto 0;
+    border-bottom: 1px solid #444;
+}
+
+@media (max-width: 980px) {
+    .header {
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+    }
+
+    .logo {
+        width: clamp(140px, 40vw, 200px);
+    }
+
+    .nav-main,
+    .nav-2,
+    .nav-3 {
+        display: none;
+    }
+
+    .right-group {
+        flex: 0 0 auto;
+    }
+
+    .strip {
+        display: none;
+    }
+
+    .button {
+        width: clamp(130px, 35vw, 170px);
+        height: clamp(44px, 10vw, 52px);
+        font-size: clamp(16px, 4vw, 19px);
+        padding: 0 12px;
+    }
+}
+
+.hero {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    padding-inline: clamp(10px, 3vw, 500px);
+    row-gap: clamp(40px, 5vw, 500px);
+    padding-top: clamp(10px, 2vw, 100px);
+    background: linear-gradient(to top,
+            rgba(16, 16, 16, 1) 3%,
+            rgba(31, 31, 31, 0.3) 30%,
+            rgba(0, 0, 0, 0.05) 100%);
+}
+
+.hero-content {
+    display: grid;
+    gap: clamp(10px, 1vw, 100px);
+}
+
+.admiral-name {
+    grid-row: 2;
+}
+
+.admiral-name img {
+    position: relative;
+    width: 100%;
+    z-index: -2;
+}
+
+.players {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    width: 10vw;
+    left: 45%;
+    top: 9%;
+    height: 10vw;
+    grid-row: 3;
+}
+
+.football_players {
+    position: absolute;
+    width: clamp(350px, 67vw, 100vw);
+    height: auto;
+    z-index: -1;
+}
+
+.football_school {
+    font-size: clamp(16px, 1.5vw, 100px);
+    text-align: center;
+    color: #FFFFFF;
+    font-weight: 300;
+}
+
+.football_school p {
+    letter-spacing: 100%;
+}
+@media screen and (max-width:660px) {
+    .football_players{
+        width: clamp(320px, 78vw, 100vw);
+    }
+}
