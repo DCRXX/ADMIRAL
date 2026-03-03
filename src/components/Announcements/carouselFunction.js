@@ -1,4 +1,3 @@
-// carouselFunction.js
 import { useState, useRef, useEffect, useLayoutEffect, useCallback, useMemo } from 'react';
 
 export const slidesData = [
@@ -6,31 +5,31 @@ export const slidesData = [
         id: 1,
         title: "Новое отделение Царицыно",
         description: "Осенью 2025 года футбольная школа «АдмиралВМФ» открыла новое отделение на базе современного стадиона «Огонёк» в районе Царицыно. Это значимый шаг в развитии школы.",
-        image: "./src/components/Announcements/public/img2.png"
+        image: "/src/components/Announcements/public/image/img2.png"
     },
     {
         id: 2,
         title: "Зимние сборы 2026",
         description: "Присоединяйтесь к нашим интенсивным тренировкам в закрытых манежах этой зимой.",
-        image: "./src/components/Announcements/public/img4.png"
+        image: "/src/components/Announcements/public/image/img4.png"
     },
     {
         id: 3,
         title: "Турнир в Сокольниках",
         description: "Наши команды заняли призовые места в ежегодном кубке Московской Федерации футбола.",
-        image: "./src/components/Announcements/public/img3.png"
+        image: "/src/components/Announcements/public/image/img3.png"
     },
     {
         id: 4,
         title: "Турнир в Сокольниках",
         description: "Наши команды заняли призовые места в ежегодном кубке Московской Федерации футбола.",
-        image: "./src/components/Announcements/public/img7.png"
+        image: "/src/components/Announcements/public/image/img7.png"
     },
     {
         id: 5,
         title: "Турнир в Сокольниках",
         description: "Наши команды заняли призовые места в ежегодном кубке Московской Федерации футбола.",
-        image: "./src/components/Announcements/public/img5.png"
+        image: "/src/components/Announcements/public/image/img5.png"
     }
 ];
 
@@ -46,11 +45,6 @@ export const useIsMobile = (breakpoint = MOBILE_BREAKPOINT) => {
     return isMobile;
 };
 
-// ─── Хелперы для расчёта размеров ────────────────────────────────────────────
-// Точно воспроизводят CSS clamp() из Announcements.css.
-// Используем математику, а НЕ offsetWidth — это устраняет баг,
-// когда offsetWidth возвращает промежуточное значение во время
-// CSS transition: width.
 
 const clamp = (min, val, max) => Math.max(min, Math.min(val, max));
 
@@ -93,41 +87,28 @@ export const useMobileCarousel = (options = {}) => {
     return { activeIndex, nextSlide, prevSlide, handleTouchStart, handleTouchEnd, animationDuration };
 };
 
-// ─── Десктоп карусель — бесконечная прокрутка ─────────────────────────────────
-//
-// Техника клонирования:
-//   extSlides = [clone_last, s0, s1, s2, s3, s4, clone_first]
-//   индексы:     0            1   2   3   4   5   6
-//
-// Начинаем с extIndex = 1.
-// nextSlide: extIndex++  →  если попали в 6 (clone_first), после анимации
-//            снимаем transition и прыгаем в extIndex = 1 (s0).
-// prevSlide: extIndex--  →  если попали в 0 (clone_last), после анимации
-//            снимаем transition и прыгаем в extIndex = 5 (s4).
-//
-// Центрирование через calcOffset (математика, не DOM) →
-//   offset всегда точный независимо от фазы CSS-анимации ширины.
+
 
 export const useDesktopCarousel = (options = {}) => {
     const { animationDuration = 600 } = options;
     const n = slidesData.length;  // 5
 
-    // Расширенный массив: [last_clone, ...all, first_clone]
+
     const extSlides = useMemo(() => [
         { ...slidesData[n - 1], _extKey: 'clone-last'  },
         ...slidesData.map((s) => ({ ...s, _extKey: `real-${s.id}` })),
         { ...slidesData[0],     _extKey: 'clone-first' }
     ], []);
 
-    const [extIndex,    setExtIndex]    = useState(1);       // начинаем на первом реальном
+    const [extIndex,    setExtIndex]    = useState(1);      
     const [offset,      setOffset]      = useState(0);
-    const [noTransition, setNoTransition] = useState(false); // для мгновенного прыжка
+    const [noTransition, setNoTransition] = useState(false); 
 
     const containerRef  = useRef(null);
     const touchStartX   = useRef(0);
     const animatingRef  = useRef(false);
 
-    // Пересчитываем offset каждый раз когда меняется extIndex или ширина окна
+
     const recomputeOffset = useCallback((idx) => {
         if (!containerRef.current) return;
         setOffset(calcOffset(idx, containerRef.current.offsetWidth));
@@ -141,8 +122,7 @@ export const useDesktopCarousel = (options = {}) => {
         return () => window.removeEventListener('resize', onResize);
     }, [extIndex, recomputeOffset]);
 
-    // После мгновенного прыжка (noTransition) включаем transition обратно
-    // через двойной rAF — гарантируем, что браузер зафиксировал новую позицию
+
     useEffect(() => {
         if (!noTransition) return;
         let id1, id2;
@@ -152,14 +132,12 @@ export const useDesktopCarousel = (options = {}) => {
         return () => { cancelAnimationFrame(id1); cancelAnimationFrame(id2); };
     }, [noTransition]);
 
-    // Вызывается по окончании CSS-анимации transform трека
+
     const handleTransitionEnd = useCallback(() => {
         if (extIndex === 0) {
-            // Были на clone_last → прыгаем на настоящий last
             setNoTransition(true);
             setExtIndex(n);
         } else if (extIndex === n + 1) {
-            // Были на clone_first → прыгаем на настоящий first
             setNoTransition(true);
             setExtIndex(1);
         }
@@ -170,7 +148,6 @@ export const useDesktopCarousel = (options = {}) => {
         if (animatingRef.current) return;
         animatingRef.current = true;
         setExtIndex(nextExt);
-        // Fallback: если onTransitionEnd не сработал (например resize во время анимации)
         setTimeout(() => { animatingRef.current = false; }, animationDuration + 50);
     }, [animationDuration]);
 
@@ -183,7 +160,6 @@ export const useDesktopCarousel = (options = {}) => {
         if (Math.abs(diff) > 50) diff > 0 ? nextSlide() : prevSlide();
     }, [nextSlide, prevSlide]);
 
-    // Настоящий индекс (0-based) активного слайда для внешнего использования
     const realActiveIndex = ((extIndex - 1) % n + n) % n;
 
     const isSlideActive = useCallback((extI) => extI === extIndex, [extIndex]);

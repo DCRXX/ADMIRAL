@@ -220,8 +220,6 @@
         width: clamp(72px, 3vw, 100px);
     }
 
-
-
     .boy {
         transform: translate(10%);
     }
@@ -231,7 +229,7 @@
 @media (max-width: 420px) {
 
     .boysblocks{
-        min-width: 280px;
+        min-width: 350px;
     }
 
     .info {
@@ -244,7 +242,7 @@
         gap: 0;
     }
     .boy {
-        transform: translate(-10%);
+        transform: translate(25%);
     }
 
     .admiral {

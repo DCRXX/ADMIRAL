@@ -7,10 +7,10 @@
 .main-block{
     display: grid;
     grid-template-columns: 1fr 1.5fr;
-    padding-inline: clamp(5px, 3vw, 500px);
-    padding-block: clamp(5px, 2vw, 200px);
+    padding-inline: clamp(10px, 3vw, 500px);
+    padding-block: clamp(15px, 2vw, 200px);
     background-color: #161616;
-    border-radius: clamp(5px, 1vw, 50px);
+    border-radius: clamp(10px, 1vw, 50px);
     box-shadow: 
         0 0 clamp(20px, 3vw, 100px) .1vw #2e4184;
     gap: clamp(5px, 2vw, 100px);
@@ -78,7 +78,7 @@ input:focus {
 }
 .branch-wrapper {
     display: grid;
-    grid-template-rows: .2fr 0fr; /* Закрыто: 0fr */
+    grid-template-rows: .2fr 0fr;
     transition: all 0.5s ease-in-out;
 }
 

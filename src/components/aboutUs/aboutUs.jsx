@@ -33,7 +33,7 @@ function AboutUs() {
                         </div>
                         <a href="" className='buttonAfterAll'>
                             <button>
-                                <h1>Записаться</h1>
+                                <p>Записаться</p>
                             </button>
                         </a>
                     </div>

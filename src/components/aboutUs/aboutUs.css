@@ -99,7 +99,7 @@
     align-items: center;
     justify-content: center;
     padding: clamp(18px, 1vw, 23px);
-    font-size: clamp(10px, 1vw, 100px);
+    font-size: clamp(16px, 2vw, 100px);
     font-weight: 600;
     letter-spacing: -3%;
     transition: color 0.3s ease, background-color 0.3s ease;

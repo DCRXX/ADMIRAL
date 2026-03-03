@@ -11,33 +11,34 @@ export default function HeaderHero() {
   return (
     <section className='Header_Hero'>
       <header className="header">
+      <div className='secoundHeader'>
         <img src={logo} className="logo" alt="Логотип" />
-
-        <nav className="nav-main">
+        <nav>
           <ul className="nav-1">
             <li><a href="#">О нас</a></li>
             <li><a href="#">Объявление</a></li>
             <li><a href="#">Тренерский штаб</a></li>
           </ul>
         </nav>
-
         <div className="right-group">
-          <button className="button" type="button">Записаться</button>
-
-          <ul className="nav-2">
-            <li>8-926-597-57-57</li>
-            <li>fc-admiral@mail.ru</li>
-          </ul>
-
-          <ul className="nav-3">
-            <li><img src={Telegramm} alt="Telegram" /></li>
-            <li><img src={WhatsApp} alt="WhatsApp" /></li>
-            <li><img src={VK} alt="ВКонтакте" /></li>
-          </ul>
+          <button className="button" type="button">
+            <p>Записаться</p>
+          </button>
+          <div className='secoundFlour'>
+            <ul className="nav-2">
+              <li>8-926-597-57-57</li>
+              <li>fc-admiral@mail.ru</li>
+            </ul>
+            <ul className="nav-3">
+              <li><img src={Telegramm} alt="Telegram" /></li>
+              <li><img src={WhatsApp} alt="WhatsApp" /></li>
+              <li><img src={VK} alt="ВКонтакте" /></li>
+            </ul>
+          </div>
         </div>
-
-        <div className="strip"></div>
-      </header>
+      </div>
+      <div className="strip"></div>
+    </header>
       <section className="hero">
         <div className="hero-content">
           <div className="football_school">
