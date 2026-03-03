@@ -1,179 +1,274 @@
-.header_CoachingStaff,
-.head_Announcements{
-    color: #DCDCDC;
-    font-size: clamp(14px, 2vw, 120px);
-    padding-bottom: clamp(10px, 2vw, 100px);
-    font-weight: 600;
-    padding-left: clamp(10px, 4vw, 100vw);
+/* ═══════════════════════════════════════════════════════════════
+   ВАЖНО: значения clamp() в CSS должны точно соответствовать
+   константам в carouselFunction.js (getActiveWidth, getInactiveWidth, getGap).
+   Если меняете одно — меняйте и другое.
+   ═══════════════════════════════════════════════════════════════ */
+
+.Announcements {
+    width: 100%;
+    overflow: hidden;
 }
+
+.head_Announcements {
+    color: #DCDCDC;
+    font-size: clamp(20px, 2vw, 48px);
+    padding-bottom: clamp(10px, 2vw, 32px);
+    font-weight: 700;
+    padding-left: clamp(10px, 4vw, 64px);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   МОБИЛЬНАЯ КАРУСЕЛЬ (< 600px)
+   ═══════════════════════════════════════════════════════════════ */
+
+.mobile-carousel {
+    width: 100%;
+    padding: 0 clamp(10px, 4vw, 20px);
+    box-sizing: border-box;
+}
+
+.mobile-track-wrapper {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.mobile-track {
+    display: flex;
+    will-change: transform;
+}
+
+.mobile-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    height: clamp(200px, 60vw, 300px);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+}
+
+.mobile-slide__overlay {
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+    background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 55%);
+    pointer-events: none;
+}
+
+.mobile-slide__title {
+    position: relative;
+    z-index: 2;
+    padding: clamp(10px, 3vw, 20px);
+}
+
+.mobile-slide__title h2 {
+    margin: 0;
+    font-size: clamp(14px, 4.5vw, 22px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: #fff;
+}
+
+.mobile-description-box {
+    position: relative;
+    background: #1F1F1F;
+    border-radius: 0 0 10px 10px;
+    min-height: clamp(80px, 30vw, 140px);
+    padding: clamp(12px, 3vw, 20px) clamp(12px, 4vw, 20px);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.mobile-desc-text {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: clamp(12px, 3vw, 20px) clamp(12px, 4vw, 20px);
+    color: #fff;
+    font-size: clamp(12px, 3.5vw, 16px);
+    font-weight: 600;
+    line-height: 1.5;
+    transition: opacity 0.35s ease;
+    word-break: break-word;
+}
+
+.mobile-desc-visible { opacity: 1; pointer-events: auto; }
+.mobile-desc-hidden  { opacity: 0; pointer-events: none; }
+
+.mobile-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: clamp(14px, 3vw, 20px);
+}
+
+.mobile-arrow {
+    background: #1B1B1B;
+    border: none;
+    border-radius: clamp(4px, 1.5vw, 8px);
+    padding: clamp(8px, 2.5vw, 14px);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s ease;
+    flex-shrink: 0;
+}
+.mobile-arrow:hover { transform: scale(1.07); }
+.mobile-arrow img   { width: clamp(12px, 4vw, 20px); display: block; }
+.mobile-arrow--right img { transform: rotate(180deg); }
+
+.mobile-dots { display: flex; gap: 6px; align-items: center; }
+
+.mobile-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #555;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+.mobile-dot--active { background: #DCDCDC; transform: scale(1.3); }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   ДЕСКТОП КАРУСЕЛЬ (≥ 600px)
+
+   КРИТИЧНО: числа в clamp() должны совпадать с JS-функциями:
+     getActiveWidth()   → clamp(280px, 54vw, 800px)
+     getInactiveWidth() → clamp(160px, 38vw, 560px)
+     getGap()           → clamp(10px,  3vw,  48px)
+   ═══════════════════════════════════════════════════════════════ */
 
 .carusel-hidden {
     width: 100%;
-    max-width: 100vw;
+    overflow: hidden;
     display: flex;
-    justify-content: flex-start;
 }
 
 .main_Announcements {
     display: flex;
     align-items: center;
-    gap: clamp(10px, 3vw, 100vw);
+    /* ↓ Точно совпадает с getGap() в JS */
+    gap: clamp(10px, 3vw, 48px);
+    will-change: transform;
+    /* Transition задаётся инлайн из JSX (учитывает noTransition-флаг) */
 }
 
+/* ─── Слайды ─── */
 .slide_active,
 .slide_inactive {
     flex-shrink: 0;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    border-radius: clamp(5px, 0.6vw, 50px);
-    transition: all 0.6s ease-in-out;
+    border-radius: clamp(5px, 0.6vw, 16px);
+    /* Анимация размера + фильтров */
+    transition:
+        width   0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        height  0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        filter  0.6s ease,
+        opacity 0.6s ease;
 }
 
+/* ↓ Точно совпадают с getInactiveWidth() / getActiveWidth() в JS */
 .slide_inactive {
-    width: clamp(170px, 40vw, 100vw);
-    height: clamp(100px, 29vw, 100vw);
-    filter: grayscale(60%) blur(0.1vw);
-    opacity: 0.8;
+    width:  clamp(160px, 38vw, 560px);
+    height: clamp(90px,  27vw, 400px);
+    filter: grayscale(55%) blur(1px);
+    opacity: 0.72;
 }
 
 .slide_active {
-    width: clamp(280px, 56vw, 100vw);
-    height: clamp(160px, 32vw, 100vw);
+    width:  clamp(280px, 54vw, 800px);
+    height: clamp(160px, 30vw, 450px);
     filter: grayscale(0%);
     opacity: 1;
     position: relative;
     display: grid;
     grid-template-rows: 1fr auto auto;
     grid-template-columns: auto 1fr auto;
-    grid-row-gap: clamp(10px, .8vw, 50px);
-    justify-content: center;
+    row-gap: clamp(8px, 0.8vw, 20px);
     align-items: end;
     z-index: 10;
 }
 
-
-
-.inner_oval{
-    top: 60%;
+/* Тёмное свечение снизу */
+.inner_oval {
     position: absolute;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    height: clamp(50px, 12vw, 100vw);
-    background-color: #000000;
-    filter: blur(5vh);
-    border-radius: 30%;
-    opacity: 0.5;
+    height: clamp(60px, 14vw, 200px);
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+    border-radius: 0 0 clamp(5px, 0.6vw, 16px) clamp(5px, 0.6vw, 16px);
+    pointer-events: none;
 }
 
-
-.Elipse{
-    top: -6%;
-    position:fixed;
-    background-color: #FFFFFF;
-    border-radius: 50%;
-    transform: scaleX(1.4);
-    width: clamp(250px, 50vw, 100vw);
-    height: clamp(200px, 31vw, 100vw);
-    filter: blur(3.5vh);
-    opacity: 0.05;
-    z-index: -200;
-
-}
-
-.title{
-    color: #FFFFFF;
-    font-size: clamp(8px, 1vw, 100px);
+/* ─── Заголовок ─── */
+.title {
+    color: #fff;
+    font-size: clamp(12px, 1.2vw, 26px);
+    font-weight: 700;
     grid-row: 2;
     grid-column: 2;
     z-index: 10;
 }
 
+/* ─── Описание (десктоп, внутри карточки) ─── */
+.description {
+    font-size: clamp(10px, 0.9vw, 18px);
+    color: #fff;
+    font-weight: 600;
+    grid-row: 3;
+    grid-column: 2;
+    z-index: 10;
+    padding-bottom: clamp(12px, 1.5vw, 28px);
+}
+.description p { line-height: 1.45; }
+
+/* ─── Стрелки (десктоп) ─── */
 .arrow-left,
-.arrow-right{
+.arrow-right {
     grid-row: 1;
-    background-color: #1B1B1B;
-    padding: clamp(10px, .8vw, 50px);
-    border-radius: clamp(5px, .5vw, 50px);
+    background-color: rgba(27, 27, 27, 0.85);
+    backdrop-filter: blur(4px);
+    padding: clamp(10px, 0.8vw, 18px);
+    border-radius: clamp(5px, 0.5vw, 12px);
     display: flex;
     z-index: 20;
     align-items: center;
     margin-bottom: -80%;
     cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+    border: none;
 }
-
 .arrow-left:hover,
-.arrow-right:hover{
-    transform: scale(1.07);
+.arrow-right:hover {
+    transform: scale(1.08);
+    background-color: rgba(50, 50, 50, 0.95);
 }
 
 .arrow-left img,
-.arrow-right img{
-    width: clamp(15px, 1.5vw, 150px);
-}
+.arrow-right img { width: clamp(14px, 1.4vw, 28px); }
 
-.arrow-left{
-    position: relative;
-    grid-column: 1;
-    left: -50%;
-}
+.arrow-left  { position: relative; grid-column: 1; left: -50%; }
+.arrow-right { position: relative; grid-column: 3; rotate: 180deg; left: 50%; }
 
-.arrow-right{
-    position: relative;
-    grid-column: 3;
-    rotate: 180deg;
-    left: 50%;
-    
-}
-
-.description{
-    font-size: clamp(10px, .9vw, 70px);
-    color: #FFFFFF;
-    font-weight: 600;
-    grid-row: 3;
-    grid-column: 2;
-    z-index: 10;
-    padding-bottom: clamp(10px, 1.5vw, 100px);
-}
-.description-mobile{
-    position: relative;
-    padding: clamp(5px, 1vw, 100px);
-    color: #FFFFFF;
-    font-size: clamp(11px, 1vw, 70px);
-    font-weight: 600;
-    transform: translateY(-1.6vw);
-    border-radius: clamp(5px, 1vw, 50px);
-    background-color: #1F1F1F;
-    z-index: -1000;
-}
-.description-mobile p{
-    margin-top: 10px;
-}
-.description p{
-    line-height: 105%;
-}
-
-.slide-content h3 {
-    color: #FFFFFF;
-    font-size: clamp(12px, 1.2vw, 80px);
-    text-align: center;
-    padding: 20px;
-}
-
+/* ─── Медиа ─── */
 @media screen and (max-width: 800px) {
     .arrow-left,
-    .arrow-right{
-        grid-row: 2 / 3;
-    }
-    .slide_diagram{
-        align-items: start;
-    }
+    .arrow-right { grid-row: 2 / 3; }
 }
-@media screen and (max-width: 600px) {
-    .title{
-        padding-left: clamp(5px, 1vw, 50px);
-    }
-    .inner_oval{
-        top: initial;
-        height: clamp(10px, 6vw, 100px);
-    }
+
+/* Во время мгновенного прыжка (бесконечная прокрутка) отключаем
+   transition на самих слайдах — иначе смена active/inactive классов
+   анимирует ширину и соседние блоки "появляются" с задержкой */
+.no-slide-transition .slide_active,
+.no-slide-transition .slide_inactive {
+    transition: none !important;
 }

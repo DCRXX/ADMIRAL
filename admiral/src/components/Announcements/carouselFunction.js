@@ -1,11 +1,11 @@
 // carouselFunction.js
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect, useCallback, useMemo } from 'react';
 
 export const slidesData = [
     {
         id: 1,
         title: "Новое отделение Царицыно",
-        description: "Осенью 2025 года футбольная школа «АдмиралВМФ» открыла новое отделение на базе современного стадиона «Огонёк» в районе Царицыно...",
+        description: "Осенью 2025 года футбольная школа «АдмиралВМФ» открыла новое отделение на базе современного стадиона «Огонёк» в районе Царицыно. Это значимый шаг в развитии школы.",
         image: "./src/components/Announcements/public/img2.png"
     },
     {
@@ -34,162 +34,173 @@ export const slidesData = [
     }
 ];
 
-// Константы для размеров
-const GAP_VW = 3;
-const NO_FOCUS_WIDTH_VW = 40;
-const FOCUS_WIDTH_VW = 57;
 const MOBILE_BREAKPOINT = 600;
 
-/**
- * Хук для определения мобильного экрана
- */
 export const useIsMobile = (breakpoint = MOBILE_BREAKPOINT) => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth < breakpoint);
-
+    const [isMobile, setIsMobile] = useState(() => window.innerWidth < breakpoint);
     useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth < breakpoint);
-        };
-
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
+        const check = () => setIsMobile(window.innerWidth < breakpoint);
+        window.addEventListener('resize', check);
+        return () => window.removeEventListener('resize', check);
     }, [breakpoint]);
-
     return isMobile;
 };
 
-const getDynamicDivisor = (screenWidth) => {
-    const baseDivisor = 100;
-    const minDivisor = 60;
-    const stepPx = 7;
-    const triggerWidth = 500; // ниже этой ширины включается логика
-    
-    // Если ширина >= 500px - возвращаем базовый делитель
-    if (screenWidth >= triggerWidth) {
-        return baseDivisor;
-    }
-    
-    // Считаем шаги от 500px
-    const diff = triggerWidth - screenWidth;
-    const steps = Math.floor(diff / stepPx);
-    const newDivisor = baseDivisor - steps;
-    
-    return Math.max(newDivisor, minDivisor);
+// ─── Хелперы для расчёта размеров ────────────────────────────────────────────
+// Точно воспроизводят CSS clamp() из Announcements.css.
+// Используем математику, а НЕ offsetWidth — это устраняет баг,
+// когда offsetWidth возвращает промежуточное значение во время
+// CSS transition: width.
+
+const clamp = (min, val, max) => Math.max(min, Math.min(val, max));
+
+const getActiveWidth  = () => clamp(280, window.innerWidth * 0.54, 800);
+const getInactiveWidth = () => clamp(160, window.innerWidth * 0.38, 560);
+const getGap          = () => clamp(10,  window.innerWidth * 0.03, 48);
+
+// Смещение трека, чтобы слайд extIndex оказался по центру контейнера.
+// Все слайды до extIndex считаем неактивными (меньший размер),
+// активный слайд — один, по центру.
+const calcOffset = (extIndex, containerWidth) => {
+    const aw  = getActiveWidth();
+    const iw  = getInactiveWidth();
+    const gap = getGap();
+    // Левый край активного слайда = кол-во слайдов слева × (неактивная_ширина + gap)
+    const leftEdge    = extIndex * (iw + gap);
+    const slideCenter = leftEdge + aw / 2;
+    return containerWidth / 2 - slideCenter;
 };
 
-/**
- * Хук для управления каруселью
- */
-export const useCarousel = (options = {}) => {
-    const { initialIndex = 0, animationDuration = 600 } = options;
-    const isMobile = useIsMobile();
-    
-    const [activeIndex, setActiveIndex] = useState(initialIndex);
-    const [isAnimating, setIsAnimating] = useState(false);
-    const [offset, setOffset] = useState(0);
-    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-    const containerRef = useRef(null);
-    const mainRef = useRef(null);
-    const touchStartX = useRef(0);
+// ─── Мобильная карусель ───────────────────────────────────────────────────────
+// Простой translateX(-index * 100%) — никакой математики, никогда не сбивается.
+export const useMobileCarousel = (options = {}) => {
+    const { animationDuration = 400 } = options;
+    const [activeIndex, setActiveIndex] = useState(0);
+    const animatingRef  = useRef(false);
+    const touchStartX   = useRef(0);
 
-    // Отслеживаем ширину экрана
-    useEffect(() => {
-        const handleResize = () => {
-            setScreenWidth(window.innerWidth);
-        };
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
+    const go = useCallback((next) => {
+        if (animatingRef.current) return;
+        animatingRef.current = true;
+        setActiveIndex(next);
+        setTimeout(() => { animatingRef.current = false; }, animationDuration);
+    }, [animationDuration]);
+
+    const nextSlide = useCallback(() => go((activeIndex + 1) % slidesData.length), [activeIndex, go]);
+    const prevSlide = useCallback(() => go((activeIndex - 1 + slidesData.length) % slidesData.length), [activeIndex, go]);
+
+    const handleTouchStart = useCallback((e) => { touchStartX.current = e.touches[0].clientX; }, []);
+    const handleTouchEnd   = useCallback((e) => {
+        const diff = touchStartX.current - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) diff > 0 ? nextSlide() : prevSlide();
+    }, [nextSlide, prevSlide]);
+
+    return { activeIndex, nextSlide, prevSlide, handleTouchStart, handleTouchEnd, animationDuration };
+};
+
+// ─── Десктоп карусель — бесконечная прокрутка ─────────────────────────────────
+//
+// Техника клонирования:
+//   extSlides = [clone_last, s0, s1, s2, s3, s4, clone_first]
+//   индексы:     0            1   2   3   4   5   6
+//
+// Начинаем с extIndex = 1.
+// nextSlide: extIndex++  →  если попали в 6 (clone_first), после анимации
+//            снимаем transition и прыгаем в extIndex = 1 (s0).
+// prevSlide: extIndex--  →  если попали в 0 (clone_last), после анимации
+//            снимаем transition и прыгаем в extIndex = 5 (s4).
+//
+// Центрирование через calcOffset (математика, не DOM) →
+//   offset всегда точный независимо от фазы CSS-анимации ширины.
+
+export const useDesktopCarousel = (options = {}) => {
+    const { animationDuration = 600 } = options;
+    const n = slidesData.length;  // 5
+
+    // Расширенный массив: [last_clone, ...all, first_clone]
+    const extSlides = useMemo(() => [
+        { ...slidesData[n - 1], _extKey: 'clone-last'  },
+        ...slidesData.map((s) => ({ ...s, _extKey: `real-${s.id}` })),
+        { ...slidesData[0],     _extKey: 'clone-first' }
+    ], []);
+
+    const [extIndex,    setExtIndex]    = useState(1);       // начинаем на первом реальном
+    const [offset,      setOffset]      = useState(0);
+    const [noTransition, setNoTransition] = useState(false); // для мгновенного прыжка
+
+    const containerRef  = useRef(null);
+    const touchStartX   = useRef(0);
+    const animatingRef  = useRef(false);
+
+    // Пересчитываем offset каждый раз когда меняется extIndex или ширина окна
+    const recomputeOffset = useCallback((idx) => {
+        if (!containerRef.current) return;
+        setOffset(calcOffset(idx, containerRef.current.offsetWidth));
     }, []);
 
-    // Динамический vwToPx с пересчётом делителя
-    const vwToPx = useCallback((vw) => {
-        const divisor = getDynamicDivisor(screenWidth);
-        return (window.innerWidth * vw) / divisor;
-    }, [screenWidth]);
-
-    const getSlideCenterPosition = useCallback((index, currentActiveIndex = activeIndex) => {
-        let position = 0;
-        for (let i = 0; i < index; i++) {
-            const isPrevActive = i === currentActiveIndex;
-            const width = isPrevActive ? FOCUS_WIDTH_VW : NO_FOCUS_WIDTH_VW;
-            position += vwToPx(width) + vwToPx(GAP_VW);
-        }
-        const isCurrentActive = index === currentActiveIndex;
-        const currentWidth = isCurrentActive ? FOCUS_WIDTH_VW : NO_FOCUS_WIDTH_VW;
-        position += vwToPx(currentWidth) / 2;
-        return position;
-    }, [activeIndex, vwToPx]);
-
-    const centerActiveSlide = useCallback((targetIndex = activeIndex) => {
-        if (!containerRef.current) return;
-        const containerWidth = containerRef.current.offsetWidth;
-        const containerCenter = containerWidth / 2;
-        const slideCenter = getSlideCenterPosition(targetIndex);
-        setOffset(containerCenter - slideCenter);
-    }, [activeIndex, getSlideCenterPosition]);
+    useLayoutEffect(() => { recomputeOffset(extIndex); }, [extIndex, recomputeOffset]);
 
     useEffect(() => {
-        centerActiveSlide();
-        const handleResize = () => centerActiveSlide();
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [centerActiveSlide]);
+        const onResize = () => recomputeOffset(extIndex);
+        window.addEventListener('resize', onResize);
+        return () => window.removeEventListener('resize', onResize);
+    }, [extIndex, recomputeOffset]);
 
+    // После мгновенного прыжка (noTransition) включаем transition обратно
+    // через двойной rAF — гарантируем, что браузер зафиксировал новую позицию
     useEffect(() => {
-        centerActiveSlide();
-    }, [activeIndex, centerActiveSlide]);
+        if (!noTransition) return;
+        let id1, id2;
+        id1 = requestAnimationFrame(() => {
+            id2 = requestAnimationFrame(() => setNoTransition(false));
+        });
+        return () => { cancelAnimationFrame(id1); cancelAnimationFrame(id2); };
+    }, [noTransition]);
 
-    const handleTouchStart = (e) => {
-        touchStartX.current = e.touches[0].clientX;
-    };
-
-    const handleTouchEnd = (e) => {
-        const touchEndX = e.changedTouches[0].clientX;
-        const diff = touchStartX.current - touchEndX;
-        if (Math.abs(diff) > 50) {
-            diff > 0 ? nextSlide() : prevSlide();
+    // Вызывается по окончании CSS-анимации transform трека
+    const handleTransitionEnd = useCallback(() => {
+        if (extIndex === 0) {
+            // Были на clone_last → прыгаем на настоящий last
+            setNoTransition(true);
+            setExtIndex(n);
+        } else if (extIndex === n + 1) {
+            // Были на clone_first → прыгаем на настоящий first
+            setNoTransition(true);
+            setExtIndex(1);
         }
-    };
+        animatingRef.current = false;
+    }, [extIndex, n]);
 
-    const nextSlide = useCallback(() => {
-        if (isAnimating) return;
-        const nextIndex = (activeIndex + 1) % slidesData.length;
-        setIsAnimating(true);
-        centerActiveSlide(nextIndex);
-        setTimeout(() => {
-            setActiveIndex(nextIndex);
-            setIsAnimating(false);
-        }, animationDuration);
-    }, [activeIndex, isAnimating, animationDuration, centerActiveSlide]);
+    const go = useCallback((nextExt) => {
+        if (animatingRef.current) return;
+        animatingRef.current = true;
+        setExtIndex(nextExt);
+        // Fallback: если onTransitionEnd не сработал (например resize во время анимации)
+        setTimeout(() => { animatingRef.current = false; }, animationDuration + 50);
+    }, [animationDuration]);
 
-    const prevSlide = useCallback(() => {
-        if (isAnimating) return;
-        const prevIndex = (activeIndex - 1 + slidesData.length) % slidesData.length;
-        setIsAnimating(true);
-        centerActiveSlide(prevIndex);
-        setTimeout(() => {
-            setActiveIndex(prevIndex);
-            setIsAnimating(false);
-        }, animationDuration);
-    }, [activeIndex, isAnimating, animationDuration, centerActiveSlide]);
+    const nextSlide = useCallback(() => go(extIndex + 1), [extIndex, go]);
+    const prevSlide = useCallback(() => go(extIndex - 1), [extIndex, go]);
 
-    const isSlideActive = useCallback((index) => index === activeIndex, [activeIndex]);
+    const handleTouchStart = useCallback((e) => { touchStartX.current = e.touches[0].clientX; }, []);
+    const handleTouchEnd   = useCallback((e) => {
+        const diff = touchStartX.current - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) diff > 0 ? nextSlide() : prevSlide();
+    }, [nextSlide, prevSlide]);
+
+    // Настоящий индекс (0-based) активного слайда для внешнего использования
+    const realActiveIndex = ((extIndex - 1) % n + n) % n;
+
+    const isSlideActive = useCallback((extI) => extI === extIndex, [extIndex]);
 
     return {
-        activeIndex,
-        isAnimating,
-        offset,
-        isMobile,
+        extSlides, extIndex, realActiveIndex,
+        offset, noTransition,
         containerRef,
-        mainRef,
-        nextSlide,
-        prevSlide,
-        setActiveIndex,
+        nextSlide, prevSlide,
         isSlideActive,
-        handleTouchStart,
-        handleTouchEnd,
-        slidesData,
+        handleTouchStart, handleTouchEnd,
+        handleTransitionEnd,
         animationDuration
     };
 };

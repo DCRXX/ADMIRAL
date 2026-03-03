@@ -2,6 +2,12 @@
     width: 100%;
     overflow: hidden;
 }
+.header_CoachingStaff{
+    color: #FFFFFF;
+    font-size: clamp(20px, 2vw, 48px);
+    padding-inline: clamp(10px, 4vw, 100vw);
+    padding-bottom: clamp(10px, 1vw, 50px);
+}
 .description_CoachingStaff{
     font-size: clamp(12px, 1vw, 50px);
     color: #9A9A9A;

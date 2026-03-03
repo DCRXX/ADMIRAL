@@ -15,11 +15,12 @@ img {
   overflow: hidden;
 }
 body{
+  overflow-x: hidden;
    background-color: #1B1B1B;
    margin: 0;
    
 }
-a, p, p1, h1, li, span, ul, ::placeholder, label, input{
+a, p, p1, h1, h2, li, span, ul, ::placeholder, label, input{
     margin: 0;
     text-decoration: none;
     line-height: 100%;
