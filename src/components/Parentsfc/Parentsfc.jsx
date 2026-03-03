@@ -1,5 +1,5 @@
 import React from 'react';
-import './ParentsFC.css';
+import './Parentsfc.css';
 
 import dadsImg from './public/dad.svg';
 import momsImg from './public/moms.svg';
