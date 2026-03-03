@@ -11,14 +11,15 @@ img {
 }
 .root{
   display: grid;
-  gap: clamp(15px, 3vw, 50vw);
+  gap: clamp(15px, 4vw, 50vw);
+  overflow: hidden;
 }
 body{
    background-color: #1B1B1B;
    margin: 0;
-   overflow-x: hidden;
+   
 }
-a, p, p1, h1, li, span{
+a, p, p1, h1, li, span, ul, ::placeholder, label, input{
     margin: 0;
     text-decoration: none;
     line-height: 100%;
