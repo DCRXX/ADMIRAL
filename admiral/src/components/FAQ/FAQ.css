@@ -1,7 +1,7 @@
 .FAQ{
     display: grid;
     justify-content: center;
-    padding-bottom: 3vw;
+    padding-bottom: clamp(20px, 5vw, 500px);
     padding-inline: clamp(10px, 4vw, 50px);
 }
 .main-block{

@@ -11,7 +11,9 @@ export default function Advantages() {
 
       <div className="advantages__gradient-top" />
 
-      <h2 className="advantages__title">Наши преимущества</h2>
+      <div className="advantages__title">
+        <h1>Наши преимущества</h1>
+      </div>
 
       <div className="advantages__cards">
 

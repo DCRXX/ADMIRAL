@@ -1,31 +1,19 @@
 .parents {
     position: relative;
-    background-color: #1B1B1B;
     width: 100%;
     padding-bottom: clamp(30px, 4vw, 80px);
     overflow: hidden;
 }
 
-.parents__gradient-top {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: clamp(80px, 11.8vw, 227px);
-    background: linear-gradient(to top, #101010 2.9%, rgba(31,31,31,0.3) 31.7%, rgba(0,0,0,0.01) 82.2%);
-    transform: rotate(180deg);
-    pointer-events: none;
-    z-index: 0;
-}
 
 .parents__title {
     position: relative;
-    color: #DCDCDB;
+    color: #ffffff;
     font-family: 'Montserrat', sans-serif;
-    font-size: clamp(28px, 4.43vw, 85px);
+    font-size: clamp(16px, 2vw, 200px);
     font-weight: 700;
     letter-spacing: clamp(-0.5px, -0.069vw, -1.44px);
-    padding: clamp(20px, 3.18vw, 61px) clamp(16px, 5.13vw, 98px);
+    padding: clamp(20px, 3.18vw, 61px) clamp(10px, 4vw, 200px);
     margin: 0;
     z-index: 1;
 }
@@ -51,7 +39,7 @@
 .parents__card-image {
     position: relative;
     width: 100%;
-    height: clamp(180px, 25.2vw, 484px);
+    height: clamp(180px, 25.2vw, 100vw);
     overflow: hidden;
     border-radius: clamp(10px, 1.04vw, 20px) clamp(10px, 1.04vw, 20px) 0 0;
     flex-shrink: 0;
@@ -84,8 +72,7 @@
     left: clamp(16px, 2.08vw, 40px);
     right: clamp(16px, 2.08vw, 40px);
     color: #FFFFFF;
-    font-family: 'Montserrat', sans-serif;
-    font-size: clamp(18px, 2.29vw, 44px);
+    font-size: clamp(18px, 2.29vw, 100px);
     font-weight: 700;
     letter-spacing: clamp(-0.5px, -0.069vw, -1.32px);
     line-height: normal;
@@ -96,7 +83,7 @@
 .parents__card-text {
     color: #9F9F9F;
     font-family: 'Montserrat', sans-serif;
-    font-size: clamp(12px, 1.25vw, 24px);
+    font-size: clamp(12px, 1.25vw, 100px);
     font-weight: 600;
     line-height: normal;
     margin: 0;

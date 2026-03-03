@@ -1,0 +1,276 @@
+.theFirstStep {
+    padding: clamp(10px, 2vw, 40px);
+    padding-bottom: clamp(20px, 5vw, 500px);
+    gap: clamp(32px, 2vw, 40px);
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+.name {
+    font-size: clamp(16px, 2vw, 200px);
+    font-weight: 700;
+    color: rgb(255, 255, 255);
+    padding: clamp(20px, 3.18vw, 61px) clamp(10px, 3vw, 200px);
+}
+
+.secondFlour {
+    display: flex;
+    gap: clamp(28.8px, 2vw, 40px);
+}
+
+.carousel-wrapper-thefirst {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.boys-track {
+    display: flex;
+    gap: clamp(24px, 2.5vw, 100px);
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 0 1px;
+}
+
+.boys-track::-webkit-scrollbar {
+    display: none;
+}
+
+.boysblocks {
+    background: linear-gradient(to bottom,
+            #161616 0%,
+            #161616 36%,
+            #181D2F 50%,
+            #2E4084 65%,
+            #1D233C 75%,
+            #161616 92%,
+            #161616 100%);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    border-radius: 24px;
+    padding-inline: clamp(10px, 1vw, 100px);
+    width: clamp(300px, 50vw, 100vw);
+    scroll-snap-align: start;
+}
+
+.info {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-column: 1;
+    height: 100%;
+    justify-content: space-between;
+    padding-bottom: clamp(10px, 1vw, 100px);
+    z-index: 2;
+}
+
+.fromAndAfter {
+    position: relative;
+    display: flex;
+    gap: clamp(8px, 2vw, 16px);
+    align-items: center;
+    top: 20px;
+}
+
+.NameAndAge {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: start;
+}
+
+.NameAndAge p {
+    font-size: clamp(16px, .7vw, 100px);
+    font-weight: 700;
+    color: rgb(159, 159, 159);
+}
+
+.NameAndAge h3 {
+    font-size: clamp(32px, 2vw, 100px);
+    font-weight: 700;
+    color: rgb(255, 255, 255);
+    line-height: 90%;
+    letter-spacing: -3%;
+    max-width: 180px;
+}
+
+.admiral {
+    width: clamp(56px, 4vw, 200px);
+}
+
+.arrow {
+    width: clamp(19.2px, 4vw, 100px);
+    rotate: 180deg;
+    filter: brightness(89%) contrast(70%);
+}
+
+.otherLogo {
+    width: clamp(58px, 3vw, 200px);
+}
+
+.boys {
+    height: 100%;
+    display: flex;
+    grid-column: 2;
+    align-items: end;
+    z-index: 1;
+}
+.boys img{
+    width: clamp(200px, 19vw, 100vw);
+}
+
+.arrow-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(15px, 3vw, 200px);
+    height: clamp(15px, 3vw, 200px);
+    border-radius: 20%;
+    background: rgb(37, 37, 37);
+    border: none;
+    backdrop-filter: blur(6px);
+    cursor: pointer;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.18s ease;
+}
+
+.arrow-btn:hover {
+    background: rgba(43, 43, 62, 0.95);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.arrow-btn img {
+    width: clamp(10px, 2vw, 100px);
+}
+
+.arrow-btn--prev {
+    left: -22px;
+}
+
+.arrow-btn--next {
+    right: -22px;
+}
+
+.arrow-btn--next img {
+    transform: rotate(180deg);
+}
+
+@media (max-width: 780px) {
+    .arrow-btn {
+        width: 52px;
+        height: 52px;
+    }
+    .boysblocks{
+        min-width: 300px;
+    }
+    .name{
+        padding: 0;
+    }
+
+    .arrow-btn img {
+        width: 22px;
+        height: 22px;
+    }
+
+    .arrow-btn--prev {
+        left: -26px;
+    }
+
+    .arrow-btn--next {
+        right: -26px;
+    }
+    .boys {
+        transform: translate( -45%);
+    }
+}
+
+@media (max-width: 560px) {
+    .arrow-btn {
+        display: none;
+    }
+    .boysblocks{
+        min-width: 350px;
+    }
+
+    .boys-track {
+        padding: 0 20px;
+        margin: 0 -20px;
+        scroll-padding: 0 20px;
+    }
+
+    .admiral {
+        width: clamp(70px, 4vw, 100px);
+    }
+
+    .arrow {
+        width: clamp(32px, 4vw, 44px);
+        rotate: 180deg;
+        filter: brightness(89%) contrast(70%);
+    }
+
+    .otherLogo {
+        width: clamp(72px, 3vw, 100px);
+    }
+
+
+
+    .boy {
+        transform: translate(10%);
+    }
+
+}
+
+@media (max-width: 420px) {
+
+    .boysblocks{
+        min-width: 280px;
+    }
+
+    .info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column;
+        padding: clamp(19.2px, 2vw, 25.6px);
+        max-width: 210px;
+        gap: 0;
+    }
+    .boy {
+        transform: translate(-10%);
+    }
+
+    .admiral {
+        width: clamp(50px, 4vw, 80px);
+    }
+
+    .arrow {
+        width: clamp(32px, 4vw, 44px);
+        rotate: 180deg;
+        filter: brightness(89%) contrast(70%);
+    }
+
+    .otherLogo {
+        width: clamp(52px, 3vw, 80px);
+    }
+
+    .info {
+        padding: clamp(18px, 3vw, 24px);
+        max-width: 170px;
+    }
+
+    .NameAndAge p {
+        font-size: clamp(12px, 2vw, 16px);
+    }
+
+    .NameAndAge h3 {
+        font-size: clamp(23px, 2vw, 30px);
+    }
+}

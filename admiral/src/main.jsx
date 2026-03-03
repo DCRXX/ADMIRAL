@@ -8,6 +8,8 @@ import FootballBorders from './components/Football_borders//FootballBorders'
 import Footer from './components/Footer/Footer'
 import Parentsfc from './components/Parentsfc/Parentsfc'
 import Advantages from './components/Advantages/Advantages'
+import TheFirstStep from './components/theFirstStep/theFirstStep'
+import AboutUs from './components/aboutUs/aboutUs'
 import './index.css'
 
 
@@ -15,9 +17,11 @@ import './index.css'
 
 createRoot(document.getElementById('root')).render(
     <NbspCleaner>
+        <AboutUs/>
         <Advantages/>
         <Announcements/>
         <CoachingStaff/>
+        <TheFirstStep/>
         <Parentsfc/>
         <FootballBorders/>
         <FAQ/>

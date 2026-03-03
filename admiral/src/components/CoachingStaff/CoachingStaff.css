@@ -1,15 +1,16 @@
 .CoachingStaff{
     width: 100%;
     overflow: hidden;
+    padding-bottom: clamp(20px, 5vw, 500px);
 }
 .header_CoachingStaff{
-    color: #FFFFFF;
-    font-size: clamp(20px, 2vw, 48px);
-    padding-inline: clamp(10px, 4vw, 100vw);
+    color: #ffffff;
+    font-size: clamp(16px, 2vw, 200px);
+    padding-left: clamp(10px, 4vw, 200px);
     padding-bottom: clamp(10px, 1vw, 50px);
 }
 .description_CoachingStaff{
-    font-size: clamp(12px, 1vw, 50px);
+    font-size: clamp(12px, 1vw, 100px);
     color: #9A9A9A;
     font-weight: 600;
     padding-inline: clamp(10px, 4vw, 100vw);
@@ -67,7 +68,7 @@
 }
 .description_Coaching{
     display: grid;
-    padding: clamp(5px, 1.2vw, 50px);
+    padding: clamp(10px, 1.2vw, 50px);
     z-index: 3;
     grid-column: 1 / 3;
     grid-row: 3;

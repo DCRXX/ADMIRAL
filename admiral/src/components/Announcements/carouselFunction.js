@@ -54,25 +54,20 @@ export const useIsMobile = (breakpoint = MOBILE_BREAKPOINT) => {
 
 const clamp = (min, val, max) => Math.max(min, Math.min(val, max));
 
-const getActiveWidth  = () => clamp(280, window.innerWidth * 0.54, 800);
-const getInactiveWidth = () => clamp(160, window.innerWidth * 0.38, 560);
+const getActiveWidth  = () => clamp(280, window.innerWidth * 0.60, 8000);
+const getInactiveWidth = () => clamp(160, window.innerWidth * 0.38, 5060);
 const getGap          = () => clamp(10,  window.innerWidth * 0.03, 48);
 
-// Смещение трека, чтобы слайд extIndex оказался по центру контейнера.
-// Все слайды до extIndex считаем неактивными (меньший размер),
-// активный слайд — один, по центру.
+
 const calcOffset = (extIndex, containerWidth) => {
     const aw  = getActiveWidth();
     const iw  = getInactiveWidth();
     const gap = getGap();
-    // Левый край активного слайда = кол-во слайдов слева × (неактивная_ширина + gap)
     const leftEdge    = extIndex * (iw + gap);
     const slideCenter = leftEdge + aw / 2;
     return containerWidth / 2 - slideCenter;
 };
 
-// ─── Мобильная карусель ───────────────────────────────────────────────────────
-// Простой translateX(-index * 100%) — никакой математики, никогда не сбивается.
 export const useMobileCarousel = (options = {}) => {
     const { animationDuration = 400 } = options;
     const [activeIndex, setActiveIndex] = useState(0);

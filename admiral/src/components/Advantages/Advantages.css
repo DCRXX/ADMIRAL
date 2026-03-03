@@ -20,11 +20,11 @@
 
 .advantages__title {
     position: relative;
-    color: #DCDCDC;
-    font-size: clamp(28px, 4.43vw, 85px);
+    color: #ffffff;
+    font-size: clamp(16px, 2vw, 200px);
     font-weight: 700;
     letter-spacing: clamp(-0.5px, -0.069vw, -1.44px);
-    padding: clamp(20px, 3.93vw, 75px) clamp(16px, 5.31vw, 102px);
+    padding: clamp(20px, 3.93vw, 75px)  clamp(10px, 4vw, 64px);
     margin: 0;
     z-index: 1;
 }
@@ -33,7 +33,7 @@
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: clamp(10px, 1.56vw, 30px);
+    gap: clamp(10px, 1.56vw, 100px);
     padding: 0 clamp(16px, 5.31vw, 102px);
     z-index: 1;
 }
@@ -49,7 +49,7 @@
 .advantages__card-image {
     position: relative;
     width: 100%;
-    height: clamp(140px, 17.24vw, 331px);
+    height: clamp(140px, 17.24vw, 100vw);
     overflow: hidden;
     border-radius: clamp(10px, 1.04vw, 20px) clamp(10px, 1.04vw, 20px) 0 0;
     flex-shrink: 0;
@@ -79,7 +79,7 @@
     right: clamp(12px, 1.25vw, 24px);
     color: #FFFFFF;
     font-family: 'Montserrat', sans-serif;
-    font-size: clamp(18px, 2.08vw, 40px);
+    font-size: clamp(18px, 2.08vw, 100px);
     font-weight: 700;
     letter-spacing: clamp(-0.4px, -0.083vw, -1.6px);
     line-height: normal;
@@ -90,7 +90,7 @@
 .advantages__card-text {
     color: #9F9F9F;
     font-family: 'Montserrat', sans-serif;
-    font-size: clamp(12px, 1.14vw, 22px);
+    font-size: clamp(12px, 1.14vw, 100px);
     font-weight: 600;
     line-height: normal;
     margin: 0;

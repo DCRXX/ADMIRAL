@@ -11,7 +11,6 @@ img {
 }
 .root{
   display: grid;
-  gap: clamp(15px, 4vw, 50vw);
   overflow: hidden;
 }
 body{
@@ -20,7 +19,7 @@ body{
    margin: 0;
    
 }
-a, p, p1, h1, h2, li, span, ul, ::placeholder, label, input{
+a, p, p1, h1, h2, h3, li, #text span, ul, ::placeholder, label, input{
     margin: 0;
     text-decoration: none;
     line-height: 100%;
