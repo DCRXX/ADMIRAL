@@ -7,6 +7,7 @@
             #293567 81%,
             #0C0E19 100%);
     z-index: -20;
+    overflow: hidden;
 }
 
 .header {
@@ -162,7 +163,7 @@
 
 .football_players {
     position: absolute;
-    width: clamp(350px, 67vw, 100vw);
+    width: clamp(350px, 75vw, 100vw);
     height: auto;
     z-index: -1;
 }
@@ -179,6 +180,6 @@
 }
 @media screen and (max-width:660px) {
     .football_players{
-        width: clamp(320px, 78vw, 100vw);
+        width: clamp(320px, 90vw, 100vw);
     }
 }

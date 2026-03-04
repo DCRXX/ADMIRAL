@@ -72,7 +72,7 @@
     left: clamp(16px, 2.08vw, 40px);
     right: clamp(16px, 2.08vw, 40px);
     color: #FFFFFF;
-    font-size: clamp(18px, 2.29vw, 100px);
+    font-size: clamp(20px, 2.29vw, 100px);
     font-weight: 700;
     letter-spacing: clamp(-0.5px, -0.069vw, -1.32px);
     line-height: normal;
@@ -83,7 +83,7 @@
 .parents__card-text {
     color: #9F9F9F;
     font-family: 'Montserrat', sans-serif;
-    font-size: clamp(12px, 1.25vw, 100px);
+    font-size: clamp(14px, 1.25vw, 100px);
     font-weight: 600;
     line-height: normal;
     margin: 0;

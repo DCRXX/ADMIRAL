@@ -29,10 +29,11 @@ input:focus {
 .DATA{
     display: grid;
     gap: clamp(7px, .3vw, 10px);
+    width: 100%;
 }
 .Date_of_birth_label{
     color: #656565;
-    font-size: clamp(13px, .9vw, 50px);
+    font-size: clamp(14px, .9vw, 50px);
     font-weight: 500;
 }
 .Phone_number,
@@ -44,13 +45,13 @@ input:focus {
     border-bottom: clamp(1px, .1vw, 5px) solid #656565;
     padding-bottom: clamp(2px, .5vw, 10px);
     color: #FFFFFF;
-    font-size: clamp(16px, 1vw, 100px);
+    font-size: clamp(17px, 1vw, 100px);
 }
 .branch,
 .Phone_number::placeholder,
 .FIO_parent::placeholder,
 .FIO_children::placeholder{
-    font-size: clamp(13px, .9vw, 100px);
+    font-size: clamp(14px, .9vw, 100px);
     color: #656565;
     font-weight: 500;
 }
@@ -122,7 +123,7 @@ input:focus {
 }
 .map_block.mobile-map{
     grid-row: 3;
-    height: clamp(200px, 10vw, 500px);
+    height: clamp(250px, 10vw, 500px);
 }
 .ymaps-2-1-79-map-copyrights-promo{
     display: flex;

@@ -128,8 +128,8 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: clamp(15px, 3vw, 200px);
-    height: clamp(15px, 3vw, 200px);
+    width: clamp(35px, 3vw, 200px);
+    height: clamp(35px, 3vw, 200px);
     border-radius: 20%;
     background: rgb(37, 37, 37);
     border: none;
@@ -148,15 +148,15 @@
 }
 
 .arrow-btn img {
-    width: clamp(10px, 2vw, 100px);
+    width: clamp(22px, 2vw, 100px);
 }
 
 .arrow-btn--prev {
-    left: -22px;
+    left: -12px;
 }
 
 .arrow-btn--next {
-    right: -22px;
+    right: -12px;
 }
 
 .arrow-btn--next img {
@@ -164,28 +164,11 @@
 }
 
 @media (max-width: 780px) {
-    .arrow-btn {
-        width: 52px;
-        height: 52px;
-    }
     .boysblocks{
         min-width: 300px;
     }
     .name{
         padding: 0;
-    }
-
-    .arrow-btn img {
-        width: 22px;
-        height: 22px;
-    }
-
-    .arrow-btn--prev {
-        left: -26px;
-    }
-
-    .arrow-btn--next {
-        right: -26px;
     }
     .boys {
         transform: translate( -45%);

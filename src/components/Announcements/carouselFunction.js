@@ -1,39 +1,54 @@
 import { useState, useRef, useEffect, useLayoutEffect, useCallback, useMemo } from 'react';
 
+import img2 from './public/image/img2.png';
+import img3 from './public/image/img3.png';
+import img4 from './public/image/img4.png';
+import img5 from './public/image/img5.png';
+import img7 from './public/image/img7.png';
+
+
+const imagesById = {
+    1: img2,
+    2: img4,
+    3: img3,
+    4: img7,
+    5: img5
+};
+
 export const slidesData = [
     {
         id: 1,
         title: "Новое отделение Царицыно",
         description: "Осенью 2025 года футбольная школа «АдмиралВМФ» открыла новое отделение на базе современного стадиона «Огонёк» в районе Царицыно. Это значимый шаг в развитии школы.",
-        image: "/src/components/Announcements/public/image/img2.png"
+        image: imagesById[1] 
     },
     {
         id: 2,
         title: "Зимние сборы 2026",
         description: "Присоединяйтесь к нашим интенсивным тренировкам в закрытых манежах этой зимой.",
-        image: "/src/components/Announcements/public/image/img4.png"
+        image: imagesById[2]
     },
     {
         id: 3,
         title: "Турнир в Сокольниках",
         description: "Наши команды заняли призовые места в ежегодном кубке Московской Федерации футбола.",
-        image: "/src/components/Announcements/public/image/img3.png"
+        image: imagesById[3]
     },
     {
         id: 4,
         title: "Турнир в Сокольниках",
         description: "Наши команды заняли призовые места в ежегодном кубке Московской Федерации футбола.",
-        image: "/src/components/Announcements/public/image/img7.png"
+        image: imagesById[4]
     },
     {
         id: 5,
         title: "Турнир в Сокольниках",
         description: "Наши команды заняли призовые места в ежегодном кубке Московской Федерации футбола.",
-        image: "/src/components/Announcements/public/image/img5.png"
+        image: imagesById[5]
     }
 ];
 
-const MOBILE_BREAKPOINT = 600;
+const MOBILE_BREAKPOINT = 750;
 
 export const useIsMobile = (breakpoint = MOBILE_BREAKPOINT) => {
     const [isMobile, setIsMobile] = useState(() => window.innerWidth < breakpoint);
@@ -48,7 +63,7 @@ export const useIsMobile = (breakpoint = MOBILE_BREAKPOINT) => {
 
 const clamp = (min, val, max) => Math.max(min, Math.min(val, max));
 
-const getActiveWidth  = () => clamp(280, window.innerWidth * 0.60, 8000);
+const getActiveWidth  = () => clamp(280, window.innerWidth * 0.58, 8000);
 const getInactiveWidth = () => clamp(160, window.innerWidth * 0.38, 5060);
 const getGap          = () => clamp(10,  window.innerWidth * 0.03, 48);
 
@@ -91,7 +106,7 @@ export const useMobileCarousel = (options = {}) => {
 
 export const useDesktopCarousel = (options = {}) => {
     const { animationDuration = 600 } = options;
-    const n = slidesData.length;  // 5
+    const n = slidesData.length;
 
 
     const extSlides = useMemo(() => [

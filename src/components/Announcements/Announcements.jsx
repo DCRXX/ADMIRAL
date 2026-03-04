@@ -8,6 +8,7 @@ import {
     useDesktopCarousel
 } from './carouselFunction';
 
+
 function MobileCarousel() {
     const {
         activeIndex, nextSlide, prevSlide,

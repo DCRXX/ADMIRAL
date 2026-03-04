@@ -59,7 +59,7 @@
 
 .mobile-slide__title h2 {
     margin: 0;
-    font-size: clamp(14px, 4.5vw, 22px);
+    font-size: clamp(20px, 4.5vw, 22px);
     font-weight: 700;
     line-height: 1.2;
     color: #fff;
@@ -81,7 +81,7 @@
     margin: 0;
     padding: clamp(12px, 3vw, 20px) clamp(12px, 4vw, 20px);
     color: #fff;
-    font-size: clamp(12px, 3.5vw, 16px);
+    font-size: clamp(14px, 3.5vw, 16px);
     font-weight: 600;
     line-height: 1.5;
     transition: opacity 0.35s ease;
@@ -173,7 +173,6 @@
     z-index: 10;
 }
 
-/* Тёмное свечение снизу */
 .inner_oval{
     top: 60%;
     position: absolute;
@@ -185,10 +184,9 @@
     opacity: 0.5;
 }
 
-/* ─── Заголовок ─── */
 .title {
     color: #fff;
-    font-size: clamp(12px, 1.2vw, 100px);
+    font-size: clamp(16px, 1.2vw, 100px);
     font-weight: 700;
     grid-row: 2;
     grid-column: 2;
@@ -196,7 +194,7 @@
 }
 
 .description {
-    font-size: clamp(10px, 0.9vw, 100px);
+    font-size: clamp(12px, 0.9vw, 100px);
     color: #fff;
     font-weight: 600;
     grid-row: 3;
@@ -232,15 +230,11 @@
 .arrow-left  { position: relative; grid-column: 1; left: -50%; }
 .arrow-right { position: relative; grid-column: 3; rotate: 180deg; left: 50%; }
 
-/* ─── Медиа ─── */
 @media screen and (max-width: 800px) {
     .arrow-left,
     .arrow-right { grid-row: 2 / 3; }
 }
 
-/* Во время мгновенного прыжка (бесконечная прокрутка) отключаем
-   transition на самих слайдах — иначе смена active/inactive классов
-   анимирует ширину и соседние блоки "появляются" с задержкой */
 .no-slide-transition .slide_active,
 .no-slide-transition .slide_inactive {
     transition: none !important;

@@ -30,7 +30,7 @@ export default function ParentsFC() {
           <div className="parents__card-image">
             <img src={momsImg} alt="Женский футбольный клуб для мам" />
             <div className="parents__card-overlay" />
-            <h3 className="parents__card-title">Женский футбольный клуб для мам</h3>
+            <h3 className="parents__card-title">Женский футбольный клуб <br/> для мам</h3>
           </div>
           <div className="parents__card-body">
             <p className="parents__card-text">

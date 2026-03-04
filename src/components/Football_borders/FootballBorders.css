@@ -19,7 +19,7 @@
     color: #FFFFFF;
     font-weight: 600;
     line-height: 130%;
-    font-size: clamp(12px, 1.2vw, 100px);
+    font-size: clamp(14px, 1.2vw, 100px);
     grid-column: 1;
     min-width: 240px;
 }

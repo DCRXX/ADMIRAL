@@ -92,9 +92,9 @@ export default function CoachingStaff() {
                         <img className='ball_1' src={ball} alt="" draggable="false" />
                         <img className='ball_2' src={ball2} alt="" draggable="false" />
                         <div className='description_Coaching'>
-                            <h1 className='FIO'>Кузнецов Никита</h1>
-                            <p className='profile'>Педагог, главный тренер</p>
-                            <p className='Experience'>Опыт работы с 2013 г.</p>
+                            <h1 className='FIO'>Владислав Николаевич Громов</h1>
+                            <p className='profile'>Главный тренер</p>
+                            <p className='Experience'>Высшее педагогическое образование</p>
                             <p className='License'>Лицензия с UEFA</p>
                         </div>
                     </div>
@@ -103,9 +103,9 @@ export default function CoachingStaff() {
                         <img className='ball_1' src={ball} alt="" draggable="false" />
                         <img className='ball_2' src={ball2} alt="" draggable="false" />
                         <div className='description_Coaching'>
-                            <h1 className='FIO'>Кузнецов Никита</h1>
-                            <p className='profile'>Педагог, главный тренер</p>
-                            <p className='Experience'>Опыт работы с 2013 г.</p>
+                            <h1 className='FIO'>Дмитрий Владимирович Шапиро</h1>
+                            <p className='profile'>Тренер</p>
+                            <p className='Experience'>Высшее педагогическое образование</p>
                             <p className='License'>Лицензия с UEFA</p>
                         </div>
                     </div>
@@ -114,9 +114,9 @@ export default function CoachingStaff() {
                         <img className='ball_1' src={ball} alt="" draggable="false" />
                         <img className='ball_2' src={ball2} alt="" draggable="false" />
                         <div className='description_Coaching'>
-                            <h1 className='FIO'>Кузнецов Никита</h1>
-                            <p className='profile'>Педагог, главный тренер</p>
-                            <p className='Experience'>Опыт работы с 2013 г.</p>
+                            <h1 className='FIO'>Василий Олегович Извозчиков </h1>
+                            <p className='profile'>Тренер</p>
+                            <p className='Experience'>Высшее педагогическое образование</p>
                             <p className='License'>Лицензия с UEFA</p>
                         </div>
                     </div>
