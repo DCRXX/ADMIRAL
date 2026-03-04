@@ -6,7 +6,7 @@
             #2E4084 66%,
             #293567 81%,
             #0C0E19 100%);
-    z-index: -20;
+    z-index: 0;
     overflow: hidden;
 }
 
@@ -38,22 +38,25 @@
     white-space: nowrap;
 }
 
-.nav-1 a {
-    color: #E1E0E0;
+.nav-1 p {
+    color: #dadada;
     text-decoration: none;
-    border-bottom: 1px solid transparent;
+    border-bottom: .1vw solid transparent;
+    padding-block: .3vw;
+    cursor: pointer;
     transition: color 0.3s ease-in, border-bottom 0.3s ease-in;
 }
 
-.nav-1 a:hover {
+.nav-1 p:hover {
     color: #FFFFFF;
-    border-bottom: 1px solid #FFFFFF;
+    border-bottom: .1vw solid #FFFFFF;
 }
 
 .right-group {
     display: flex;
     align-items: center;
     gap: clamp(15px, 3vw, 28px);
+    z-index: 20000;
 }
 
 .secoundFlour {
@@ -67,19 +70,19 @@
     font-size: clamp(12px, 4vw, 20px);
     font-weight: 600;
     text-transform: uppercase;
-    background-color: #E1E0E0;
+    background-color: #dadada;
     color: #0C0E19;
     border: none;
     border-radius: clamp(8px, 2vw, 12px);
     padding: clamp(10px, 2vw, 14px) clamp(15px, 5vw, 30px);
     cursor: pointer;
-
-    transition: color 0.3s ease-in, background-color 0.3s ease-in;
+    transition: all 0.3s ease;
 }
 
 .button:hover {
     background-color: #FFFFFF;
-    color: #0C0E19;
+    color: #000000;
+    transform: scale(1.01);
 }
 
 .nav-2 {
@@ -92,6 +95,10 @@
     white-space: nowrap;
     text-align: right;
 }
+.nav-2 li{
+    color: #FFFFFF;
+}
+
 
 .nav-3 {
     list-style: none;
@@ -100,8 +107,13 @@
 }
 
 .nav-3 img {
+    cursor: pointer;
     width: clamp(24px, 4vw, 36px);
     display: block;
+    transition: all .3s ease;
+}
+.nav-3 img:hover{
+    transform: scale(1.1);
 }
 
 .strip {

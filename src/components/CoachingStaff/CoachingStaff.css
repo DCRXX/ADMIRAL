@@ -39,7 +39,6 @@
     display: grid;
     flex-shrink: 0;
     scroll-snap-align: center;
-    align-items: center;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr auto;
     width: clamp(210px, 26vw, 100vw);
@@ -66,6 +65,7 @@
 }
 .description_Coaching{
     display: grid;
+    grid-template-columns: auto min-content;
     padding: clamp(10px, 1.2vw, 50px);
     z-index: 3;
     grid-column: 1 / 3;
@@ -76,8 +76,9 @@
 }
 .FIO{
     color: #FFFFFF;
-    font-size: clamp(18px, 2vw, 100px);
+    font-size: clamp(16px, 2vw, 100px);
     padding-bottom: clamp(5px, .7vw, 50px);
+    grid-column: 1 / 3;
 }
 .profile,
 .Experience,
@@ -89,8 +90,22 @@
 .Experience{
     font-weight: 600;
 }
+.profile{
+    grid-column: 1;
+    grid-row: 2;
+}
+.Experience{
+    grid-column: 1;
+    grid-row: 3;
+}
 .License{
-    text-align: right;
+    display: flex;
+    align-items: end;
+    justify-content: end;
+    grid-column: 2;
+    grid-row: 3;
+    width: fit-content;
+    white-space: nowrap;
 }
 .ball_1{
     width: clamp(75px, 10vw, 500px);

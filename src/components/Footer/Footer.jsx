@@ -21,9 +21,9 @@ export default function Footer() {
             fc-admiral@mail.ru
           </a>
           <div className="footer__socials">
-            <a href="#" className="footer__social-link"><img src={telegramIcon} alt="Telegram" /></a>
-            <a href="#" className="footer__social-link"><img src={whatsappIcon} alt="WhatsApp" /></a>
-            <a href="#" className="footer__social-link"><img src={vkIcon} alt="VK" /></a>
+            <a href="https://t.me/fcadmiral" className="footer__social-link"><img src={telegramIcon} alt="Telegram" /></a>
+            <a href="https://wa.me/79150059393" className="footer__social-link"><img src={whatsappIcon} alt="WhatsApp" /></a>
+            <a href="https://vk.com/fcadmiral" className="footer__social-link"><img src={vkIcon} alt="VK" /></a>
           </div>
         </div>
 
