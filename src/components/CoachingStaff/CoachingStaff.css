@@ -121,3 +121,10 @@
     z-index: 1;
     transform: translateY(12%);
 }
+@media screen and (max-width: 930px){
+    .License{
+        padding-top: .6vw;
+        grid-column: 1;
+        grid-row: 4;
+    }
+}
