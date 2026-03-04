@@ -139,7 +139,7 @@ export default function Announcements() {
     return (
         <section className="Announcements">
             <div className="head_Announcements">
-                <h1>АНОНСЫ</h1>
+                <h1>Анонсы</h1>
             </div>
             {isMobile ? <MobileCarousel /> : <DesktopCarousel />}
         </section>
