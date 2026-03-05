@@ -19,13 +19,13 @@ import './index.css'
 createRoot(document.getElementById('root')).render(
     <NbspCleaner>
         <HeaderHero />
+        <Announcements />
         <AboutUs />
         <Advantages />
-        <Announcements />
+        <FootballBorders />
         <CoachingStaff />
         <TheFirstStep />
         <Parentsfc />
-        <FootballBorders />
         <FAQ />
         <Footer />
     </NbspCleaner>

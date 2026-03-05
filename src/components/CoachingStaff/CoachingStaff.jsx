@@ -10,25 +10,24 @@ export default function CoachingStaff() {
     const scrollRef = useRef(null);
     const isOverCarousel = useRef(false);
 
-    const handleWheel = (e) => {
-        if (e.deltaY === 0) return;
-        e.preventDefault();
-        
-        const container = scrollRef.current;
-        const card = container.querySelector('.Block_Coaching');
-        const cardWidth = card.offsetWidth;
-        const gap = parseInt(getComputedStyle(container.querySelector('.Coaching_main')).gap) || 0;
-        const scrollAmount = cardWidth + gap;
-        
-        const direction = e.deltaY > 0 ? 1 : -1;
-        const targetScroll = container.scrollLeft + (direction * scrollAmount);
-        const snapPosition = Math.round(targetScroll / scrollAmount) * scrollAmount;
-        
-        container.scrollTo({
-            left: snapPosition,
-            behavior: 'smooth'
-        });
-    };
+    useEffect(() => {
+        const el = scrollRef.current;
+        if (!el) return;
+        const onWheel = (e) => {
+            if (e.deltaY === 0) return;
+            e.preventDefault();
+            const card = el.querySelector('.Block_Coaching');
+            const cardWidth = card.offsetWidth;
+            const gap = parseInt(getComputedStyle(el.querySelector('.Coaching_main')).gap) || 0;
+            const scrollAmount = cardWidth + gap;
+            const direction = e.deltaY > 0 ? 1 : -1;
+            const targetScroll = el.scrollLeft + (direction * scrollAmount);
+            const snapPosition = Math.round(targetScroll / scrollAmount) * scrollAmount;
+            el.scrollTo({ left: snapPosition, behavior: 'smooth' });
+        };
+        el.addEventListener('wheel', onWheel, { passive: false });
+        return () => el.removeEventListener('wheel', onWheel);
+    }, []);
     const handleMouseEnter = () => {
         isOverCarousel.current = true;
     };
@@ -78,7 +77,6 @@ export default function CoachingStaff() {
             <div 
                 className='overflow_carusel'
                 ref={scrollRef}
-                onWheel={handleWheel}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 onMouseDown={handleMouseDown}
@@ -88,6 +86,16 @@ export default function CoachingStaff() {
             >
                 <div className='Coaching_main'>
                     <div className='Block_Coaching'>
+                        <img className='ball_1' src={ball} alt="" draggable="false" />
+                        <img className='ball_2' src={ball2} alt="" draggable="false" />
+                        <div className='description_Coaching'>
+                            <h1 className='FIO'>Евгений Васильевич Терехов</h1>
+                            <p className='profile'>Руководитель школы</p>
+                            <p className='Experience'>Высшее образование. "Спортивный менеджмент"</p>
+                            <p className='License'>🇷🇺</p>
+                        </div>
+                    </div>
+                    <div className='Block_Coaching'>
                         <img className='Coaching_image' src={Coaching1} alt="Тренер 1" draggable="false" />
                         <img className='ball_1' src={ball} alt="" draggable="false" />
                         <img className='ball_2' src={ball2} alt="" draggable="false" />
@@ -95,7 +103,7 @@ export default function CoachingStaff() {
                             <h1 className='FIO'>Владислав Николаевич Громов</h1>
                             <p className='profile'>Главный тренер</p>
                             <p className='Experience'>Высшее педагогическое образование</p>
-                            <p className='License'>Лицензия с UEFA</p>
+                            <p className='License'>Лицензия "С-UEFA" 🇷🇺</p>
                         </div>
                     </div>
                     <div className='Block_Coaching'>
@@ -106,7 +114,7 @@ export default function CoachingStaff() {
                             <h1 className='FIO'>Дмитрий Владимирович Шапиро</h1>
                             <p className='profile'>Тренер</p>
                             <p className='Experience'>Высшее педагогическое образование</p>
-                            <p className='License'>Лицензия с UEFA</p>
+                            <p className='License'>Тренер-преподаватель по футболу (Центр им. К.И. Бескова) 🇷🇺</p>
                         </div>
                     </div>
                     <div className='Block_Coaching'>
@@ -114,10 +122,89 @@ export default function CoachingStaff() {
                         <img className='ball_1' src={ball} alt="" draggable="false" />
                         <img className='ball_2' src={ball2} alt="" draggable="false" />
                         <div className='description_Coaching'>
-                            <h1 className='FIO'>Василий Олегович Извозчиков </h1>
+                            <h1 className='FIO'>Василий Олегович Извозчиков</h1>
                             <p className='profile'>Тренер</p>
                             <p className='Experience'>Высшее педагогическое образование</p>
-                            <p className='License'>Лицензия с UEFA</p>
+                            <p className='License'>Адаптивная физическая культура. Адаптивный футбол 🇷🇺</p>
+                        </div>
+                    </div>
+                    <div className='Block_Coaching'>
+                        <img className='ball_1' src={ball} alt="" draggable="false" />
+                        <img className='ball_2' src={ball2} alt="" draggable="false" />
+                        <div className='description_Coaching'>
+                            <h1 className='FIO'>Христофор Арменович Аракелян</h1>
+                            <p className='profile'>Тренер вратарей</p>
+                            <p className='Experience'>Высшее педагогическое образование</p>
+                            <p className='License'>Тренер вратарей (Центр им. К.И. Бескова) 🇷🇺</p>
+                        </div>
+                    </div>
+                    <div className='Block_Coaching'>
+                        <img className='ball_1' src={ball} alt="" draggable="false" />
+                        <img className='ball_2' src={ball2} alt="" draggable="false" />
+                        <div className='description_Coaching'>
+                            <h1 className='FIO'>Кирилл Евгеньевич Ивашкин</h1>
+                            <p className='profile'>Тренер</p>
+                            <p className='Experience'>Высшее педагогическое образование</p>
+                            <p className='License'>🇷🇺</p>
+                        </div>
+                    </div>
+                    <div className='Block_Coaching'>
+                        <img className='ball_1' src={ball} alt="" draggable="false" />
+                        <img className='ball_2' src={ball2} alt="" draggable="false" />
+                        <div className='description_Coaching'>
+                            <h1 className='FIO'>Наталия Андреевна Шатрова</h1>
+                            <p className='profile'>Тренер</p>
+                            <p className='Experience'>Тренер-преподаватель по футболу (Центр им. К.И. Бескова)</p>
+                            <p className='License'>В процессе обучения на лицензию "С-UEFA"</p>
+                        </div>
+                    </div>
+                    <div className='Block_Coaching'>
+                        <img className='ball_1' src={ball} alt="" draggable="false" />
+                        <img className='ball_2' src={ball2} alt="" draggable="false" />
+                        <div className='description_Coaching'>
+                            <h1 className='FIO'>Денис Юрьевич Панюшкин</h1>
+                            <p className='profile'>Тренер</p>
+                            <p className='Experience'>Высшее педагогическое образование</p>
+                            <p className='License'>Тренер по ОФП 🇷🇺</p>
+                        </div>
+                    </div>
+                    <div className='Block_Coaching'>
+                        <img className='ball_1' src={ball} alt="" draggable="false" />
+                        <img className='ball_2' src={ball2} alt="" draggable="false" />
+                        <div className='description_Coaching'>
+                            <h1 className='FIO'>Сергей Вадимович Дабагян</h1>
+                            <p className='profile'>Тренер</p>
+                            <p className='Experience'>Высшее педагогическое образование</p>
+                            <p className='License'>Тренер по ОФП 🇷🇺</p>
+                        </div>
+                    </div>
+                    <div className='Block_Coaching'>
+                        <img className='ball_1' src={ball} alt="" draggable="false" />
+                        <img className='ball_2' src={ball2} alt="" draggable="false" />
+                        <div className='description_Coaching'>
+                            <h1 className='FIO'>Эдгар Арменович Манукян</h1>
+                            <p className='profile'>Тренер</p>
+                            <p className='Experience'>Высшее педагогическое образование</p>
+                            <p className='License'>В процессе обучения на лицензию "С-UEFA" 🇦🇲</p>
+                        </div>
+                    </div>
+                    <div className='Block_Coaching'>
+                        <img className='ball_1' src={ball} alt="" draggable="false" />
+                        <img className='ball_2' src={ball2} alt="" draggable="false" />
+                        <div className='description_Coaching'>
+                            <h1 className='FIO'>Мохаммед Бегмуродович Каландаров</h1>
+                            <p className='profile'>Тренер</p>
+                            <p className='Experience'>Тренер-преподаватель по футболу (Центр им. К.И. Бескова)</p>
+                            <p className='License'>🇷🇺</p>
+                        </div>
+                    </div>
+                    <div className='Block_Coaching'>
+                        <img className='ball_1' src={ball} alt="" draggable="false" />
+                        <img className='ball_2' src={ball2} alt="" draggable="false" />
+                        <div className='description_Coaching'>
+                            <h1 className='FIO'>Елизавета Артуровна Хотеева</h1>
+                            <p className='profile'>СММ</p>
+                            <p className='License'>🇷🇺</p>
                         </div>
                     </div>
                 </div>

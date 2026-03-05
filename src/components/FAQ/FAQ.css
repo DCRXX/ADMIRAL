@@ -46,6 +46,13 @@ input:focus {
     padding-bottom: clamp(2px, .5vw, 10px);
     color: #FFFFFF;
     font-size: clamp(17px, 1vw, 100px);
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    appearance: none;
+}
+.Date_of_birth{
+    color-scheme: dark;
 }
 .branch,
 .Phone_number::placeholder,
@@ -111,11 +118,17 @@ input:focus {
 }
 .submitting_the_form{
     border: none;
+    -webkit-appearance: none;
+    appearance: none;
     background-color: #FFFFFF !important;
+    -webkit-background-color: #FFFFFF;
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000;
     padding-block: clamp(10px, .5vw, 100px);
     font-size: clamp(14px, 1.1vw, 100px);
     font-weight: 600;
     cursor: pointer;
+    border-radius: clamp(5px, .5vw, 50px);
 }
 .map_block{
     border-radius: clamp(5px, 1vw, 50px);

@@ -4,7 +4,7 @@ import Telegramm from './public/Telegram.svg'
 import WhatsApp from './public/WhatsApp.svg'
 import VK from './public/VK.svg'
 import ADMIRAL from './public/АДМИРАЛ.svg'
-import foot_players from './public/football_players.png'
+import foot_players from './public/Group 166 1.png'
 import { Link } from 'react-scroll'
 
 
