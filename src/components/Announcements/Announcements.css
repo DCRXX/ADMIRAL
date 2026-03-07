@@ -8,7 +8,7 @@
 .head_Announcements {
     color: #ffffff;
     font-size: clamp(16px, 2vw, 200px);
-    padding-bottom: clamp(10px, 2vw, 32px);
+    padding: clamp(10px, 2vw, 32px);
     font-weight: 700;
     padding-left: clamp(10px, 4vw, 200px);
 }
