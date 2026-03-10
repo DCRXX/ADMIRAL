@@ -112,7 +112,7 @@
     transform: scale(1.01);
 }
 
-/* Mobile boy — hidden by default, shown only on mobile */
+
 .mobileBoyWrapper {
     display: none;
 }
@@ -191,13 +191,11 @@
         padding: clamp(16px, 4vw, 18px);
     }
 
-    /* Show mobile boy between blocks */
     .mobileBoyWrapper {
         display: flex;
         justify-content: center;
         align-items: flex-end;
         overflow: hidden;
-        /* Negative margins pull the image flush between the cards */
         margin-top: -10px;
         margin-bottom: -10px;
         pointer-events: none;
