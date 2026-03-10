@@ -112,6 +112,11 @@
     transform: scale(1.01);
 }
 
+/* Mobile boy — hidden by default, shown only on mobile */
+.mobileBoyWrapper {
+    display: none;
+}
+
 @media (max-width: 1700px) {
     .allTables{
         grid-template-columns: min-content min-content;
@@ -185,6 +190,26 @@
     .buttonAfterAll button {
         padding: clamp(16px, 4vw, 18px);
     }
+
+    /* Show mobile boy between blocks */
+    .mobileBoyWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        overflow: hidden;
+        /* Negative margins pull the image flush between the cards */
+        margin-top: -10px;
+        margin-bottom: -10px;
+        pointer-events: none;
+    }
+
+    .mobileBoy {
+        width: clamp(260px, 70vw, 500px);
+        height: auto;
+        -webkit-mask-image: linear-gradient(to top, transparent 20%, black 60%);
+        mask-image: linear-gradient(to top, transparent 15%, black 50%);
+        display: block;
+    }
 }
 
 @media (max-width: 480px) {
@@ -206,5 +231,14 @@
     .firstRow p {
         font-size: 14px;
         text-indent: 16px;
+    }
+
+    .mobileBoyWrapper {
+        margin-top: -7px;
+        margin-bottom: -64px;
+    }
+
+    .mobileBoy {
+        width: clamp(200px, 80vw, 340px);
     }
 }
