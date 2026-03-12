@@ -1,6 +1,7 @@
 import React from 'react';
 import './Announcements.css';
 import arrow from './public/arrow.svg';
+import { Link } from 'react-scroll';
 import {
     slidesData,
     useIsMobile,
@@ -53,6 +54,13 @@ function MobileCarousel() {
                         {slide.description}
                     </p>
                 ))}
+                {slidesData[activeIndex]?.showButton && (
+                    <div className="mobile-desc-button">
+                        <Link to='FAQ' smooth={true} duration={1200} offset={-200}>
+                            <button className="button" type="button"><p>Записаться</p></button>
+                        </Link>
+                    </div>
+                )}
             </div>
 
             <div className="mobile-controls">
@@ -117,6 +125,11 @@ function DesktopCarousel() {
                                     </div>
                                     <div className="description">
                                         <p>{slide.description}</p>
+                                        {slide.showButton && (
+                                            <Link to='FAQ' smooth={true} duration={1200} offset={-200}>
+                                                <button className="button" type="button"><p>Записаться</p></button>
+                                            </Link>
+                                        )}
                                     </div>
                                     <div className="arrow-left" onClick={prevSlide}>
                                         <img src={arrow} alt="prev" />

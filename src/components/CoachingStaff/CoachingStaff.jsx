@@ -162,7 +162,7 @@ export default function CoachingStaff() {
                             <h1 className='FIO'>Наталия Андреевна Шатрова</h1>
                             <p className='profile'>Тренер</p>
                             <p className='Experience'>Тренер-преподаватель по футболу (Центр им. К.И. Бескова)</p>
-                            <p className='License'>В процессе обучения на лицензию «С-UEFA»</p>
+                            
                         </div>
                     </div>
 
@@ -198,7 +198,7 @@ export default function CoachingStaff() {
                             <h1 className='FIO'>Эдгар Арменович Манукян</h1>
                             <p className='profile'>Тренер</p>
                             <p className='Experience'>Высшее педагогическое образование</p>
-                            <p className='License'>В процессе обучения на лицензию «С-UEFA»</p>
+                            
                         </div>
                     </div>
 
