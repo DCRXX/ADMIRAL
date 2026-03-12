@@ -47,20 +47,20 @@ function MobileCarousel() {
 
             <div className="mobile-description-box">
                 {slidesData.map((slide, index) => (
-                    <p
+                    <div
                         key={slide.id}
-                        className={`mobile-desc-text ${index === activeIndex ? 'mobile-desc-visible' : 'mobile-desc-hidden'}`}
+                        className={index === activeIndex ? 'mobile-desc-visible' : 'mobile-desc-hidden'}
                     >
-                        {slide.description}
-                    </p>
-                ))}
-                {slidesData[activeIndex]?.showButton && (
-                    <div className="mobile-desc-button">
-                        <Link to='FAQ' smooth={true} duration={1200} offset={-200}>
-                            <button className="button" type="button"><p>Записаться</p></button>
-                        </Link>
+                        <p className="mobile-desc-text">{slide.description}</p>
+                        {slide.showButton && (
+                            <Link to='FAQ' smooth={true} duration={1200} offset={-200}>
+                                <button className="button mobile-button" type="button">
+                                    <p>Записаться</p>
+                                </button>
+                            </Link>
+                        )}
                     </div>
-                )}
+                ))}
             </div>
 
             <div className="mobile-controls">
@@ -127,7 +127,9 @@ function DesktopCarousel() {
                                         <p>{slide.description}</p>
                                         {slide.showButton && (
                                             <Link to='FAQ' smooth={true} duration={1200} offset={-200}>
-                                                <button className="button" type="button"><p>Записаться</p></button>
+                                                <button className="button" type="button">
+                                                    <p>Записаться</p>
+                                                </button>
                                             </Link>
                                         )}
                                     </div>
