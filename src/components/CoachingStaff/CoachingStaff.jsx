@@ -81,7 +81,6 @@ export default function CoachingStaff() {
             >
                 <div className='Coaching_main'>
 
-                    {/* ── Терехов ── */}
                     <div className='Block_Coaching'>
                         <img className='card-flag' src={ruflag} alt='RU' />
                         <img className='ball_1' src={ball}  alt="" draggable="false" />
@@ -93,10 +92,9 @@ export default function CoachingStaff() {
                         </div>
                     </div>
 
-                    {/* ── Громов ── */}
                     <div className='Block_Coaching'>
                         <img className='card-flag' src={ruflag} alt='RU' />
-                        <img className='Coaching_image' src={Coaching1} alt="Тренер 1" draggable="false" />
+                        
                         <img className='ball_1' src={ball}  alt="" draggable="false" />
                         <img className='ball_2' src={ball2} alt="" draggable="false" />
                         <div className='description_Coaching'>
@@ -107,10 +105,9 @@ export default function CoachingStaff() {
                         </div>
                     </div>
 
-                    {/* ── Шапиро ── */}
                     <div className='Block_Coaching'>
                         <img className='card-flag' src={ruflag} alt='RU' />
-                        <img className='Coaching_image' src={Coaching2} alt="Тренер 2" draggable="false" />
+                        
                         <img className='ball_1' src={ball}  alt="" draggable="false" />
                         <img className='ball_2' src={ball2} alt="" draggable="false" />
                         <div className='description_Coaching'>
@@ -121,10 +118,9 @@ export default function CoachingStaff() {
                         </div>
                     </div>
 
-                    {/* ── Извозчиков ── */}
                     <div className='Block_Coaching'>
                         <img className='card-flag' src={ruflag} alt='RU' />
-                        <img className='Coaching_image' src={Coaching3} alt="Тренер 3" draggable="false" />
+                        
                         <img className='ball_1' src={ball}  alt="" draggable="false" />
                         <img className='ball_2' src={ball2} alt="" draggable="false" />
                         <div className='description_Coaching'>
@@ -135,7 +131,6 @@ export default function CoachingStaff() {
                         </div>
                     </div>
 
-                    {/* ── Аракелян ── */}
                     <div className='Block_Coaching'>
                         <img className='card-flag' src={ruflag} alt='RU' />
                         <img className='ball_1' src={ball}  alt="" draggable="false" />
@@ -148,7 +143,6 @@ export default function CoachingStaff() {
                         </div>
                     </div>
 
-                    {/* ── Ивашкин ── */}
                     <div className='Block_Coaching'>
                         <img className='card-flag' src={ruflag} alt='RU' />
                         <img className='ball_1' src={ball}  alt="" draggable="false" />
@@ -160,7 +154,6 @@ export default function CoachingStaff() {
                         </div>
                     </div>
 
-                    {/* ── Шатрова ── */}
                     <div className='Block_Coaching'>
                         <img className='card-flag' src={ruflag} alt='RU' />
                         <img className='ball_1' src={ball}  alt="" draggable="false" />
@@ -173,7 +166,6 @@ export default function CoachingStaff() {
                         </div>
                     </div>
 
-                    {/* ── Панюшкин ── */}
                     <div className='Block_Coaching'>
                         <img className='card-flag' src={ruflag} alt='RU' />
                         <img className='ball_1' src={ball}  alt="" draggable="false" />
@@ -186,7 +178,6 @@ export default function CoachingStaff() {
                         </div>
                     </div>
 
-                    {/* ── Дабагян ── */}
                     <div className='Block_Coaching'>
                         <img className='card-flag' src={ruflag} alt='RU' />
                         <img className='ball_1' src={ball}  alt="" draggable="false" />
@@ -199,7 +190,6 @@ export default function CoachingStaff() {
                         </div>
                     </div>
 
-                    {/* ── Манукян ── */}
                     <div className='Block_Coaching'>
                         <img className='card-flag' src={armflag} alt='AM' />
                         <img className='ball_1' src={ball}  alt="" draggable="false" />
@@ -212,7 +202,6 @@ export default function CoachingStaff() {
                         </div>
                     </div>
 
-                    {/* ── Каландаров ── */}
                     <div className='Block_Coaching'>
                         <img className='card-flag' src={ruflag} alt='RU' />
                         <img className='ball_1' src={ball}  alt="" draggable="false" />
@@ -224,7 +213,6 @@ export default function CoachingStaff() {
                         </div>
                     </div>
 
-                    {/* ── Хотеева ── */}
                     <div className='Block_Coaching'>
                         <img className='card-flag' src={ruflag} alt='RU' />
                         <img className='ball_1' src={ball}  alt="" draggable="false" />
