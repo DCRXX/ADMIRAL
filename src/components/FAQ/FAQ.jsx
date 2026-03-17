@@ -8,7 +8,7 @@ import { checkApiConnection, sendFAQForm } from '../../RouterAPI';
 const MapComponent = ({ branches, selectedBranch, mapCenter }) => (
     <YMaps>
         <Map
-            state={{ center: mapCenter, zoom: 14 }}
+            state={{ center: mapCenter, zoom: 11 }}
             width="100%"
             height="100%"
         >
@@ -61,8 +61,10 @@ export default function FAQ() {
     }, []);
 
     const branches = [
-        { id: 1, name: 'Коломенская', coords: [55.675986, 37.670528] },
-        { id: 2, name: 'Царицыно', coords: [55.610774, 37.668475] },
+        { id: 1, name: 'Москва, Затонная, 22', coords: [55.674184, 37.687982] },
+        { id: 2, name: 'Москва, Новинки, 8', coords: [55.675986, 37.670528] },
+        { id: 3, name: 'Москва, Судостроительная улица, 46с1', coords: [55.686863, 37.694405] },
+        { id: 4, name: 'Москва, Стадион Огонёк', coords: [55.610774, 37.668475] },
     ];
 
     const selectedBranchData = branches.find(b => b.name === selectedBranch);
@@ -143,7 +145,7 @@ export default function FAQ() {
         }
     };
 
-    const mapCenter = selectedBranchData?.coords || [55.686863, 37.694405];
+    const mapCenter = selectedBranchData?.coords || [55.657702, 37.669949];
 
     return (
         <section className='FAQ'>
