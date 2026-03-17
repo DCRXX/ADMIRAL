@@ -110,11 +110,11 @@ export default function FAQ() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('🚀 Начало отправки формы...');
+        console.log('Начало отправки формы...');
 
         const errors = validateForm();
         if (errors.length > 0) {
-            console.error('❌ Ошибки валидации:', errors);
+            console.error('Ошибки валидации:', errors);
             return;
         }
 
@@ -130,14 +130,14 @@ export default function FAQ() {
 
         try {
             const result = await sendFAQForm(formData);
-            console.log('✅ Форма успешно отправлена!', result);
+            console.log('Форма успешно отправлена!');
             setFioChildren('');
             setDateOfBirth('');
             setFioParent('');
             setPhone('');
             setSelectedBranch('');
         } catch (error) {
-            console.error('❌ Ошибка:', error.message);
+            console.error('Ошибка:', error.message);
         } finally {
             setIsSubmitting(false);
         }
@@ -153,7 +153,6 @@ export default function FAQ() {
                         <h1>Присоединяйся к нам!</h1>
                     </div>
 
-                    {/* ✅ Добавлены id и name — исправляет предупреждения об accessibility */}
                     <input
                         id="fioChildren"
                         name="fioChildren"
@@ -166,7 +165,6 @@ export default function FAQ() {
                     />
 
                     <div className='DATA'>
-                        {/* ✅ htmlFor связывает label с input */}
                         <label className='Date_of_birth_label' htmlFor="dateOfBirth">
                             Дата рождения ребенка*
                         </label>
@@ -178,13 +176,11 @@ export default function FAQ() {
                             value={dateOfBirth}
                             onChange={(e) => {
                                 const val = e.target.value;
-                                // Принимаем только формат YYYY-MM-DD
                                 if (val === '' || /^\d{0,4}-?\d{0,2}-?\d{0,2}$/.test(val)) {
                                     setDateOfBirth(val);
                                 }
                             }}
                             onKeyDown={(e) => {
-                                // Блокируем ввод букв в Safari
                                 const allowed = ['Backspace','Delete','Tab','ArrowLeft','ArrowRight','ArrowUp','ArrowDown','-','/'];
                                 if (!allowed.includes(e.key) && !/^\d$/.test(e.key)) {
                                     e.preventDefault();

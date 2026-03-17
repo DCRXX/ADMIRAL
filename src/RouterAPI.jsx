@@ -1,6 +1,6 @@
 const API_BASE_URL = 'https://kazuyuki07-admiral-form-984f.twc1.net';
 
-console.log('🌐 Дефолтный адрес API:', API_BASE_URL);
+
 
 /**
  * @returns {Promise<boolean>}
@@ -15,14 +15,14 @@ export const checkApiConnection = async () => {
         });
         
         if (response.ok) {
-            console.log('✅ Подключение к API установлено');
+            console.log('Подключение к API установлено');
             return true;
         } else {
-            console.log('❌ API недоступен (статус:', response.status, ')');
+            console.log('API недоступен (статус:', response.status, ')');
             return false;
         }
     } catch (error) {
-        console.error('❌ Ошибка подключения к API:', error.message);
+        console.error('Ошибка подключения к API:', error.message);
         return false;
     }
 };
@@ -35,7 +35,7 @@ export const checkApiConnection = async () => {
 export const apiRequest = async (endpoint, options = {}) => {
     try {
         const url = `${API_BASE_URL}${endpoint}`;
-        console.log('🔗 URL запроса:', url);
+
         
         const response = await fetch(url, {
             headers: {
@@ -45,24 +45,24 @@ export const apiRequest = async (endpoint, options = {}) => {
             ...options,
         });
         
-        console.log('📥 Статус ответа:', response.status);
+
         
         if (!response.ok) {
             const errorText = await response.text();
-            console.error('❌ Текст ошибки:', errorText);
+            console.error('Текст ошибки:', errorText);
             throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
         }
         
         return await response.json();
     } catch (error) {
-        console.error('❌ Ошибка запроса:', error);
+        console.error('Ошибка запроса:', error);
         throw error;
     }
 };
 
 // FAQ
 export const sendFAQForm = async (formData) => {
-    console.log('📤 Отправка формы:', '/form/send_form');
+
     
     const formatDate = (isoDate) => {
         const date = new Date(isoDate);
