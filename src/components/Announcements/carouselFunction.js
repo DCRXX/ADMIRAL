@@ -1,11 +1,6 @@
 import { useState, useRef, useEffect, useLayoutEffect, useCallback, useMemo } from 'react';
 
-import img2 from './public/image/img2.png';
-import img3 from './public/image/img3.png';
-import img4 from './public/image/img4.png';
-import img5 from './public/image/img5.png';
-import img7 from './public/image/img7.png';
-import img9 from './public/image/img9.jpg';
+import img2  from './public/image/img2.png';
 import img10 from './public/image/img10.jpg';
 import img11 from './public/image/img11.jpg';
 import img12 from './public/image/img12.jpg';
@@ -22,28 +17,27 @@ export const slidesData = [
         id: 1,
         title: "Новое отделение Царицыно",
         description: "Осенью 2025 года футбольная школа «Адмирал-ВМФ» открыла новое отделение на базе современного стадиона «Огонёк» в районе Царицыно. Это значимый шаг в развитии школы.",
-        image: imagesById[1] 
+        image: imagesById[1],
     },
     {
         id: 2,
         title: "Присоединиться к нам можно в любое время",
-        description: `Двери нашей школы открыты для ребят всех возрастов 365 дней в году! Мы ждем футболистов и футболисток от 3-х лет! Почему мы?\n- квалифицированный тренерский штаб\n- удобные локации\n- регулярная соревновательная деятельность\n- комфортная среда для развития способностей`,
+        description: "Двери нашей школы открыты для ребят всех возрастов 365 дней в году! Мы ждем футболистов и футболисток от 3-х лет! Почему мы?\n- квалифицированный тренерский штаб\n- удобные локации\n- регулярная соревновательная деятельность\n- комфортная среда для развития способностей",
         image: imagesById[2],
-        showButton: true
+        showButton: true,
     },
     {
         id: 3,
         title: "Команда 2014 — победитель плей-офф MCL!",
         description: "Наши ребята выиграли серебряный плей-офф чемпионата MCL сезона зима 2025–2026. Спасибо ребятам за самоотдачу, а родителям за поддержку! Двигаемся дальше!",
-        image: imagesById[3]
+        image: imagesById[3],
     },
-
     {
         id: 4,
         title: "Ребята с характером",
         description: "Минувшие выходные выдались жаркими: турнир, борьба, голы и 3 место в копилку «Адмирала»!",
-        image: imagesById[4]
-    }
+        image: imagesById[4],
+    },
 ];
 
 const MOBILE_BREAKPOINT = 750;
@@ -60,26 +54,24 @@ export const useIsMobile = (breakpoint = MOBILE_BREAKPOINT) => {
 
 
 const clamp = (min, val, max) => Math.max(min, Math.min(val, max));
-
-const getActiveWidth  = () => clamp(280, window.innerWidth * 0.58, 8000);
+const getActiveWidth   = () => clamp(280, window.innerWidth * 0.54, 8000);
 const getInactiveWidth = () => clamp(160, window.innerWidth * 0.38, 5060);
-const getGap          = () => clamp(10,  window.innerWidth * 0.03, 48);
+const getGap           = () => clamp(10,  window.innerWidth * 0.03, 100);
 
-
-const calcOffset = (extIndex, containerWidth) => {
+const calcOffset = (activeIdx, containerWidth) => {
     const aw  = getActiveWidth();
     const iw  = getInactiveWidth();
     const gap = getGap();
-    const leftEdge    = extIndex * (iw + gap);
-    const slideCenter = leftEdge + aw / 2;
-    return containerWidth / 2 - slideCenter;
+    let totalBefore = 0;
+    for (let i = 0; i < activeIdx; i++) totalBefore += iw + gap;
+    return containerWidth / 2 - (totalBefore + aw / 2);
 };
 
 export const useMobileCarousel = (options = {}) => {
     const { animationDuration = 400 } = options;
     const [activeIndex, setActiveIndex] = useState(0);
-    const animatingRef  = useRef(false);
-    const touchStartX   = useRef(0);
+    const animatingRef = useRef(false);
+    const touchStartX  = useRef(0);
 
     const go = useCallback((next) => {
         if (animatingRef.current) return;
@@ -88,8 +80,14 @@ export const useMobileCarousel = (options = {}) => {
         setTimeout(() => { animatingRef.current = false; }, animationDuration);
     }, [animationDuration]);
 
-    const nextSlide = useCallback(() => go((activeIndex + 1) % slidesData.length), [activeIndex, go]);
-    const prevSlide = useCallback(() => go((activeIndex - 1 + slidesData.length) % slidesData.length), [activeIndex, go]);
+    const nextSlide = useCallback(
+        () => go((activeIndex + 1) % slidesData.length),
+        [activeIndex, go],
+    );
+    const prevSlide = useCallback(
+        () => go((activeIndex - 1 + slidesData.length) % slidesData.length),
+        [activeIndex, go],
+    );
 
     const handleTouchStart = useCallback((e) => { touchStartX.current = e.touches[0].clientX; }, []);
     const handleTouchEnd   = useCallback((e) => {
@@ -101,26 +99,26 @@ export const useMobileCarousel = (options = {}) => {
 };
 
 
+const REPEAT = 21;
+const SLIDES_COUNT = slidesData.length;
+const START_INDEX  = Math.floor(REPEAT / 2) * SLIDES_COUNT;
 
 export const useDesktopCarousel = (options = {}) => {
-    const { animationDuration = 600 } = options;
-    const n = slidesData.length;
+    const { animationDuration = 800 } = options;
 
+    const extSlides = useMemo(() =>
+        Array.from({ length: SLIDES_COUNT * REPEAT }, (_, i) => ({
+            ...slidesData[i % SLIDES_COUNT],
+            _extKey: `v-${i}`,
+        }))
+    , []);
 
-    const extSlides = useMemo(() => [
-        { ...slidesData[n - 1], _extKey: 'clone-last'  },
-        ...slidesData.map((s) => ({ ...s, _extKey: `real-${s.id}` })),
-        { ...slidesData[0],     _extKey: 'clone-first' }
-    ], []);
+    const [extIndex, setExtIndex] = useState(START_INDEX);
+    const [offset,   setOffset]   = useState(0);
 
-    const [extIndex,    setExtIndex]    = useState(1);      
-    const [offset,      setOffset]      = useState(0);
-    const [noTransition, setNoTransition] = useState(false); 
-
-    const containerRef  = useRef(null);
-    const touchStartX   = useRef(0);
-    const animatingRef  = useRef(false);
-
+    const containerRef = useRef(null);
+    const touchStartX  = useRef(0);
+    const animatingRef = useRef(false);
 
     const recomputeOffset = useCallback((idx) => {
         if (!containerRef.current) return;
@@ -135,34 +133,15 @@ export const useDesktopCarousel = (options = {}) => {
         return () => window.removeEventListener('resize', onResize);
     }, [extIndex, recomputeOffset]);
 
-
-    useEffect(() => {
-        if (!noTransition) return;
-        let id1, id2;
-        id1 = requestAnimationFrame(() => {
-            id2 = requestAnimationFrame(() => setNoTransition(false));
-        });
-        return () => { cancelAnimationFrame(id1); cancelAnimationFrame(id2); };
-    }, [noTransition]);
-
-
     const handleTransitionEnd = useCallback(() => {
-        if (extIndex === 0) {
-            setNoTransition(true);
-            setExtIndex(n);
-        } else if (extIndex === n + 1) {
-            setNoTransition(true);
-            setExtIndex(1);
-        }
         animatingRef.current = false;
-    }, [extIndex, n]);
+    }, []);
 
-    const go = useCallback((nextExt) => {
+    const go = useCallback((next) => {
         if (animatingRef.current) return;
         animatingRef.current = true;
-        setExtIndex(nextExt);
-        setTimeout(() => { animatingRef.current = false; }, animationDuration + 50);
-    }, [animationDuration]);
+        setExtIndex(next);
+    }, []);
 
     const nextSlide = useCallback(() => go(extIndex + 1), [extIndex, go]);
     const prevSlide = useCallback(() => go(extIndex - 1), [extIndex, go]);
@@ -173,18 +152,19 @@ export const useDesktopCarousel = (options = {}) => {
         if (Math.abs(diff) > 50) diff > 0 ? nextSlide() : prevSlide();
     }, [nextSlide, prevSlide]);
 
-    const realActiveIndex = ((extIndex - 1) % n + n) % n;
-
-    const isSlideActive = useCallback((extI) => extI === extIndex, [extIndex]);
+    const isSlideActive = useCallback((i) => i === extIndex, [extIndex]);
 
     return {
-        extSlides, extIndex, realActiveIndex,
-        offset, noTransition,
+        extSlides,
+        extIndex,
+        offset,
         containerRef,
-        nextSlide, prevSlide,
+        nextSlide,
+        prevSlide,
         isSlideActive,
-        handleTouchStart, handleTouchEnd,
+        handleTouchStart,
+        handleTouchEnd,
         handleTransitionEnd,
-        animationDuration
+        animationDuration,
     };
 };

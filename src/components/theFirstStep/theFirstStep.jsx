@@ -43,33 +43,12 @@ export default function theFirstStep() {
             smoothScrollBy(-step);
         };
 
-        let isSnappingDisabled = false;
-
-        const handleWheel = (e) => {
-            e.preventDefault();
-
-            if (!isSnappingDisabled) {
-                track.style.scrollSnapType = 'none';
-                isSnappingDisabled = true;
-            }
-
-            track.scrollLeft += e.deltaY * 3.8;
-
-            clearTimeout(window.snapTimeout);
-            window.snapTimeout = setTimeout(() => {
-                track.style.scrollSnapType = 'x mandatory';
-                isSnappingDisabled = false;
-            }, 300);
-        };
-
         prevBtnRef.current?.addEventListener('click', handlePrev);
         nextBtnRef.current?.addEventListener('click', handleNext);
-        track.addEventListener('wheel', handleWheel, { passive: false });
 
         return () => {
             prevBtnRef.current?.removeEventListener('click', handlePrev);
             nextBtnRef.current?.removeEventListener('click', handleNext);
-            track.removeEventListener('wheel', handleWheel);
         };
     }, []);
 

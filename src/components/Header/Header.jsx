@@ -1,14 +1,40 @@
+import { useState } from 'react';
 import './Header.css'
 import logo from './public/logo.svg'
-import Telegramm from './public/Telegram.svg'
-import WhatsApp from './public/WhatsApp.svg'
 import VK from './public/VK.svg'
 import ADMIRAL from './public/АДМИРАЛ.svg'
 import foot_players from './public/Group 166 1.png'
 import { Link } from 'react-scroll'
 
+const PHONE = '8-926-597-57-57';
+const EMAIL = 'fc-admiral@mail.ru';
+
+const isMobile = () =>
+  typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0;
 
 export default function HeaderHero() {
+  const [copied, setCopied] = useState(null);
+
+  const copyToClipboard = (text, type) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(type);
+      setTimeout(() => setCopied(null), 2000);
+    });
+  };
+
+  const handlePhone = (e) => {
+    if (!isMobile()) {
+      e.preventDefault();
+      copyToClipboard(PHONE, 'phone');
+    }
+  };
+
+  const handleEmail = (e) => {
+    if (!isMobile()) {
+      e.preventDefault();
+      copyToClipboard(EMAIL, 'email');
+    }
+  };
 
   return (
     <section className='Header_Hero'>
@@ -38,18 +64,24 @@ export default function HeaderHero() {
             </Link>
             <div className='secoundFlour'>
               <ul className="nav-2">
-                <li>8-926-597-57-57</li>
-                <a href='href="mailto:fc-admiral@mail.ru"'>
-                  <li>fc-admiral@mail.ru</li>
-                </a>
+                <li style={{ position: 'relative' }}>
+                  <a href={`tel:${PHONE}`} onClick={handlePhone} style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
+                    {PHONE}
+                  </a>
+                  {copied === 'phone' && (
+                    <span className="copied-toast">Скопировано</span>
+                  )}
+                </li>
+                <li style={{ position: 'relative' }}>
+                  <a href={`mailto:${EMAIL}`} onClick={handleEmail} style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
+                    {EMAIL}
+                  </a>
+                  {copied === 'email' && (
+                    <span className="copied-toast">Скопировано</span>
+                  )}
+                </li>
               </ul>
               <ul className="nav-3">
-                <a href='https://t.me/fcadmiral'>
-                  <li><img src={Telegramm} alt="Telegram" /></li>
-                </a>
-                <a href='https://wa.me/79150059393'>
-                  <li><img src={WhatsApp} alt="WhatsApp" /></li>
-                </a>
                 <a href='https://vk.com/fcadmiral'>
                   <li><img src={VK} alt="ВКонтакте" /></li>
                 </a>
@@ -77,6 +109,5 @@ export default function HeaderHero() {
         </div>
       </section>
     </section>
-
   );
 }

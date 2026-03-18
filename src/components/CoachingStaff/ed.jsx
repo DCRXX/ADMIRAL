@@ -5,7 +5,10 @@ import ball from './public/ball.svg';
 import ball2 from './public/ball2.svg';
 import ruflag from './public/ruflag.png';
 import armflag from './public/armflag.png';
-
+import armflag from './public/armflag.png'
+import ball from './public/ball.svg'
+import ball2 from './public/ball2.svg'
+import ruflag from './public/ruflag.png'
 
 export default function CoachingStaff() {
     const scrollRef = useRef(null);
@@ -212,11 +215,11 @@ export default function CoachingStaff() {
                     </div>
                 </div>
 
-                <button ref={prevBtnRef} className="arrow-btn2 arrow-btn2--prev" aria-label="Предыдущий">
+                <button ref={prevBtnRef} className="arrow-btn arrow-btn--prev" aria-label="Предыдущий">
                     <img src={arrow} alt="Previous" />
                 </button>
 
-                <button ref={nextBtnRef} className="arrow-btn2 arrow-btn2--next" aria-label="Следующий">
+                <button ref={nextBtnRef} className="arrow-btn arrow-btn--next" aria-label="Следующий">
                     <img src={arrow} alt="Next" />
                 </button>
             </div>

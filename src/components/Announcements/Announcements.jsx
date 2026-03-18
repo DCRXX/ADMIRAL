@@ -9,7 +9,6 @@ import {
     useDesktopCarousel
 } from './carouselFunction';
 
-
 function MobileCarousel() {
     const {
         activeIndex, nextSlide, prevSlide,
@@ -86,24 +85,24 @@ function MobileCarousel() {
 function DesktopCarousel() {
     const {
         extSlides,
-        offset, noTransition,
+        offset,
         containerRef,
-        nextSlide, prevSlide,
+        nextSlide,
+        prevSlide,
         isSlideActive,
-        handleTouchStart, handleTouchEnd,
+        handleTouchStart,
+        handleTouchEnd,
         handleTransitionEnd,
-        animationDuration
-    } = useDesktopCarousel({ animationDuration: 600 });
+        animationDuration,
+    } = useDesktopCarousel({ animationDuration: 800 });
 
     return (
         <div className="carusel-hidden" ref={containerRef}>
             <div
-                className={`main_Announcements${noTransition ? ' no-slide-transition' : ''}`}
+                className="main_Announcements"
                 style={{
                     transform: `translateX(${offset}px)`,
-                    transition: noTransition
-                        ? 'none'
-                        : `transform ${animationDuration}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`
+                    transition: `transform ${animationDuration}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`,
                 }}
                 onTransitionEnd={handleTransitionEnd}
                 onTouchStart={handleTouchStart}

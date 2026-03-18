@@ -24,18 +24,72 @@
     justify-content: flex-start;
     gap: clamp(10px, 1.2vw, 100px);
 }
-.overflow_carusel{
+
+.carousel-wrapper-thefirst {
+    position: relative;
+    width: 100%;
     max-width: 100%;
-    overflow-x: auto;
+    margin: 0 auto;
+    padding-inline: clamp(10px, 5vw, 80px); 
+}
+
+.overflow_carusel {
+    max-width: 100%;
+    overflow-x: hidden;
     overflow-y: hidden;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    padding-left: clamp(5px, 6vw, 100vw);
-    scroll-snap-type: x mandatory;
-    touch-action: pan-x;
+    touch-action: none;
 }
+
+.carousel-wrapper-thefirst {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.arrow-btn2 {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(35px, 3vw, 200px);
+    height: clamp(35px, 3vw, 200px);
+    border-radius: 20%;
+    background: rgb(37, 37, 37);
+    border: none;
+    backdrop-filter: blur(6px);
+    cursor: pointer;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.18s ease;
+}
+
+.arrow-btn2:hover {
+    background: rgba(43, 43, 62, 0.95);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.arrow-btn2 img {
+    width: clamp(22px, 2vw, 100px);
+}
+
+.arrow-btn2--prev {
+    left: 10px;
+}
+
+.arrow-btn2--next {
+    right: 10px;
+}
+
+.arrow-btn2--next img {
+    transform: rotate(180deg);
+}
+
 .Block_Coaching{
     display: block;
     flex-shrink: 0;
@@ -199,5 +253,24 @@
         justify-content: start;
         text-align: left;
         padding-top: .6vw;
+    }
+}
+
+@media screen and (max-width: 560px) {
+    .carousel-wrapper-thefirst {
+        padding-inline: 8px;
+    }
+    
+    .arrow-btn {
+        width: 36px;
+        height: 36px;
+        background: rgba(37, 37, 37, 0.9);
+    }
+
+    .arrow-btn--prev { left: 4px; }
+    .arrow-btn--next { right: 4px; }
+
+    .arrow-btn img {
+        width: 18px;
     }
 }

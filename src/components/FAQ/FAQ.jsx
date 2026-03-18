@@ -5,6 +5,7 @@ import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
 import { checkApiConnection, sendFAQForm } from '../../RouterAPI';
 
 
+
 const MapComponent = ({ branches, selectedBranch, mapCenter }) => (
     <YMaps>
         <Map

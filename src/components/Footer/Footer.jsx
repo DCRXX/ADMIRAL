@@ -1,12 +1,39 @@
-import React from 'react';
+import { useState } from 'react';
 import './Footer.css';
 
 import logo from './public/logo.svg';
-import telegramIcon from './public/tg.png';
-import whatsappIcon from './public/whats.svg';
 import vkIcon from './public/vk.png';
 
+const PHONE = '8-926-597-57-57';
+const EMAIL = 'fc-admiral@mail.ru';
+
+const isMobile = () =>
+  typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0;
+
 export default function Footer() {
+  const [copied, setCopied] = useState(null);
+
+  const copyToClipboard = (text, type) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(type);
+      setTimeout(() => setCopied(null), 2000);
+    });
+  };
+
+  const handlePhone = (e) => {
+    if (!isMobile()) {
+      e.preventDefault();
+      copyToClipboard(PHONE, 'phone');
+    }
+  };
+
+  const handleEmail = (e) => {
+    if (!isMobile()) {
+      e.preventDefault();
+      copyToClipboard(EMAIL, 'email');
+    }
+  };
+
   return (
     <footer className="footer">
       <div className="footer__inner">
@@ -16,14 +43,37 @@ export default function Footer() {
         </div>
 
         <div className="footer__contacts">
-          <span className="footer__phone">8-926-597-57-57</span>
-          <a className="footer__email" href="mailto:fc-admiral@mail.ru">
-            fc-admiral@mail.ru
-          </a>
+          <span style={{ position: 'relative' }}>
+            <a
+              className="footer__phone"
+              href={`tel:${PHONE}`}
+              onClick={handlePhone}
+              style={{ textDecoration: 'none', cursor: 'pointer' }}
+            >
+              {PHONE}
+            </a>
+            {copied === 'phone' && (
+              <span className="copied-toast">Скопировано</span>
+            )}
+          </span>
+
+          <span style={{ position: 'relative' }}>
+            <a
+              className="footer__email"
+              href={`mailto:${EMAIL}`}
+              onClick={handleEmail}
+            >
+              {EMAIL}
+            </a>
+            {copied === 'email' && (
+              <span className="copied-toast">Скопировано</span>
+            )}
+          </span>
+
           <div className="footer__socials">
-            <a href="https://t.me/fcadmiral" className="footer__social-link"><img src={telegramIcon} alt="Telegram" /></a>
-            <a href="https://wa.me/79150059393" className="footer__social-link"><img src={whatsappIcon} alt="WhatsApp" /></a>
-            <a href="https://vk.com/fcadmiral" className="footer__social-link"><img src={vkIcon} alt="VK" /></a>
+            <a href="https://vk.com/fcadmiral" className="footer__social-link">
+              <img src={vkIcon} alt="VK" />
+            </a>
           </div>
         </div>
 
