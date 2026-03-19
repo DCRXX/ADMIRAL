@@ -7,10 +7,10 @@ function AboutUs() {
             <div className="gradient">
                 <div className="aboutUs">
                     <div className="allTables">
+                        <div className="nameBlock">
+                            <h1>О нас</h1>
+                        </div>
                         <div className="firstTable">
-                            <div className="nameBlock">
-                                <h1>О нас</h1>
-                            </div>
                             <img src={boy} alt="" />
                         </div>
                         <div className="secondTable">

@@ -19,8 +19,8 @@ import './index.css'
 createRoot(document.getElementById('root')).render(
     <NbspCleaner>
         <HeaderHero />
-        <Announcements />
         <AboutUs />
+        <Announcements />
         <Advantages />
         <FootballBorders />
         <CoachingStaff />

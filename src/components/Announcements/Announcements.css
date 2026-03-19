@@ -2,6 +2,11 @@
     width: 100%;
     overflow: hidden;
     padding-bottom: clamp(20px, 5vw, 500px);
+    background: linear-gradient(to bottom,
+            rgba(16, 16, 16, 1) 5%,
+            rgba(31, 31, 31, 0.04) 30%,
+            rgba(23, 23, 23, 0.57) 87%,
+            rgba(16, 16, 16, 0) 100%);
 }
 
 .head_Announcements {
@@ -69,7 +74,7 @@
     background-color: #000000;
     filter: blur(5vh);
     border-radius: 30%;
-    opacity: 0.5;
+    opacity: 0.65;
 }
 
 .title {
@@ -131,8 +136,8 @@
 .arrow-left,
 .arrow-right {
     position: absolute;
-    top: 50%;
-    background-color: rgba(27, 27, 27, 0.5);
+    top: 70%;
+    background-color: rgba(17, 17, 17, 0.8);
     backdrop-filter: blur(4px);
     padding: clamp(10px, 0.8vw, 30px);
     border-radius: clamp(5px, 0.5vw, 12px);
@@ -140,14 +145,14 @@
     z-index: 20;
     align-items: center;
     cursor: pointer;
-    transition: scale 0.15s ease, background-color 0.15s ease;
+    transition: scale 0.3s ease, background-color 0.3s ease;
     border: none;
 }
 
 .arrow-left:hover,
 .arrow-right:hover {
-    background-color: rgba(27, 27, 27, 0.8);
-    scale: 1.08; 
+    background-color: rgba(0, 0, 0, 0.8);
+    scale: 1.04; 
 }
 
 .arrow-left img,

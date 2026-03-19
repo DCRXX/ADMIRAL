@@ -14,8 +14,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-direction: column;
-    padding: clamp(15px, 3vw, 20px) clamp(20px, 5vw, 40px);
+    padding: clamp(5px, 1vw, 500px) clamp(20px, 2vw, 500px);
+    border-bottom: .107vw solid #444;
 }
 
 .secoundHeader {
@@ -26,33 +26,31 @@
 }
 
 .logo {
-    width: clamp(150px, 35vw, 290px);
+    width: clamp(150px, 12vw, 100vw);
 }
 
 
 .right-group {
     display: flex;
+    gap: clamp(15px, 2vw, 100px);
     align-items: center;
-    gap: clamp(15px, 3vw, 28px);
-    z-index: 20000;
 }
 
 .secoundFlour {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: clamp(10px, 5vw, 20px);
 }
 
 .button {
-    font-size: clamp(12px, 4vw, 20px);
+    font-size: clamp(12px, 1vw, 500px);
     font-weight: 600;
     text-transform: uppercase;
     background-color: #dadada;
     color: #0C0E19;
     border: none;
-    border-radius: clamp(8px, 2vw, 12px);
-    padding: clamp(10px, 2vw, 14px) clamp(15px, 5vw, 30px);
+    border-radius: clamp(8px, .4vw, 100px);
+    padding: clamp(10px, .5vw, 100px) clamp(15px, 1vw, 100px);
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -60,7 +58,7 @@
 .button:hover {
     background-color: #FFFFFF;
     color: #000000;
-    transform: scale(1.01);
+    transform: scale(1.02);
 }
 
 .nav-2 {
@@ -68,7 +66,7 @@
     display: flex;
     flex-direction: column;
     gap: clamp(2px, 1vw, 4px);
-    font-size: clamp(12px, 3vw, 18px);
+    font-size: clamp(12px, 1vw, 100px);
     color: #FFFFFF;
     white-space: nowrap;
     text-align: right;
@@ -77,16 +75,9 @@
     color: #FFFFFF;
 }
 
-
-.nav-3 {
-    list-style: none;
-    display: flex;
-    gap: clamp(8px, 3vw, 16px);
-}
-
 .nav-3 img {
     cursor: pointer;
-    width: clamp(24px, 4vw, 36px);
+    width: clamp(30px, 2.5vw, 300px);
     display: block;
     transition: all .3s ease;
 }
@@ -94,11 +85,6 @@
     transform: scale(1.1);
 }
 
-.strip {
-    width: 100%;
-    margin: 30px auto 0;
-    border-bottom: 1px solid #444;
-}
 
 @media (max-width: 1550px) {
     .nav-1 {

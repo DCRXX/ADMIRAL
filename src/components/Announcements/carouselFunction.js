@@ -54,24 +54,26 @@ export const useIsMobile = (breakpoint = MOBILE_BREAKPOINT) => {
 
 
 const clamp = (min, val, max) => Math.max(min, Math.min(val, max));
-const getActiveWidth   = () => clamp(280, window.innerWidth * 0.54, 8000);
-const getInactiveWidth = () => clamp(160, window.innerWidth * 0.38, 5060);
-const getGap           = () => clamp(10,  window.innerWidth * 0.03, 100);
 
-const calcOffset = (activeIdx, containerWidth) => {
+const getActiveWidth  = () => clamp(280, window.innerWidth * 0.58, 8000);
+const getInactiveWidth = () => clamp(160, window.innerWidth * 0.38, 5060);
+const getGap          = () => clamp(10,  window.innerWidth * 0.03, 48);
+
+
+const calcOffset = (extIndex, containerWidth) => {
     const aw  = getActiveWidth();
     const iw  = getInactiveWidth();
     const gap = getGap();
-    let totalBefore = 0;
-    for (let i = 0; i < activeIdx; i++) totalBefore += iw + gap;
-    return containerWidth / 2 - (totalBefore + aw / 2);
+    const leftEdge    = extIndex * (iw + gap);
+    const slideCenter = leftEdge + aw / 2;
+    return containerWidth / 2 - slideCenter;
 };
 
 export const useMobileCarousel = (options = {}) => {
     const { animationDuration = 400 } = options;
     const [activeIndex, setActiveIndex] = useState(0);
-    const animatingRef = useRef(false);
-    const touchStartX  = useRef(0);
+    const animatingRef  = useRef(false);
+    const touchStartX   = useRef(0);
 
     const go = useCallback((next) => {
         if (animatingRef.current) return;
@@ -80,14 +82,8 @@ export const useMobileCarousel = (options = {}) => {
         setTimeout(() => { animatingRef.current = false; }, animationDuration);
     }, [animationDuration]);
 
-    const nextSlide = useCallback(
-        () => go((activeIndex + 1) % slidesData.length),
-        [activeIndex, go],
-    );
-    const prevSlide = useCallback(
-        () => go((activeIndex - 1 + slidesData.length) % slidesData.length),
-        [activeIndex, go],
-    );
+    const nextSlide = useCallback(() => go((activeIndex + 1) % slidesData.length), [activeIndex, go]);
+    const prevSlide = useCallback(() => go((activeIndex - 1 + slidesData.length) % slidesData.length), [activeIndex, go]);
 
     const handleTouchStart = useCallback((e) => { touchStartX.current = e.touches[0].clientX; }, []);
     const handleTouchEnd   = useCallback((e) => {
@@ -99,26 +95,26 @@ export const useMobileCarousel = (options = {}) => {
 };
 
 
-const REPEAT = 21;
-const SLIDES_COUNT = slidesData.length;
-const START_INDEX  = Math.floor(REPEAT / 2) * SLIDES_COUNT;
 
 export const useDesktopCarousel = (options = {}) => {
-    const { animationDuration = 800 } = options;
+    const { animationDuration = 600 } = options;
+    const n = slidesData.length;
 
-    const extSlides = useMemo(() =>
-        Array.from({ length: SLIDES_COUNT * REPEAT }, (_, i) => ({
-            ...slidesData[i % SLIDES_COUNT],
-            _extKey: `v-${i}`,
-        }))
-    , []);
 
-    const [extIndex, setExtIndex] = useState(START_INDEX);
-    const [offset,   setOffset]   = useState(0);
+    const extSlides = useMemo(() => [
+        { ...slidesData[n - 1], _extKey: 'clone-last'  },
+        ...slidesData.map((s) => ({ ...s, _extKey: `real-${s.id}` })),
+        { ...slidesData[0],     _extKey: 'clone-first' }
+    ], []);
 
-    const containerRef = useRef(null);
-    const touchStartX  = useRef(0);
-    const animatingRef = useRef(false);
+    const [extIndex,    setExtIndex]    = useState(1);      
+    const [offset,      setOffset]      = useState(0);
+    const [noTransition, setNoTransition] = useState(false); 
+
+    const containerRef  = useRef(null);
+    const touchStartX   = useRef(0);
+    const animatingRef  = useRef(false);
+
 
     const recomputeOffset = useCallback((idx) => {
         if (!containerRef.current) return;
@@ -133,15 +129,34 @@ export const useDesktopCarousel = (options = {}) => {
         return () => window.removeEventListener('resize', onResize);
     }, [extIndex, recomputeOffset]);
 
-    const handleTransitionEnd = useCallback(() => {
-        animatingRef.current = false;
-    }, []);
 
-    const go = useCallback((next) => {
+    useEffect(() => {
+        if (!noTransition) return;
+        let id1, id2;
+        id1 = requestAnimationFrame(() => {
+            id2 = requestAnimationFrame(() => setNoTransition(false));
+        });
+        return () => { cancelAnimationFrame(id1); cancelAnimationFrame(id2); };
+    }, [noTransition]);
+
+
+    const handleTransitionEnd = useCallback(() => {
+        if (extIndex === 0) {
+            setNoTransition(true);
+            setExtIndex(n);
+        } else if (extIndex === n + 1) {
+            setNoTransition(true);
+            setExtIndex(1);
+        }
+        animatingRef.current = false;
+    }, [extIndex, n]);
+
+    const go = useCallback((nextExt) => {
         if (animatingRef.current) return;
         animatingRef.current = true;
-        setExtIndex(next);
-    }, []);
+        setExtIndex(nextExt);
+        setTimeout(() => { animatingRef.current = false; }, animationDuration + 50);
+    }, [animationDuration]);
 
     const nextSlide = useCallback(() => go(extIndex + 1), [extIndex, go]);
     const prevSlide = useCallback(() => go(extIndex - 1), [extIndex, go]);
@@ -152,19 +167,18 @@ export const useDesktopCarousel = (options = {}) => {
         if (Math.abs(diff) > 50) diff > 0 ? nextSlide() : prevSlide();
     }, [nextSlide, prevSlide]);
 
-    const isSlideActive = useCallback((i) => i === extIndex, [extIndex]);
+    const realActiveIndex = ((extIndex - 1) % n + n) % n;
+
+    const isSlideActive = useCallback((extI) => extI === extIndex, [extIndex]);
 
     return {
-        extSlides,
-        extIndex,
-        offset,
+        extSlides, extIndex, realActiveIndex,
+        offset, noTransition,
         containerRef,
-        nextSlide,
-        prevSlide,
+        nextSlide, prevSlide,
         isSlideActive,
-        handleTouchStart,
-        handleTouchEnd,
+        handleTouchStart, handleTouchEnd,
         handleTransitionEnd,
-        animationDuration,
+        animationDuration
     };
 };

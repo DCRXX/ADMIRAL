@@ -6,7 +6,6 @@
 .Football_main{
     display: grid;
     grid-template-columns: auto .6fr;
-    align-items: center;
     justify-content: center;
     column-gap: clamp(20px, 2.2vw, 200px);
 }
@@ -31,8 +30,8 @@
     min-width: 240px;
 }
 .video_Football{
-    width: clamp(200px, 20vw, 100vw);
-    height: clamp(260px, 28vw, 100vw);
+    width: clamp(200px, 22vw, 100vw);
+    height: clamp(260px, 30vw, 100vw);
     border-radius: clamp(5px, .6vw, 100px);
     object-fit: cover;
     object-position: center center;

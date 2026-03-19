@@ -39,7 +39,7 @@ export default function HeaderHero() {
   return (
     <section className='Header_Hero'>
       <header className="header">
-        <div className='secoundHeader'>
+        
           <a href=''>
             <img src={logo} className="logo" alt="Логотип" />
           </a>
@@ -50,8 +50,8 @@ export default function HeaderHero() {
                 <p>Записаться</p>
               </button>
             </Link>
-            <div className='secoundFlour'>
-              <ul className="nav-2">
+
+              <div className="nav-2">
                 <li style={{ position: 'relative' }}>
                   <a href={`tel:${PHONE}`} onClick={handlePhone} style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
                     {PHONE}
@@ -68,16 +68,14 @@ export default function HeaderHero() {
                     <span className="copied-toast">Скопировано</span>
                   )}
                 </li>
-              </ul>
-              <ul className="nav-3">
+              </div>
+              <div className="nav-3">
                 <a href='https://vk.com/fcadmiral'>
-                  <li><img src={VK} alt="ВКонтакте" /></li>
+                  <img src={VK} alt="ВКонтакте" />
                 </a>
-              </ul>
+              </div>
             </div>
-          </div>
-        </div>
-        <div className="strip"></div>
+        
       </header>
       <section className="hero">
         <div className="hero-content">

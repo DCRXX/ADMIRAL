@@ -12,7 +12,6 @@
     left: 0;
     width: 100%;
     height: clamp(80px, 14.8vw, 284px);
-    background: linear-gradient(to top, #101010 8.2%, rgba(31,31,31,0.3) 75.5%, rgba(0,0,0,0) 100%);
     transform: rotate(180deg);
     pointer-events: none;
     z-index: 0;
