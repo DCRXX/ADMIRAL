@@ -29,28 +29,6 @@
     width: clamp(150px, 35vw, 290px);
 }
 
-.nav-1 {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: clamp(20px, 5vw, 40px);
-    font-size: clamp(18px, 4vw, 22px);
-    white-space: nowrap;
-}
-
-.nav-1 p {
-    color: #dadada;
-    text-decoration: none;
-    border-bottom: .1vw solid transparent;
-    padding-block: .3vw;
-    cursor: pointer;
-    transition: color 0.3s ease-in, border-bottom 0.3s ease-in;
-}
-
-.nav-1 p:hover {
-    color: #FFFFFF;
-    border-bottom: .1vw solid #FFFFFF;
-}
 
 .right-group {
     display: flex;

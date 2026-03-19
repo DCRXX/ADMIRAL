@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://kazuyuki07-admiral-form-984f.twc1.net';
+const API_BASE_URL = '';
 
 
 

@@ -43,19 +43,7 @@ export default function HeaderHero() {
           <a href=''>
             <img src={logo} className="logo" alt="Логотип" />
           </a>
-          <nav>
-            <ul className="nav-1">
-              <Link to='AboutUs' smooth={true} duration={1000} offset={40}>
-                <li><p>О нас</p></li>
-              </Link>
-              <Link to='Announcements' smooth={true} duration={1000} offset={-60}>
-                <li><p>Анонсы</p></li>
-              </Link>
-              <Link to='CoachingStaff' smooth={true} duration={1000} offset={-60}>
-                <li><p>Тренерский штаб</p></li>
-              </Link>
-            </ul>
-          </nav>
+          
           <div className="right-group">
             <Link to='FAQ' smooth={true} duration={1200} offset={-200}>
               <button className="button" type="button">

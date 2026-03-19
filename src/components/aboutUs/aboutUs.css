@@ -77,8 +77,8 @@
 }
 
 .firstRow p {
-    font-size: clamp(15px, .9vw, 100px);
-    font-weight: 600;
+    font-size: clamp(15px, 1.1vw, 100px);
+    font-weight: 500;
     color: rgb(213, 213, 213);
     text-indent: clamp(10px, 1vw, 50px);
 }
