@@ -9,6 +9,7 @@ import fkT from "./public/fkT.svg";
 import firstBoy from "./public/boy1.svg";
 import secondBoy from "./public/boy2.svg";
 import thirdBoy from "./public/boy3.svg";
+import zaglushka from "./public/zaglushka.svg"
 
 export default function theFirstStep() {
     const trackRef = useRef(null);
@@ -74,7 +75,7 @@ export default function theFirstStep() {
                                 </div>
                             </div>
                             <div className="boys">
-                                <img src={firstBoy} alt="Геркен Евгений" className="boy" />
+                                <img src={zaglushka} alt="Геркен Евгений" className="boy" />
                             </div>
                         </div>
                         <div className="boysblocks">
@@ -90,7 +91,7 @@ export default function theFirstStep() {
                                 </div>
                             </div>
                             <div className="boys">
-                                <img src={secondBoy} alt="Белобров Степан" className="boy" />
+                                <img src={zaglushka} alt="Белобров Степан" className="boy" />
                             </div>
                         </div>
                         <div className="boysblocks">
@@ -106,7 +107,7 @@ export default function theFirstStep() {
                                 </div>
                             </div>
                             <div className="boys">
-                                <img src={thirdBoy} alt="Горбунов Ярослав" className="boy" />
+                                <img src={zaglushka} alt="Горбунов Ярослав" className="boy" />
                             </div>
                         </div>
                         <div className="boysblocks">
@@ -122,7 +123,7 @@ export default function theFirstStep() {
                                 </div>
                             </div>
                             <div className="boys">
-                                <img src={secondBoy} alt="Белобров Степан" className="boy" />
+                                <img src={zaglushka} alt="Белобров Степан" className="boy" />
                             </div>
                         </div>
 
@@ -139,7 +140,7 @@ export default function theFirstStep() {
                                 </div>
                             </div>
                             <div className="boys">
-                                <img src={firstBoy} alt="Геркен Евгений" className="boy" />
+                                <img src={zaglushka} alt="Геркен Евгений" className="boy" />
                             </div>
                         </div>
 
@@ -156,7 +157,7 @@ export default function theFirstStep() {
                                 </div>
                             </div>
                             <div className="boys">
-                                <img src={thirdBoy} alt="Горбунов Ярослав" className="boy" />
+                                <img src={zaglushka} alt="Горбунов Ярослав" className="boy" />
                             </div>
                         </div>
                     </div>
