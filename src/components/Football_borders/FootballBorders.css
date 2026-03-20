@@ -5,8 +5,9 @@
 }
 .Football_main{
     display: grid;
-    grid-template-columns: auto .6fr;
-    justify-content: center;
+    grid-template-columns: auto 1fr;
+    width: 100%;
+    padding: 0 clamp(16px, 5.31vw, 102px);
     column-gap: clamp(20px, 2.2vw, 200px);
 }
 
@@ -14,6 +15,7 @@
     display: flex;
     flex-direction: column;
     gap: clamp(10px, 3vw, 50px);
+    text-align: right;
 }
 
 .Football_main h1{
@@ -30,12 +32,11 @@
     min-width: 240px;
 }
 .video_Football{
-    width: clamp(200px, 22vw, 100vw);
+    width: 100%;
     height: clamp(260px, 30vw, 100vw);
     border-radius: clamp(5px, .6vw, 100px);
     object-fit: cover;
     object-position: center center;
-    
 }
 
 @media screen and (max-width:510px){
