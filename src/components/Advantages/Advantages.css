@@ -78,7 +78,7 @@
     right: clamp(12px, 1.25vw, 24px);
     color: #FFFFFF;
     font-family: 'Montserrat', sans-serif;
-    font-size: clamp(18px, 2.08vw, 100px);
+    font-size: clamp(20px, 1.8vw, 100px);
     font-weight: 700;
     letter-spacing: clamp(-0.4px, -0.083vw, -1.6px);
     line-height: normal;
@@ -89,7 +89,7 @@
 .advantages__card-text {
     color: #9F9F9F;
     font-family: 'Montserrat', sans-serif;
-    font-size: clamp(12px, 1.14vw, 100px);
+    font-size: clamp(12px, 1vw, 100px);
     font-weight: 600;
     line-height: normal;
     margin: 0;

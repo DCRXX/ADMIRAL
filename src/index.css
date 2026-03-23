@@ -3,28 +3,44 @@
 * {
   box-sizing: border-box;
 }
+
 img {
   -webkit-user-select: none;
-  -moz-user-select: none;    
-  -ms-user-select: none;     
-  user-select: none;         
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
-.root{
+
+.root {
   display: grid;
   overflow: hidden;
 }
-body{
+
+body {
   overflow-x: hidden;
-   background-color: #1B1B1B;
-   margin: 0;
-   
+  background-color: #1B1B1B;
+  margin: 0;
+
 }
-a, p, p1, h1, h2, h3, li, #text, span, ul, ::placeholder, label, input{
-    margin: 0;
-    text-decoration: none;
-    line-height: 100%;
-    font-synthesis: none;
-    font-family: 'Montserrat', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+
+a,
+p,
+p1,
+h1,
+h2,
+h3,
+li,
+#text,
+span,
+ul,
+::placeholder,
+label,
+input {
+  margin: 0;
+  text-decoration: none;
+  line-height: 100%;
+  font-synthesis: none;
+  font-family: 'Montserrat', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

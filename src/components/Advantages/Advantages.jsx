@@ -11,7 +11,7 @@ export default function Advantages() {
 
       <div className="advantages__gradient-top" />
 
-      <div className="advantages__title">
+      <div className="head_Announcements">
         <h1>Наши преимущества</h1>
       </div>
 

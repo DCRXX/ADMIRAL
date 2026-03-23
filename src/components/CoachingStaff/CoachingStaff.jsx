@@ -51,7 +51,7 @@ export default function CoachingStaff() {
 
     return (
         <section className='CoachingStaff'>
-            <div className='header_CoachingStaff'>
+            <div className='head_Announcements'>
                 <h1>Тренерский штаб</h1>
             </div>
             <div className='description_CoachingStaff'>

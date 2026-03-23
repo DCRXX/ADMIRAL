@@ -88,7 +88,7 @@
 }
 
 .description {
-    font-size: clamp(12px, 0.9vw, 100px);
+    font-size: clamp(12px, 1vw, 100px);
     color: #fff;
     font-weight: 600;
     grid-row: 3;

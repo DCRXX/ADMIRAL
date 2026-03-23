@@ -83,7 +83,7 @@
 .parents__card-text {
     color: #9F9F9F;
     font-family: 'Montserrat', sans-serif;
-    font-size: clamp(14px, 1.25vw, 100px);
+    font-size: clamp(12px, 1vw, 100px);
     font-weight: 600;
     line-height: normal;
     margin: 0;

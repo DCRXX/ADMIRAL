@@ -71,7 +71,8 @@
     white-space: nowrap;
     text-align: right;
 }
-.nav-2 li{
+
+.nav-2 li {
     color: #FFFFFF;
 }
 
@@ -81,7 +82,8 @@
     display: block;
     transition: all .3s ease;
 }
-.nav-3 img:hover{
+
+.nav-3 img:hover {
     transform: scale(1.1);
 }
 
@@ -154,31 +156,55 @@
 .football_school p {
     letter-spacing: 100%;
 }
+
 @media screen and (max-width:660px) {
-    .football_players{
+    .football_players {
         width: clamp(320px, 90vw, 100vw);
     }
 }
 
-.copied-toast {
-  position: absolute;
-  bottom: calc(100% + 6px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: #222;
-  color: #fff;
-  font-size: 12px;
-  padding: 4px 10px;
-  border-radius: 6px;
-  white-space: nowrap;
-  pointer-events: none;
-  animation: toast-fade 2s ease forwards;
-  z-index: 9999;
+@media screen and (max-width: 500px) {
+    .nav-2 {
+        display: none;
+    }
+
+    .nav-3 {
+        display: none;
+    }
 }
- 
+
+.copied-toast {
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #222;
+    color: #fff;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    pointer-events: none;
+    animation: toast-fade 2s ease forwards;
+    z-index: 9999;
+}
+
 @keyframes toast-fade {
-  0%   { opacity: 0; transform: translateX(-50%) translateY(4px); }
-  15%  { opacity: 1; transform: translateX(-50%) translateY(0); }
-  75%  { opacity: 1; }
-  100% { opacity: 0; }
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(4px);
+    }
+
+    15% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    75% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }

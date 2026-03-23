@@ -16,11 +16,14 @@
 
 .allTables {
     display: grid;
-    grid-template-columns: auto min-content;
+    grid-template-rows: min-content auto;
     gap: clamp(10px, 2vw, 40px);
-    padding: clamp(10px, 2vw, 40px);
-    padding-bottom: 0px;
     transition: all 0.3s ease;
+}
+
+.allTogether {
+    display: flex;
+    justify-content: space-between;
 }
 
 .firstTable {
@@ -71,15 +74,15 @@
 }
 
 .firstRow h3 {
-    font-size: clamp(24px, 2vw, 100px);
-    font-weight: 600;
+    font-size: clamp(20px, 1.8vw, 100px);
+    font-weight: 700;
     letter-spacing: -3%;
     color: rgb(228, 228, 228);
 }
 
 .firstRow p {
-    font-size: clamp(15px, 1.1vw, 100px);
-    font-weight: 500;
+    font-size: clamp(12px, 1vw, 100px);
+    font-weight: 600;
     color: rgb(213, 213, 213);
     text-indent: clamp(10px, 1vw, 50px);
 }
@@ -119,10 +122,11 @@
 }
 
 @media (max-width: 1700px) {
-    .allTables{
+    .allTables {
         grid-template-columns: min-content min-content;
         justify-content: center;
     }
+
     .firstRow h3 {
         font-size: clamp(14px, 2vw, 25px);
         font-weight: 600;
@@ -159,7 +163,7 @@
         grid-template-columns: 1fr;
     }
 
-    .firstTable{
+    .firstTable {
         display: none;
     }
 
@@ -221,15 +225,6 @@
         padding: 20px 16px;
         border-radius: 16px;
         gap: 14px;
-    }
-
-    .firstRow h3 {
-        font-size: 18px;
-    }
-
-    .firstRow p {
-        font-size: 14px;
-        text-indent: 16px;
     }
 
     .mobileBoyWrapper {
