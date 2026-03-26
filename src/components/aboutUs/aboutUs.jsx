@@ -6,6 +6,12 @@ function AboutUs() {
         <Element name='AboutUs'>
             <div className="gradient">
                 <div className="aboutUs">
+                    <div className="aboutUs__gradient-container">
+                        <div className="aboutUs-gradient-layer-1" />
+                        <div className="aboutUs-gradient-layer-2" />
+                        <div className="aboutUs-gradient-layer-3" />
+                        <div className="aboutUs-gradient-layer-4" />
+                    </div>
                     <div className="allTables">
                         <div className="head_Announcements">
                             <h1>О нас</h1>

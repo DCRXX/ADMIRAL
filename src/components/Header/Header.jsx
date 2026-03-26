@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Header.css'
 import logo from './public/logo.svg'
 import VK from './public/VK.svg'
@@ -14,6 +14,23 @@ const isMobile = () =>
 
 export default function HeaderHero() {
   const [copied, setCopied] = useState(null);
+  const [showAdmiral, setShowAdmiral] = useState(false);
+  const [showPlayers, setShowPlayers] = useState(false);
+
+  useEffect(() => {
+    const admiralTimer = setTimeout(() => {
+      setShowAdmiral(true);
+    }, 400);
+
+    const playersTimer = setTimeout(() => {
+      setShowPlayers(true);
+    }, 700);
+
+    return () => {
+      clearTimeout(admiralTimer);
+      clearTimeout(playersTimer);
+    };
+  }, []);
 
   const copyToClipboard = (text, type) => {
     navigator.clipboard.writeText(text).then(() => {
@@ -39,54 +56,56 @@ export default function HeaderHero() {
   return (
     <section className='Header_Hero'>
       <header className="header">
-        
-          <a href=''>
-            <img src={logo} className="logo" alt="Логотип" />
-          </a>
-          
-          <div className="right-group">
-            <Link to='FAQ' smooth={true} duration={1200} offset={-200}>
-              <button className="button" type="button">
-                <p>Записаться</p>
-              </button>
-            </Link>
+        <a href=''>
+          <img src={logo} className="logo" alt="Логотип" />
+        </a>
 
-              <div className="nav-2">
-                <li style={{ position: 'relative' }}>
-                  <a href={`tel:${PHONE}`} onClick={handlePhone} style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
-                    {PHONE}
-                  </a>
-                  {copied === 'phone' && (
-                    <span className="copied-toast">Скопировано</span>
-                  )}
-                </li>
-                <li style={{ position: 'relative' }}>
-                  <a href={`mailto:${EMAIL}`} onClick={handleEmail} style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
-                    {EMAIL}
-                  </a>
-                  {copied === 'email' && (
-                    <span className="copied-toast">Скопировано</span>
-                  )}
-                </li>
-              </div>
-              <div className="nav-3">
-                <a href='https://vk.com/fcadmiral'>
-                  <img src={VK} alt="ВКонтакте" />
-                </a>
-              </div>
-            </div>
-        
+        <div className="right-group">
+          <Link to='FAQ' smooth={true} duration={1200} offset={-200}>
+            <button className="button" type="button">
+              <p>Записаться</p>
+            </button>
+          </Link>
+
+          <div className="nav-2">
+            <li style={{ position: 'relative' }}>
+              <a href={`tel:${PHONE}`} onClick={handlePhone} style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
+                {PHONE}
+              </a>
+              {copied === 'phone' && (
+                <span className="copied-toast">Скопировано</span>
+              )}
+            </li>
+            <li style={{ position: 'relative' }}>
+              <a href={`mailto:${EMAIL}`} onClick={handleEmail} style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
+                {EMAIL}
+              </a>
+              {copied === 'email' && (
+                <span className="copied-toast">Скопировано</span>
+              )}
+            </li>
+          </div>
+          <div className="nav-3">
+            <a href='https://vk.com/fcadmiral '>
+              <img src={VK} alt="ВКонтакте" />
+            </a>
+          </div>
+        </div>
       </header>
+
       <section className="hero">
         <div className="hero-content">
           <div className="football_school">
             <p>ФУТБОЛЬНАЯ ШКОЛА</p>
           </div>
-          <div className="admiral-name">
-            <img src={ADMIRAL} />
+          <div className={`admiral-name ${showAdmiral ? 'show' : ''}`}>
+            <img src={ADMIRAL} alt="АДМИРАЛ" />
           </div>
         </div>
-        <div className='players'>
+
+        <div className={`bottom-gradient ${showPlayers ? 'show' : ''}`}></div>
+
+        <div className={`players ${showPlayers ? 'show' : ''}`}>
           <img
             src={foot_players}
             className="football_players"

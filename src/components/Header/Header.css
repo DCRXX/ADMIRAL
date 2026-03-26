@@ -157,20 +157,77 @@
     letter-spacing: 100%;
 }
 
-@media screen and (max-width:660px) {
-    .football_players {
-        width: clamp(320px, 90vw, 100vw);
-    }
+.admiral-name {
+    grid-row: 2;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-@media screen and (max-width: 500px) {
-    .nav-2 {
-        display: none;
-    }
+.admiral-name.show {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
 
-    .nav-3 {
-        display: none;
-    }
+.admiral-name img {
+    position: relative;
+    width: 100%;
+    z-index: -2;
+}
+
+.players {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    width: 10vw;
+    left: 45%;
+    top: 9%;
+    height: 10vw;
+    grid-row: 3;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.players.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.football_players {
+    position: absolute;
+    width: clamp(350px, 75vw, 100vw);
+    height: auto;
+    z-index: -1;
+}
+
+.hero {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    padding-inline: clamp(10px, 3vw, 500px);
+    row-gap: clamp(40px, 5vw, 500px);
+    padding-top: clamp(10px, 2vw, 100px);
+    background: linear-gradient(to top,
+            rgba(16, 16, 16, 1) 3%,
+            rgba(31, 31, 31, 0.3) 30%,
+            rgba(0, 0, 0, 0.05) 100%);
+    overflow: hidden;
+    position: relative;
+}
+
+.bottom-gradient {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(to top,
+            rgba(16, 16, 16, 1) 0%,
+            rgba(31, 31, 31, 0.8) 30%,
+            rgba(31, 31, 31, 0.3) 60%,
+            rgba(0, 0, 0, 0) 100%);
+    z-index: 1;
 }
 
 .copied-toast {
@@ -187,6 +244,22 @@
     pointer-events: none;
     animation: toast-fade 2s ease forwards;
     z-index: 9999;
+}
+
+@media screen and (max-width:660px) {
+    .football_players {
+        width: clamp(320px, 90vw, 100vw);
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .nav-2 {
+        display: none;
+    }
+
+    .nav-3 {
+        display: none;
+    }
 }
 
 @keyframes toast-fade {

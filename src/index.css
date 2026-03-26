@@ -44,3 +44,48 @@ input {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* анимации */
+
+.aboutUs,
+.Announcements,
+.advantages,
+.Football_borders,
+.CoachingStaff,
+.theFirstStep,
+.parents,
+.FAQ,
+.footer {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.aboutUs.visible,
+.Announcements.visible,
+.advantages.visible,
+.Football_borders.visible,
+.CoachingStaff.visible,
+.theFirstStep.visible,
+.parents.visible,
+.FAQ.visible,
+.footer.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aboutUs,
+  .Announcements,
+  .advantages,
+  .Football_borders,
+  .CoachingStaff,
+  .theFirstStep,
+  .parents,
+  .FAQ,
+  .footer {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

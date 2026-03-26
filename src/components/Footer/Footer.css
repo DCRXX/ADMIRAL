@@ -81,7 +81,7 @@
 }
 
 .footer__socials img {
-    width: clamp(30px, 1.5vw, 500px);
+    width: clamp(30px, 2.5vw, 500px);
     object-fit: contain;
 }
 

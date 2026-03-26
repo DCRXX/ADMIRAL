@@ -152,6 +152,11 @@ export default function Announcements() {
     const isMobile = useIsMobile();
     return (
         <section className="Announcements">
+            <div className="Announcements__gradient-container">
+                <div className="gradient-layer-1" />
+                <div className="gradient-layer-2" />
+                <div className="gradient-layer-3" />
+            </div>
             <div className="head_Announcements">
                 <h1>Анонсы</h1>
             </div>

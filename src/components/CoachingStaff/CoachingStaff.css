@@ -128,7 +128,7 @@
     background-color: #272727;
     gap: clamp(5px, .2vw, 50px);
     border-radius: 0px 0px clamp(10px, 1vw, 50px) clamp(10px, 1vw, 50px);
-    min-height: 200px;
+    min-height: 250px;
 }
 
 .FIO {
@@ -234,5 +234,9 @@
 
     .card-flag {
         width: clamp(15px, 2.5vw, 100px);
+    }
+
+    .description_Coaching {
+        min-height: 200px;
     }
 }

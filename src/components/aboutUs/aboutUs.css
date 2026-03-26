@@ -7,11 +7,108 @@
 
 .aboutUs {
     position: relative;
+    background: transparent;
+    min-height: 600px;
+}
+
+.aboutUs__gradient-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.aboutUs-gradient-layer-1 {
+    position: absolute;
+    top: -30%;
+    left: -20%;
+    right: -20%;
+    height: 90%;
+    background: linear-gradient(to bottom,
+            rgba(16, 16, 16, 0.95) 0%,
+            rgba(31, 31, 31, 0.3) 40%,
+            transparent 100%);
+    opacity: 0;
+    filter: blur(80px) brightness(0.7);
+    transform: scale(1.4, 0.5) translateY(-120px);
+    transition:
+        opacity 0.6s ease-out 0.2s,
+        filter 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s,
+        transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
+}
+
+.aboutUs-gradient-layer-2 {
+    position: absolute;
+    top: -15%;
+    left: -15%;
+    right: -15%;
+    height: 80%;
+    background: linear-gradient(to bottom,
+            transparent 10%,
+            rgba(31, 39, 65, 0.6) 35%,
+            rgba(46, 64, 132, 0.4) 60%,
+            transparent 100%);
+    opacity: 0;
+    filter: blur(50px) saturate(1.2);
+    transform: scale(1.2, 0.7) translateY(-80px);
+    transition:
+        opacity 0.7s ease-out 0.35s,
+        filter 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.35s,
+        transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.35s;
+}
+
+.aboutUs-gradient-layer-3 {
+    position: absolute;
+    top: 0;
+    left: -10%;
+    right: -10%;
+    height: 70%;
+    background: radial-gradient(ellipse 70% 35% at 50% 25%,
+            rgba(35, 45, 81, 0.5) 0%,
+            rgba(46, 64, 132, 0.3) 40%,
+            transparent 100%);
+    opacity: 0;
+    filter: blur(30px);
+    transform: translateY(-50px) scale(1.15);
+    transition:
+        opacity 0.5s ease-out 0.5s,
+        filter 0.8s ease-out 0.5s,
+        transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s;
+}
+
+.aboutUs-gradient-layer-4 {
+    position: absolute;
+    inset: 0;
     background: linear-gradient(to bottom,
             rgba(16, 16, 16, 1.00) 3%,
             rgba(31, 31, 31, 0.02) 24%,
             rgba(23, 23, 23, 0.57) 87%,
             rgba(16, 16, 16, 1.00) 100%);
+    opacity: 0;
+    transition: opacity 0.6s ease-out 0.7s;
+}
+
+.aboutUs.visible .aboutUs-gradient-layer-1 {
+    opacity: 1;
+    filter: blur(0px) brightness(1);
+    transform: scale(1) translateY(0);
+}
+
+.aboutUs.visible .aboutUs-gradient-layer-2 {
+    opacity: 0.85;
+    filter: blur(0px) saturate(1);
+    transform: scale(1) translateY(0);
+}
+
+.aboutUs.visible .aboutUs-gradient-layer-3 {
+    opacity: 0.6;
+    filter: blur(0px);
+    transform: translateY(0) scale(1);
+}
+
+.aboutUs.visible .aboutUs-gradient-layer-4 {
+    opacity: 1;
 }
 
 .allTables {
@@ -59,6 +156,8 @@
     padding: clamp(20px, 5vw, 50px);
     margin-top: clamp(25px, 5vw, 55px);
     gap: clamp(22.2px, 2vw, 28px);
+    position: relative;
+    z-index: 1;
     transition: all 0.3s ease;
 }
 
