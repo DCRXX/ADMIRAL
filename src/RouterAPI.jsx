@@ -1,6 +1,5 @@
-const API_BASE_URL = '';
-
-
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+const API_KEY = import.meta.env.VITE_API_KEY
 
 /**
  * @returns {Promise<boolean>}
@@ -11,6 +10,7 @@ export const checkApiConnection = async () => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                'x-api-key': API_KEY
             },
         });
         
@@ -40,6 +40,7 @@ export const apiRequest = async (endpoint, options = {}) => {
         const response = await fetch(url, {
             headers: {
                 'Content-Type': 'application/json',
+                'x-api-key': API_KEY,
                 ...options.headers,
             },
             ...options,
@@ -73,14 +74,14 @@ export const sendFAQForm = async (formData) => {
     };
 
     const payload = {
-        full_name: formData.full_name,
-        birthday: formatDate(formData.birthday), 
-        parrents_full_name: formData.parrents_full_name,
-        number_phone: formData.number_phone,
-        fillial: formData.fillial
+        FIOchildren: formData.FIOchildren,
+        ChildDateBirth: formatDate(formData.ChildDateBirth), 
+        FIOparent: formData.FIOparent,
+        Phone: formData.Phone,
+        Branch: formData.Branch
     };
     
-    return apiRequest('/form/send_form', {
+    return apiRequest('/public/form', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

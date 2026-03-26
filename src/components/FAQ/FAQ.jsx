@@ -33,13 +33,14 @@ const MapComponent = ({ branches, selectedBranch, mapCenter }) => (
 );
 
 export default function FAQ() {
-    const [fioChildren, setFioChildren] = useState('');
-    const [dateOfBirth, setDateOfBirth] = useState('');
-    const [fioParent, setFioParent] = useState('');
-    const [phone, setPhone] = useState('');
+    const [FIOchildren, setFIOchildren] = useState('');
+    const [ChildDateBirth, setChildDateBirth] = useState('');
+    const [FIOparent, setFIOparent] = useState('');
+    const [Phone, setPhone] = useState('');
+    const [selectedBranch, setSelectedBranch] = useState('');
+
     const [isFocused, setIsFocused] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedBranch, setSelectedBranch] = useState('');
     const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
     const [isConnected, setIsConnected] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -102,10 +103,10 @@ export default function FAQ() {
 
     const validateForm = () => {
         const errors = [];
-        if (!fioChildren.trim()) errors.push('ФИО ребенка не заполнено');
-        if (!dateOfBirth) errors.push('Дата рождения не выбрана');
-        if (!fioParent.trim()) errors.push('ФИО родителя не заполнено');
-        const phoneDigits = phone.replace(/\D/g, '');
+        if (!FIOchildren.trim()) errors.push('ФИО ребенка не заполнено');
+        if (!ChildDateBirth) errors.push('Дата рождения не выбрана');
+        if (!FIOparent.trim()) errors.push('ФИО родителя не заполнено');
+        const phoneDigits = Phone.replace(/\D/g, '');
         if (phoneDigits.length !== 11) errors.push('Номер телефона неполный');
         if (!selectedBranch) errors.push('Филиал не выбран');
         return errors;
@@ -122,11 +123,11 @@ export default function FAQ() {
         }
 
         const formData = {
-            full_name: fioChildren.trim(),
-            birthday: dateOfBirth,
-            parrents_full_name: fioParent.trim(),
-            number_phone: phone,
-            fillial: selectedBranch
+            FIOchildren: FIOchildren.trim(),
+            ChildDateBirth: ChildDateBirth,
+            FIOparent: FIOparent.trim(),
+            Phone: Phone,
+            Branch: selectedBranch
         };
 
         setIsSubmitting(true);
@@ -134,9 +135,9 @@ export default function FAQ() {
         try {
             const result = await sendFAQForm(formData);
             console.log('Форма успешно отправлена!');
-            setFioChildren('');
-            setDateOfBirth('');
-            setFioParent('');
+            setFIOchildren('');
+            setChildDateBirth('');
+            setFIOparent('');
             setPhone('');
             setSelectedBranch('');
         } catch (error) {
@@ -162,8 +163,8 @@ export default function FAQ() {
                         className='FIO_children'
                         type='text'
                         placeholder='ФИО ребенка*'
-                        value={fioChildren}
-                        onChange={(e) => setFioChildren(e.target.value)}
+                        value={FIOchildren}
+                        onChange={(e) => setFIOchildren(e.target.value)}
                         required
                     />
 
@@ -176,11 +177,11 @@ export default function FAQ() {
                             name="dateOfBirth"
                             className='Date_of_birth'
                             type='date'
-                            value={dateOfBirth}
+                            value={ChildDateBirth}
                             onChange={(e) => {
                                 const val = e.target.value;
                                 if (val === '' || /^\d{0,4}-?\d{0,2}-?\d{0,2}$/.test(val)) {
-                                    setDateOfBirth(val);
+                                    setChildDateBirth(val);
                                 }
                             }}
                             onKeyDown={(e) => {
@@ -200,8 +201,8 @@ export default function FAQ() {
                         className='FIO_parent'
                         type='text'
                         placeholder='ФИО родителя*'
-                        value={fioParent}
-                        onChange={(e) => setFioParent(e.target.value)}
+                        value={FIOparent}
+                        onChange={(e) => setFIOparent(e.target.value)}
                         required
                     />
 
@@ -210,7 +211,7 @@ export default function FAQ() {
                         name="phone"
                         className='Phone_number'
                         type='tel'
-                        value={phone}
+                        value={Phone}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         placeholder='Номер телефона*'
