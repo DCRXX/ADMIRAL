@@ -29,7 +29,7 @@
 .boys-track {
     display: flex;
     gap: clamp(24px, 2.5vw, 100px);
-    overflow-x: hidden;
+    overflow-x: scroll;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;

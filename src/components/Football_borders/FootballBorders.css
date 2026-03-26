@@ -21,7 +21,6 @@
 .Football_main h1 {
     color: #FFFFFF;
     font-size: clamp(32px, 3.7vw, 250px);
-    padding-top: clamp(20px, 5vw, 500px);
 }
 
 .Football_main p {
@@ -43,7 +42,7 @@
 
 @media screen and (max-width:1100px) {
     .Football_main {
-        padding: 0 clamp(20px, 4vw, 50px);
+        padding: 0 clamp(10px, 3.2vw, 30px);
     }
 
     .Football_main p {
@@ -58,7 +57,7 @@
 @media screen and (max-width: 630px) {
     .video_Football {
         margin-inline: auto;
-        width: 90%;
+        width: 100%;
         height: clamp(150px, 95vw, 500px);
     }
 

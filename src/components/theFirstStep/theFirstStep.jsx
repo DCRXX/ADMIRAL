@@ -43,7 +43,7 @@ export default function theFirstStep() {
             const step = card.offsetWidth + gap;
             smoothScrollBy(-step);
         };
-
+        
         prevBtnRef.current?.addEventListener('click', handlePrev);
         nextBtnRef.current?.addEventListener('click', handleNext);
 
@@ -57,7 +57,7 @@ export default function theFirstStep() {
         <section className='theFirstStep'>
             <div className="name">
                 <h1>Первый шаг в академию</h1>
-                </div>
+            </div>
 
             <div className="firstLayer">
                 <div className="carousel-wrapper-thefirst">
