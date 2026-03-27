@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import './theFirstStep.css';
 
 import arrow from "./public/arrow.svg";
@@ -11,10 +11,16 @@ import secondBoy from "./public/boy2.svg";
 import thirdBoy from "./public/boy3.svg";
 import zaglushka from "./public/zaglushka.svg"
 
+import { useScrollAnimation } from '../../useScrollAnimation.js';
+
 export default function theFirstStep() {
     const trackRef = useRef(null);
     const prevBtnRef = useRef(null);
     const nextBtnRef = useRef(null);
+
+    const [aboutData, setAboutData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const sectionRef = useScrollAnimation([isLoading, aboutData]);
 
     useEffect(() => {
         const track = trackRef.current;
@@ -54,10 +60,10 @@ export default function theFirstStep() {
     }, []);
 
     return (
-        <section className='theFirstStep'>
+        <section className='theFirstStep' ref={sectionRef}>
             <div className="name">
                 <h1>Первый шаг в академию</h1>
-                </div>
+            </div>
 
             <div className="firstLayer">
                 <div className="carousel-wrapper-thefirst">

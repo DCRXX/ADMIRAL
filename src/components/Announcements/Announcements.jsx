@@ -1,4 +1,4 @@
-import React from 'react';
+import {React} from 'react';
 import './Announcements.css';
 import arrow from './public/arrow.svg';
 import { Link } from 'react-scroll';
@@ -8,6 +8,8 @@ import {
     useMobileCarousel,
     useDesktopCarousel
 } from './carouselFunction';
+import { useScrollAnimation } from '../../useScrollAnimation';
+import { useState } from 'react';
 
 function MobileCarousel() {
     const {
@@ -150,8 +152,11 @@ function DesktopCarousel() {
 
 export default function Announcements() {
     const isMobile = useIsMobile();
+    const [aboutData, setAboutData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const sectionRef = useScrollAnimation([isLoading, aboutData]);
     return (
-        <section className="Announcements">
+        <section className="Announcements" ref={sectionRef}>
             <div className="Announcements__gradient-container">
                 <div className="gradient-layer-1" />
                 <div className="gradient-layer-2" />

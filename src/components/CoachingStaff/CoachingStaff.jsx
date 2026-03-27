@@ -1,16 +1,20 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import './CoachingStaff.css';
-import arrow from "./public/arrow.svg"; 
+import arrow from "./public/arrow.svg";
 import ball from './public/ball.svg';
 import ball2 from './public/ball2.svg';
 import ruflag from './public/ruflag.png';
 import armflag from './public/armflag.png';
-
+import { useScrollAnimation } from '../../useScrollAnimation.js'; 
 
 export default function CoachingStaff() {
     const scrollRef = useRef(null);
     const prevBtnRef = useRef(null);
     const nextBtnRef = useRef(null);
+
+    const [aboutData, setAboutData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const sectionRef = useScrollAnimation([isLoading, aboutData]);
 
     useEffect(() => {
         const el = scrollRef.current;
@@ -50,13 +54,13 @@ export default function CoachingStaff() {
     }, []);
 
     return (
-        <section className='CoachingStaff'>
+        <section className='CoachingStaff' ref={sectionRef}>
             <div className='head_Announcements'>
                 <h1>Тренерский штаб</h1>
             </div>
             <div className='description_CoachingStaff'>
                 <p>
-                    Тренерский штаб нашей школы — это команда высококвалифицированных специалистов, 
+                    Тренерский штаб нашей школы — это команда высококвалифицированных специалистов,
                     объединённых общей целью: раскрыть потенциал каждого ученика и помочь ему достичь значимых результатов.
                 </p>
             </div>
@@ -64,10 +68,10 @@ export default function CoachingStaff() {
             <div className="carousel-wrapper-thefirst">
                 <div className='overflow_carusel' ref={scrollRef}>
                     <div className='Coaching_main'>
-                        
+
                         <div className='Block_Coaching'>
                             <img className='card-flag' src={ruflag} alt='RU' />
-                            <img className='ball_1' src={ball}  alt="" draggable="false" />
+                            <img className='ball_1' src={ball} alt="" draggable="false" />
                             <img className='ball_2' src={ball2} alt="" draggable="false" />
                             <div className='description_Coaching'>
                                 <h1 className='FIO'>Евгений Васильевич Терехов</h1>
@@ -78,8 +82,8 @@ export default function CoachingStaff() {
 
                         <div className='Block_Coaching'>
                             <img className='card-flag' src={ruflag} alt='RU' />
-                        
-                            <img className='ball_1' src={ball}  alt="" draggable="false" />
+
+                            <img className='ball_1' src={ball} alt="" draggable="false" />
                             <img className='ball_2' src={ball2} alt="" draggable="false" />
                             <div className='description_Coaching'>
                                 <h1 className='FIO'>Владислав Николаевич Громов</h1>
@@ -91,8 +95,8 @@ export default function CoachingStaff() {
 
                         <div className='Block_Coaching'>
                             <img className='card-flag' src={ruflag} alt='RU' />
-                        
-                            <img className='ball_1' src={ball}  alt="" draggable="false" />
+
+                            <img className='ball_1' src={ball} alt="" draggable="false" />
                             <img className='ball_2' src={ball2} alt="" draggable="false" />
                             <div className='description_Coaching'>
                                 <h1 className='FIO'>Дмитрий Владимирович Шапиро</h1>
@@ -104,8 +108,8 @@ export default function CoachingStaff() {
 
                         <div className='Block_Coaching'>
                             <img className='card-flag' src={ruflag} alt='RU' />
-                        
-                            <img className='ball_1' src={ball}  alt="" draggable="false" />
+
+                            <img className='ball_1' src={ball} alt="" draggable="false" />
                             <img className='ball_2' src={ball2} alt="" draggable="false" />
                             <div className='description_Coaching'>
                                 <h1 className='FIO'>Василий Олегович Извозчиков</h1>
@@ -117,7 +121,7 @@ export default function CoachingStaff() {
 
                         <div className='Block_Coaching'>
                             <img className='card-flag' src={ruflag} alt='RU' />
-                            <img className='ball_1' src={ball}  alt="" draggable="false" />
+                            <img className='ball_1' src={ball} alt="" draggable="false" />
                             <img className='ball_2' src={ball2} alt="" draggable="false" />
                             <div className='description_Coaching'>
                                 <h1 className='FIO'>Христофор Арменович Аракелян</h1>
@@ -129,7 +133,7 @@ export default function CoachingStaff() {
 
                         <div className='Block_Coaching'>
                             <img className='card-flag' src={ruflag} alt='RU' />
-                            <img className='ball_1' src={ball}  alt="" draggable="false" />
+                            <img className='ball_1' src={ball} alt="" draggable="false" />
                             <img className='ball_2' src={ball2} alt="" draggable="false" />
                             <div className='description_Coaching'>
                                 <h1 className='FIO'>Кирилл Евгеньевич Ивашкин</h1>
@@ -140,19 +144,19 @@ export default function CoachingStaff() {
 
                         <div className='Block_Coaching'>
                             <img className='card-flag' src={ruflag} alt='RU' />
-                            <img className='ball_1' src={ball}  alt="" draggable="false" />
+                            <img className='ball_1' src={ball} alt="" draggable="false" />
                             <img className='ball_2' src={ball2} alt="" draggable="false" />
                             <div className='description_Coaching'>
                                 <h1 className='FIO'>Наталия Андреевна Шатрова</h1>
                                 <p className='profile'>Тренер</p>
                                 <p className='Experience'>Тренер-преподаватель по футболу (Центр им. К.И. Бескова)</p>
-                            
+
                             </div>
                         </div>
 
                         <div className='Block_Coaching'>
                             <img className='card-flag' src={ruflag} alt='RU' />
-                            <img className='ball_1' src={ball}  alt="" draggable="false" />
+                            <img className='ball_1' src={ball} alt="" draggable="false" />
                             <img className='ball_2' src={ball2} alt="" draggable="false" />
                             <div className='description_Coaching'>
                                 <h1 className='FIO'>Денис Юрьевич Панюшкин</h1>
@@ -164,7 +168,7 @@ export default function CoachingStaff() {
 
                         <div className='Block_Coaching'>
                             <img className='card-flag' src={ruflag} alt='RU' />
-                            <img className='ball_1' src={ball}  alt="" draggable="false" />
+                            <img className='ball_1' src={ball} alt="" draggable="false" />
                             <img className='ball_2' src={ball2} alt="" draggable="false" />
                             <div className='description_Coaching'>
                                 <h1 className='FIO'>Сергей Вадимович Дабагян</h1>
@@ -176,19 +180,19 @@ export default function CoachingStaff() {
 
                         <div className='Block_Coaching'>
                             <img className='card-flag' src={armflag} alt='AM' />
-                            <img className='ball_1' src={ball}  alt="" draggable="false" />
+                            <img className='ball_1' src={ball} alt="" draggable="false" />
                             <img className='ball_2' src={ball2} alt="" draggable="false" />
                             <div className='description_Coaching'>
                                 <h1 className='FIO'>Эдгар Арменович Манукян</h1>
                                 <p className='profile'>Тренер</p>
                                 <p className='Experience'>Высшее педагогическое образование</p>
-                            
+
                             </div>
                         </div>
 
                         <div className='Block_Coaching'>
                             <img className='card-flag' src={ruflag} alt='RU' />
-                            <img className='ball_1' src={ball}  alt="" draggable="false" />
+                            <img className='ball_1' src={ball} alt="" draggable="false" />
                             <img className='ball_2' src={ball2} alt="" draggable="false" />
                             <div className='description_Coaching'>
                                 <h1 className='FIO'>Мохаммед Бегмуродович Каландаров</h1>
@@ -199,7 +203,7 @@ export default function CoachingStaff() {
 
                         <div className='Block_Coaching'>
                             <img className='card-flag' src={ruflag} alt='RU' />
-                            <img className='ball_1' src={ball}  alt="" draggable="false" />
+                            <img className='ball_1' src={ball} alt="" draggable="false" />
                             <img className='ball_2' src={ball2} alt="" draggable="false" />
                             <div className='description_Coaching'>
                                 <h1 className='FIO'>Елизавета Артуровна Хотеева</h1>

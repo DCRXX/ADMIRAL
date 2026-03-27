@@ -1,12 +1,16 @@
-import React from 'react';
+import {useState} from 'react';
 import './Parentsfc.css';
-
+import { useScrollAnimation } from '../../useScrollAnimation.js';
 import dadsImg from './public/dad.svg';
 import momsImg from './public/moms.svg';
 
 export default function ParentsFC() {
+  const [aboutData, setAboutData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const sectionRef = useScrollAnimation([isLoading, aboutData]);
+
   return (
-    <section className="parents">
+    <section className="parents" ref={sectionRef}>
       <div className="parents__title">
         <h1>Родительские ФК</h1>
       </div>

@@ -1,13 +1,19 @@
-import React from 'react';
+import { React, useState } from 'react';
 import './Advantages.css';
+import { useScrollAnimation } from '../../useScrollAnimation.js';
 
 import goalkeepersImg from './public/shkolavratarey.png';
 import summercampsImg from './public/summersbors.png';
 import trainingcampsImg from './public/uchebyiy.png';
 
 export default function Advantages() {
+
+  const [aboutData, setAboutData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const sectionRef = useScrollAnimation([isLoading, aboutData]);
+
   return (
-    <section className="advantages">
+    <section className="advantages" ref={sectionRef}>
 
       <div className="advantages__gradient-top" />
 

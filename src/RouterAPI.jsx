@@ -89,3 +89,19 @@ export const sendFAQForm = async (formData) => {
         body: JSON.stringify(payload),
     });
 };
+
+// aboutUs
+export const getAboutUs = async () => {
+    try {
+        return await apiRequest('/abouUs', { 
+            method: 'GET', 
+            headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': API_KEY,
+        },
+        });
+    } catch (error) {
+        console.error('Ошибка получения AboutUs:', error);
+        throw error;
+    }
+};

@@ -1,16 +1,16 @@
-import { StrictMode } from 'react'
+import { StrictMode, lazy, } from 'react'
 import { createRoot } from 'react-dom/client'
 import NbspCleaner from './NbspCleaner'
-import Announcements from './components/Announcements/Announcements'
-import CoachingStaff from './components/CoachingStaff/CoachingStaff'
-import FAQ from './components/FAQ/FAQ'
-import FootballBorders from './components/Football_borders/FootballBorders'
-import Footer from './components/Footer/Footer'
-import Parentsfc from './components/Parentsfc/Parentsfc'
-import Advantages from './components/Advantages/Advantages'
-import TheFirstStep from './components/theFirstStep/theFirstStep'
-import AboutUs from './components/aboutUs/aboutUs'
-import HeaderHero from './components/Header/Header'
+const HeaderHero = lazy(() => import('./components/Header/Header'));
+const AboutUs = lazy(() => import('./components/aboutUs/aboutUs'));
+const Announcements = lazy(() => import('./components/Announcements/Announcements'));
+const Advantages = lazy(() => import('./components/Advantages/Advantages'));
+const FootballBorders = lazy(() => import('./components/Football_borders/FootballBorders'));
+const CoachingStaff = lazy(() => import('./components/CoachingStaff/CoachingStaff'));
+const TheFirstStep = lazy(() => import('./components/theFirstStep/theFirstStep'));
+const Parentsfc = lazy(() => import('./components/Parentsfc/Parentsfc'));
+const FAQ = lazy(() => import('./components/FAQ/FAQ'));
+const Footer = lazy(() => import('./components/Footer/Footer'));
 import './index.css'
 
 createRoot(document.getElementById('root')).render(

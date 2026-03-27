@@ -175,18 +175,16 @@
 }
 
 .button {
-    background-color: transparent;
-    border: 1.5px solid #FFFFFF;
-    color: #FFFFFF;
-    font-size: clamp(14px, 0.9vw, 100px);
-    font-weight: 700;
-    text-transform: none;
-    border-radius: clamp(13px, 0.6vw, 12px);
-    padding: clamp(10px, 0.8vw, 14px) clamp(15px, 1.5vw, 30px);
+    font-size: clamp(12px, .9vw, 500px);
+    font-weight: 600;
+    text-transform: uppercase;
+    background-color: #dadada;
+    color: #0C0E19;
+    border: none;
+    border-radius: clamp(8px, .4vw, 100px);
+    padding: clamp(10px, .6vw, 100px) clamp(15px, 1vw, 100px);
     cursor: pointer;
     transition: all 0.3s ease;
-    flex-shrink: 0;
-    align-self: flex-end;
 }
 
 .button:hover {

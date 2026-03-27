@@ -42,20 +42,20 @@
     justify-content: space-between;
 }
 
-.button {
-    font-size: clamp(12px, 1vw, 500px);
+.button_zap {
+    font-size: clamp(12px, .9vw, 500px);
     font-weight: 600;
     text-transform: uppercase;
     background-color: #dadada;
     color: #0C0E19;
     border: none;
     border-radius: clamp(8px, .4vw, 100px);
-    padding: clamp(10px, .5vw, 100px) clamp(15px, 1vw, 100px);
+    padding: clamp(10px, .6vw, 100px) clamp(15px, 1vw, 100px);
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
-.button:hover {
+.button_zap:hover {
     background-color: #FFFFFF;
     color: #000000;
     transform: scale(1.02);
