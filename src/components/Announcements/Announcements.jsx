@@ -1,21 +1,20 @@
-import {React} from 'react';
+import React, { useState, useEffect } from 'react';
 import './Announcements.css';
 import arrow from './public/arrow.svg';
 import { Link } from 'react-scroll';
 import {
-    slidesData,
     useIsMobile,
     useMobileCarousel,
     useDesktopCarousel
 } from './carouselFunction';
 import { useScrollAnimation } from '../../useScrollAnimation';
-import { useState } from 'react';
+import { getAdvertisements } from '../../RouterAPI.jsx';
 
-function MobileCarousel() {
+function MobileCarousel({ slidesData }) {
     const {
         activeIndex, nextSlide, prevSlide,
         handleTouchStart, handleTouchEnd, animationDuration
-    } = useMobileCarousel({ animationDuration: 400 });
+    } = useMobileCarousel({ slidesData, animationDuration: 400 });
 
     return (
         <div className="mobile-carousel">
@@ -35,7 +34,7 @@ function MobileCarousel() {
                         <div
                             key={slide.id}
                             className="mobile-slide"
-                            style={{ backgroundImage: `url(${slide.image})` }}
+                            style={{ backgroundImage: `url(${slide.imagePath})` }}
                         >
                             <div className="mobile-slide__overlay" />
                             <div className="mobile-slide__title">
@@ -84,7 +83,7 @@ function MobileCarousel() {
     );
 }
 
-function DesktopCarousel() {
+function DesktopCarousel({ slidesData }) {
     const {
         extSlides,
         offset,
@@ -96,7 +95,7 @@ function DesktopCarousel() {
         handleTouchEnd,
         handleTransitionEnd,
         animationDuration,
-    } = useDesktopCarousel({ animationDuration: 800 });
+    } = useDesktopCarousel({ slidesData, animationDuration: 800 });
 
     return (
         <div className="carusel-hidden" ref={containerRef}>
@@ -116,7 +115,7 @@ function DesktopCarousel() {
                         <div
                             key={slide._extKey}
                             className={isActive ? 'slide_active' : 'slide_inactive'}
-                            style={{ backgroundImage: `url(${slide.image})` }}
+                            style={{ backgroundImage: `url(${slide.imagePath})` }}
                         >
                             {isActive && (
                                 <>
@@ -152,9 +151,28 @@ function DesktopCarousel() {
 
 export default function Announcements() {
     const isMobile = useIsMobile();
-    const [aboutData, setAboutData] = useState(null);
+    const [slides, setSlides] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const sectionRef = useScrollAnimation([isLoading, aboutData]);
+    const sectionRef = useScrollAnimation([isLoading, slides]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await getAdvertisements();
+                setSlides(data);
+            } catch (error) {
+                console.error('Ошибка загрузки Announcements:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchData();
+    }, []);
+
+    if (slides.length === 0) {
+        return null;
+    }
+
     return (
         <section className="Announcements" ref={sectionRef}>
             <div className="Announcements__gradient-container">
@@ -165,7 +183,7 @@ export default function Announcements() {
             <div className="head_Announcements">
                 <h1>Анонсы</h1>
             </div>
-            {isMobile ? <MobileCarousel /> : <DesktopCarousel />}
+            {isMobile ? <MobileCarousel slidesData={slides} /> : <DesktopCarousel slidesData={slides} />}
         </section>
     );
 }

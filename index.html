@@ -9,60 +9,6 @@
 </head>
 
 <body>
-  <!-- <script>
-    (function () {
-      if (window.scrollAnimationsInitialized) return;
-      window.scrollAnimationsInitialized = true;
-      const classes = ['aboutUs', 'Announcements', 'advantages', 'Football_borders',
-        'CoachingStaff', 'theFirstStep', 'parents', 'FAQ', 'footer'];
-
-      let attempts = 0;
-      const maxAttempts = 20;
-      function init() {
-        
-        const sections = classes.map(c => document.querySelector('.' + c)).filter(Boolean);
-
-        if (sections.length === 0 && attempts < maxAttempts) {
-          attempts++;
-          console.log('Секции не найдены, попытка #' + attempts);
-          setTimeout(init, 500);
-          return;
-        }
-        if (sections.length === 0) {
-          console.error('Секции не найдены после ' + maxAttempts + ' попыток');
-          return;
-        }
-
-        console.log('Найдено:', sections.length);
-
-        function isInViewport(el) {
-          const rect = el.getBoundingClientRect();
-          return rect.top < window.innerHeight && rect.bottom > 0;
-        }
-
-        sections.forEach(el => {
-          if (isInViewport(el)) {
-            el.classList.add('visible');
-          }
-        });
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
-              observer.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.05, rootMargin: '50px' });
-
-        sections.forEach(el => {
-          if (!el.classList.contains('visible')) {
-            observer.observe(el);
-          }
-        });
-      }
-      setTimeout(init, 300);
-    })();
-  </script> -->
   <div class="root" id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>

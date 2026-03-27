@@ -105,3 +105,33 @@ export const getAboutUs = async () => {
         throw error;
     }
 };
+
+// Advantages
+
+export const getAdvantages = async () => {
+    try {
+        return await apiRequest('/advantages', { method: 'GET', 
+            headers: {
+            'x-api-key': API_KEY,
+        },
+        });
+    } catch (error) {
+        console.error('Ошибка получения Advantages:', error);
+        throw error;
+    }
+};
+
+// Announcements
+
+export const getAdvertisements = async () => {
+    try {
+        return await apiRequest('/announcements', { method: 'GET',
+            headers: {
+            'x-api-key': API_KEY,
+        },
+        });
+    } catch (error) {
+        console.error('Ошибка получения Advertisements:', error);
+        throw error;
+    }
+};
