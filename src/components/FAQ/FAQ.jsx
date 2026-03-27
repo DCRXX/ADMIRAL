@@ -3,6 +3,7 @@ import './FAQ.css'
 import arrow from './public/arrow.svg'
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
 import { checkApiConnection, sendFAQForm } from '../../RouterAPI';
+import { useScrollAnimation } from '../../useScrollAnimation.js'; 
 
 
 
@@ -44,6 +45,10 @@ export default function FAQ() {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
     const [isConnected, setIsConnected] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const [aboutData, setAboutData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const sectionRef = useScrollAnimation([isLoading, aboutData]);
 
     useEffect(() => {
         const checkConnection = async () => {
@@ -150,7 +155,7 @@ export default function FAQ() {
     const mapCenter = selectedBranchData?.coords || [55.657702, 37.669949];
 
     return (
-        <section className='FAQ'>
+        <section className='FAQ' ref={sectionRef}>
             <div className='main-block'>
                 <form className='write_block' onSubmit={handleSubmit}>
                     <div className='write_header'>

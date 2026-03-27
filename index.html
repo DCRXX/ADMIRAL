@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  <script>
+  <!-- <script>
     (function () {
       if (window.scrollAnimationsInitialized) return;
       window.scrollAnimationsInitialized = true;
@@ -19,6 +19,7 @@
       let attempts = 0;
       const maxAttempts = 20;
       function init() {
+        
         const sections = classes.map(c => document.querySelector('.' + c)).filter(Boolean);
 
         if (sections.length === 0 && attempts < maxAttempts) {
@@ -61,7 +62,7 @@
       }
       setTimeout(init, 300);
     })();
-  </script>
+  </script> -->
   <div class="root" id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>

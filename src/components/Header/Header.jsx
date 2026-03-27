@@ -18,6 +18,7 @@ export default function HeaderHero() {
   const [showPlayers, setShowPlayers] = useState(false);
 
   useEffect(() => {
+
     const admiralTimer = setTimeout(() => {
       setShowAdmiral(true);
     }, 400);
@@ -62,7 +63,7 @@ export default function HeaderHero() {
 
         <div className="right-group">
           <Link to='FAQ' smooth={true} duration={1200} offset={-200}>
-            <button className="button" type="button">
+            <button className="button_zap" type="button">
               <p>Записаться</p>
             </button>
           </Link>

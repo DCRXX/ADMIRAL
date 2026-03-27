@@ -1,15 +1,20 @@
 import './FootballBorders.css'
+import  { useState} from 'react';
 import videoSrc from './video/IMG.mp4'
+import { useScrollAnimation } from '../../useScrollAnimation.js';
 
 export default function FootballBorders() {
+    const [aboutData, setAboutData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const sectionRef = useScrollAnimation([isLoading, aboutData]);
 
     return (
-        <section className='Football_borders'>
+        <section className='Football_borders' ref={sectionRef}>
             <div className='Football_main'>
                 <video
                     className='video_Football'
                     src={videoSrc}
-                    preload="auto" 
+                    preload="auto"
                     playsInline
                     autoPlay
                     muted
