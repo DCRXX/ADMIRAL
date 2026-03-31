@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+
 .FAQ {
     display: grid;
     justify-content: center;
     padding-bottom: clamp(20px, 5vw, 500px);
     padding-inline: clamp(10px, 4vw, 50px);
+    font-family: 'Montserrat', sans-serif;
 }
 
 .main-block {
@@ -12,14 +15,14 @@
     padding-block: clamp(15px, 2vw, 200px);
     background-color: #161616;
     border-radius: clamp(10px, 1vw, 50px);
-    box-shadow:
-        0 0 clamp(20px, 3vw, 100px) .1vw #2e4184;
+    box-shadow: 0 0 clamp(20px, 3vw, 100px) .1vw #2e4184;
     gap: clamp(5px, 2vw, 100px);
 }
 
 .write_header {
     color: #FFFFFF;
     font-size: clamp(12px, 1vw, 100px);
+    font-family: 'Montserrat', sans-serif;
 }
 
 .write_block {
@@ -39,12 +42,24 @@ input:focus {
 
 .input-group.error input,
 .input-group.error .branch {
-    box-shadow: 0 0 0 2px #ff4444;
+    outline: 2px solid #ff4444;
+    outline-offset: -2px;
     border-radius: 4px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.input-group.error input {
+    text-indent: 12px;
+    padding-left: 0;
+}
+
+.input-group.error .branch {
+    padding-left: 12px;
 }
 
 .input-group.error .Date_of_birth_label {
     color: #ff4444;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .error-message {
@@ -52,7 +67,8 @@ input:focus {
     font-size: clamp(11px, 0.8vw, 14px);
     margin-top: 5px;
     min-height: 16px;
-    padding-left: 5px;
+    padding-left: 12px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .DATA {
@@ -68,6 +84,7 @@ input:focus {
     transition: color 0.3s;
     margin-bottom: 4px;
     display: block;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .Phone_number,
@@ -77,7 +94,7 @@ input:focus {
     border: none;
     background: none;
     border-bottom: clamp(1px, .1vw, 5px) solid #656565;
-    padding-bottom: clamp(2px, .5vw, 10px);
+    padding: clamp(8px, .5vw, 12px) 0;
     color: #FFFFFF;
     font-size: clamp(17px, 1vw, 100px);
     width: 100%;
@@ -86,16 +103,18 @@ input:focus {
     appearance: none;
     border-radius: 0;
     transition: all 0.3s;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.4;
 }
 
 .Date_of_birth {
     color-scheme: dark;
-    font-family: inherit;
 }
 
 .Date_of_birth::placeholder {
     color: #888;
     font-size: clamp(14px, 0.9vw, 16px);
+    font-family: 'Montserrat', sans-serif;
 }
 
 .submitting_the_form,
@@ -104,6 +123,7 @@ input:focus {
     font-size: clamp(14px, .9vw, 50px);
     background-color: #2A2A2A;
     border-radius: clamp(5px, .5vw, 50px);
+    font-family: 'Montserrat', sans-serif;
 }
 
 .branch {
@@ -114,6 +134,8 @@ input:focus {
     padding-block: clamp(10px, .5vw, 50px);
     color: #FFFFFF;
     cursor: pointer;
+    box-sizing: border-box;
+    line-height: 1.4;
 }
 
 .Phone_number::placeholder,
@@ -122,6 +144,7 @@ input:focus {
     font-size: clamp(14px, .9vw, 100px);
     color: #656565;
     font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .branch img {
@@ -184,6 +207,7 @@ input:focus {
     border-radius: clamp(5px, .5vw, 50px);
     transition: all 0.3s ease-in-out;
     margin-top: 10px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .submitting_the_form:hover {
@@ -293,6 +317,7 @@ input:focus {
     align-items: center;
     z-index: 1000;
     animation: fadeIn 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .modal-content {
@@ -302,6 +327,7 @@ input:focus {
     max-width: 400px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     animation: slideIn 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .modal-header {
@@ -363,6 +389,7 @@ input:focus {
     cursor: pointer;
     font-size: 14px;
     transition: background 0.2s;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .modal-btn:hover {
@@ -390,10 +417,11 @@ input {
     -moz-appearance: none;
     appearance: none;
     border-radius: 0;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .Phone_number {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 16px !important;
     -webkit-text-size-adjust: 100%;
 }
