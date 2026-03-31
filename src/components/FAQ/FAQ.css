@@ -31,9 +31,33 @@ input:focus {
     outline: none;
 }
 
+.input-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.input-group.error input,
+.input-group.error .branch {
+    box-shadow: 0 0 0 2px #ff4444;
+    border-radius: 4px;
+}
+
+.input-group.error .Date_of_birth_label {
+    color: #ff4444;
+}
+
+.error-message {
+    color: #ff4444;
+    font-size: clamp(11px, 0.8vw, 14px);
+    margin-top: 5px;
+    min-height: 16px;
+    padding-left: 5px;
+}
+
 .DATA {
     display: grid;
-    gap: clamp(7px, .3vw, 10px);
+    gap: clamp(10px, .5vw, 15px);
     width: 100%;
 }
 
@@ -41,6 +65,9 @@ input:focus {
     color: #656565;
     font-size: clamp(14px, .9vw, 50px);
     font-weight: 500;
+    transition: color 0.3s;
+    margin-bottom: 4px;
+    display: block;
 }
 
 .Phone_number,
@@ -57,19 +84,26 @@ input:focus {
     box-sizing: border-box;
     -webkit-appearance: none;
     appearance: none;
+    border-radius: 0;
+    transition: all 0.3s;
 }
 
 .Date_of_birth {
     color-scheme: dark;
+    font-family: inherit;
 }
 
-.branch,
-.Phone_number::placeholder,
-.FIO_parent::placeholder,
-.FIO_children::placeholder {
-    font-size: clamp(14px, .9vw, 100px);
-    color: #656565;
-    font-weight: 500;
+.Date_of_birth::placeholder {
+    color: #888;
+    font-size: clamp(14px, 0.9vw, 16px);
+}
+
+.submitting_the_form,
+.dropdown-list,
+.branch {
+    font-size: clamp(14px, .9vw, 50px);
+    background-color: #2A2A2A;
+    border-radius: clamp(5px, .5vw, 50px);
 }
 
 .branch {
@@ -79,6 +113,15 @@ input:focus {
     padding-inline: clamp(10px, 1vw, 50px);
     padding-block: clamp(10px, .5vw, 50px);
     color: #FFFFFF;
+    cursor: pointer;
+}
+
+.Phone_number::placeholder,
+.FIO_parent::placeholder,
+.FIO_children::placeholder {
+    font-size: clamp(14px, .9vw, 100px);
+    color: #656565;
+    font-weight: 500;
 }
 
 .branch img {
@@ -88,14 +131,6 @@ input:focus {
 
 .branch img.rotate {
     transform: rotate(-180deg);
-}
-
-.submitting_the_form,
-.dropdown-list,
-.branch {
-    font-size: clamp(14px, .9vw, 50px);
-    background-color: #2A2A2A;
-    border-radius: clamp(5px, .5vw, 50px);
 }
 
 .branch-wrapper {
@@ -148,12 +183,18 @@ input:focus {
     cursor: pointer;
     border-radius: clamp(5px, .5vw, 50px);
     transition: all 0.3s ease-in-out;
+    margin-top: 10px;
 }
 
 .submitting_the_form:hover {
     background-color: rgb(255, 255, 255);
     color: #272727;
     transform: scale(1.03);
+}
+
+.submitting_the_form:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
 }
 
 .map_block {
@@ -237,5 +278,149 @@ input:focus {
 
     .write_block {
         grid-column: 1 / 3;
+    }
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: #333;
+    font-size: 18px;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    color: #333;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-body p {
+    margin: 0 0 10px 0;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.modal-hint {
+    color: #888;
+    font-size: 13px !important;
+    font-style: italic;
+}
+
+.modal-footer {
+    padding: 0 20px 20px 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modal-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.modal-btn:hover {
+    background: #0056b3;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0;
+}
+
+.Phone_number {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 16px !important;
+    -webkit-text-size-adjust: 100%;
+}
+
+input[type="tel"]::-webkit-outer-spin-button,
+input[type="tel"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+@supports (-webkit-touch-callout: none) {
+    .Date_of_birth_label {
+        font-size: 14px;
+    }
+    
+    input {
+        font-size: 16px !important;
+    }
+    
+    .Date_of_birth {
+        font-size: 16px !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .modal-content {
+        width: 95%;
+        margin: 20px;
     }
 }

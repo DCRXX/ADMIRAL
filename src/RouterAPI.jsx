@@ -63,8 +63,6 @@ export const apiRequest = async (endpoint, options = {}) => {
 
 // FAQ
 export const sendFAQForm = async (formData) => {
-
-    
     const formatDate = (isoDate) => {
         const date = new Date(isoDate);
         const day = String(date.getDate()).padStart(2, '0');
@@ -75,21 +73,49 @@ export const sendFAQForm = async (formData) => {
 
     const payload = {
         FIOchildren: formData.FIOchildren,
-        ChildDateBirth: formatDate(formData.ChildDateBirth), 
+        ChildDateBirth: formData.ChildDateBirth,
         FIOparent: formData.FIOparent,
         Phone: formData.Phone,
         Branch: formData.Branch
     };
     
-    return apiRequest('/public/form', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-    });
+    try {
+        const response = await apiRequest('/public/form', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        });
+        
+        return response;
+    } catch (error) {
+        if (error.status === 400 || error.response?.status === 400) {
+            let message = 'Неверные данные формы';
+
+            if (error.message && error.message.includes('Телефон должен начинаться')) {
+                message = 'Телефон должен начинаться с +7 9 (например: +7 916 123 45 67)';
+            } else if (error.message) {
+                message = error.message;
+            }
+            
+            const customError = new Error(message);
+            customError.status = 400;
+            throw customError;
+        }
+        
+        if (error.status === 429 || error.response?.status === 429) {
+            const message = error.message || 'Слишком много попыток. Попробуйте через 5 минут.';
+            const customError = new Error(message);
+            customError.status = 429;
+            throw customError;
+        }
+        
+        throw error;
+    }
 };
 
+{/*
 // aboutUs
 export const getAboutUs = async () => {
     try {
@@ -135,3 +161,84 @@ export const getAdvertisements = async () => {
         throw error;
     }
 };
+
+// FootbalBorders
+
+export const getFootbalBorders = async () => {
+    try {
+        return await apiRequest('/FootbalBorders', { 
+            method: 'GET',
+            headers: {
+                'x-api-key': API_KEY,
+            },
+        });
+    } catch (error) {
+        console.error('Ошибка получения FootbalBorders:', error);
+        throw error;
+    }
+};
+
+// CoachingStaff
+
+export const getCoachingStaff = async () => {
+    try {
+        return await apiRequest('/CoachingStaff', { 
+            method: 'GET',
+            headers: {
+                'x-api-key': API_KEY,
+            },
+        });
+    } catch (error) {
+        console.error('Ошибка получения CoachingStaff:', error);
+        throw error;
+    }
+};
+
+// theFirstStep 
+
+export const getTheFirstStep = async () => {
+    try {
+        return await apiRequest('/theFirstStep', { 
+            method: 'GET',
+            headers: {
+                'x-api-key': API_KEY,
+            },
+        });
+    } catch (error) {
+        console.error('Ошибка получения theFirstStep:', error);
+        throw error;
+    }
+};
+
+// Parentsfc
+
+export const getParentalFc = async () => {
+    try {
+        return await apiRequest('/parentalFc', { 
+            method: 'GET',
+            headers: {
+                'x-api-key': API_KEY,
+            },
+        });
+    } catch (error) {
+        console.error('Ошибка получения ParentalFc:', error);
+        throw error;
+    }
+};
+
+// footer and header
+
+export const getContactDetails = async () => {
+    try {
+        return await apiRequest('/contactDetails', { 
+            method: 'GET',
+            headers: {
+                'x-api-key': API_KEY,
+            },
+        });
+    } catch (error) {
+        console.error('Ошибка получения ContactDetails:', error);
+        throw error;
+    }
+};
+*/}

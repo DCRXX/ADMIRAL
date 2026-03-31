@@ -5,8 +5,6 @@ import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
 import { checkApiConnection, sendFAQForm } from '../../RouterAPI';
 import { useScrollAnimation } from '../../useScrollAnimation.js'; 
 
-
-
 const MapComponent = ({ branches, selectedBranch, mapCenter }) => (
     <YMaps>
         <Map
@@ -40,11 +38,14 @@ export default function FAQ() {
     const [Phone, setPhone] = useState('');
     const [selectedBranch, setSelectedBranch] = useState('');
 
-    const [isFocused, setIsFocused] = useState(false);
+    const [errors, setErrors] = useState({});
     const [isOpen, setIsOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
     const [isConnected, setIsConnected] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    
+    const [showRateLimitModal, setShowRateLimitModal] = useState(false);
+    const [rateLimitMessage, setRateLimitMessage] = useState('');
 
     const [aboutData, setAboutData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -77,26 +78,38 @@ export default function FAQ() {
     const selectedBranchData = branches.find(b => b.name === selectedBranch);
 
     const formatPhone = (value) => {
-        const digits = value.replace(/\D/g, '');
-        if (digits.length === 0) return '+7';
-        if (digits.length === 1 && digits === '7') return '+7';
-        const withoutSeven = digits.startsWith('7') ? digits.slice(1) : digits;
+        let digits = value.replace(/[^\d+]/g, '');
+        
+        if (digits.startsWith('8') && digits.length === 11) {
+            digits = '+7' + digits.slice(1);
+        }
+        
+        if (digits.startsWith('7') && !digits.startsWith('+7')) {
+            digits = '+7' + digits.slice(1);
+        }
+        
+        if (digits.length === 0 || digits === '+') return '+7';
+        
+        let cleanDigits = digits.replace(/\D/g, '');
+        if (cleanDigits.startsWith('7')) {
+            cleanDigits = cleanDigits.slice(1);
+        }
+        
         let formatted = '+7';
-        if (withoutSeven.length > 0) formatted += ' ' + withoutSeven.slice(0, 3);
-        if (withoutSeven.length > 3) formatted += ' ' + withoutSeven.slice(3, 6);
-        if (withoutSeven.length > 6) formatted += ' ' + withoutSeven.slice(6, 8);
-        if (withoutSeven.length > 8) formatted += ' ' + withoutSeven.slice(8, 10);
+        if (cleanDigits.length > 0) formatted += ' ' + cleanDigits.slice(0, 3);
+        if (cleanDigits.length > 3) formatted += ' ' + cleanDigits.slice(3, 6);
+        if (cleanDigits.length > 6) formatted += ' ' + cleanDigits.slice(6, 8);
+        if (cleanDigits.length > 8) formatted += ' ' + cleanDigits.slice(8, 10);
+        
         return formatted;
     };
 
-    const handleChange = (e) => {
+    const handlePhoneChange = (e) => {
         const formatted = formatPhone(e.target.value);
         setPhone(formatted);
-    };
-
-    const handleBlur = () => {
-        setIsFocused(false);
-        if (phone === '+7') setPhone('');
+        if (errors.phone) {
+            setErrors(prev => ({ ...prev, phone: '' }));
+        }
     };
 
     const toggleDropdown = () => setIsOpen(!isOpen);
@@ -104,26 +117,80 @@ export default function FAQ() {
     const handleSelectBranch = (branch) => {
         setSelectedBranch(branch);
         setIsOpen(false);
+        if (errors.branch) {
+            setErrors(prev => ({ ...prev, branch: '' }));
+        }
+    };
+
+    const parseDateInput = (value) => {
+        const digits = value.replace(/\D/g, '').slice(0, 8);
+        
+        if (digits.length === 0) return '';
+        
+        let day = digits.slice(0, 2);
+        let month = digits.slice(2, 4);
+        let year = digits.slice(4, 8);
+        
+        if (day.length === 1 && parseInt(day) > 3) day = '0' + day;
+        if (month.length === 1 && parseInt(month) > 1) month = '0' + month;
+        
+        let result = day;
+        if (month) result += '.' + month;
+        if (year) result += '.' + year;
+        
+        return result;
     };
 
     const validateForm = () => {
-        const errors = [];
-        if (!FIOchildren.trim()) errors.push('ФИО ребенка не заполнено');
-        if (!ChildDateBirth) errors.push('Дата рождения не выбрана');
-        if (!FIOparent.trim()) errors.push('ФИО родителя не заполнено');
+        const newErrors = {};
+        
+        if (!FIOchildren.trim()) {
+            newErrors.fioChildren = 'ФИО ребенка не заполнено';
+        }
+        
+        if (!ChildDateBirth) {
+            newErrors.childDateBirth = 'Дата рождения не выбрана';
+        } else {
+            const dateRegex = /^(\d{2})\.(\d{2})\.(\d{4})$/;
+            if (!dateRegex.test(ChildDateBirth)) {
+                newErrors.childDateBirth = 'Введите дату в формате';
+            } else {
+                const [, day, month, year] = ChildDateBirth.match(dateRegex);
+                const date = new Date(year, month - 1, day);
+                const now = new Date();
+                if (date > now) {
+                    newErrors.childDateBirth = 'Дата не может быть в будущем';
+                }
+            }
+        }
+        
+        if (!FIOparent.trim()) {
+            newErrors.fioParent = 'ФИО родителя не заполнено';
+        }
+        
         const phoneDigits = Phone.replace(/\D/g, '');
-        if (phoneDigits.length !== 11) errors.push('Номер телефона неполный');
-        if (!selectedBranch) errors.push('Филиал не выбран');
-        return errors;
+        
+        if (phoneDigits.length !== 11) {
+            newErrors.phone = 'Телефон должен содержать 11 цифр (пример: +7 999 999 99 99)';
+        } else if (!Phone.startsWith('+7')) {
+            newErrors.phone = 'Телефон должен начинаться с +7';
+        } else if (phoneDigits[1] !== '9') {
+            newErrors.phone = 'Телефон должен начинаться с +7 9 (например: +7 916 123 45 67)';
+        }
+        
+        if (!selectedBranch) {
+            newErrors.branch = 'Филиал не выбран';
+        }
+        
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Начало отправки формы...');
-
-        const errors = validateForm();
-        if (errors.length > 0) {
-            console.error('Ошибки валидации:', errors);
+        setErrors({});
+        
+        if (!validateForm()) {
             return;
         }
 
@@ -138,15 +205,23 @@ export default function FAQ() {
         setIsSubmitting(true);
 
         try {
-            const result = await sendFAQForm(formData);
-            console.log('Форма успешно отправлена!');
+            await sendFAQForm(formData);
             setFIOchildren('');
             setChildDateBirth('');
             setFIOparent('');
             setPhone('');
             setSelectedBranch('');
+            setErrors({});
         } catch (error) {
-            console.error('Ошибка:', error.message);
+            if (error.status === 429 || error.message.includes('429') || error.message.includes('слишком много')) {
+                setRateLimitMessage(error.message || 'Слишком много попыток. Попробуйте через 5 минут.');
+                setShowRateLimitModal(true);
+            } else if (error.status === 400 || error.message.includes('Телефон должен начинаться')) {
+                setErrors(prev => ({ 
+                    ...prev, 
+                    phone: 'Телефон должен начинаться с +7 9 (например: +7 916 123 45 67)' 
+                }));
+            }
         } finally {
             setIsSubmitting(false);
         }
@@ -157,84 +232,111 @@ export default function FAQ() {
     return (
         <section className='FAQ' ref={sectionRef}>
             <div className='main-block'>
-                <form className='write_block' onSubmit={handleSubmit}>
+                <form className='write_block' onSubmit={handleSubmit} noValidate autoComplete="off">
                     <div className='write_header'>
                         <h1>Присоединяйся к нам!</h1>
                     </div>
 
-                    <input
-                        id="fioChildren"
-                        name="fioChildren"
-                        className='FIO_children'
-                        type='text'
-                        placeholder='ФИО ребенка*'
-                        value={FIOchildren}
-                        onChange={(e) => setFIOchildren(e.target.value)}
-                        required
-                    />
+                    <div className={`input-group ${errors.fioChildren ? 'error' : ''}`}>
+                        <input
+                            id="fioChildren"
+                            name="fioChildren"
+                            className='FIO_children'
+                            type='text'
+                            placeholder='ФИО ребенка*'
+                            value={FIOchildren}
+                            onChange={(e) => {
+                                setFIOchildren(e.target.value);
+                                if (errors.fioChildren) {
+                                    setErrors(prev => ({ ...prev, fioChildren: '' }));
+                                }
+                            }}
+                            autoComplete="off"
+                            autoCorrect="off"
+                            autoCapitalize="words"
+                        />
+                        {errors.fioChildren && <span className="error-message">{errors.fioChildren}</span>}
+                    </div>
 
-                    <div className='DATA'>
+                    <div className={`input-group ${errors.childDateBirth ? 'error' : ''}`}>
                         <label className='Date_of_birth_label' htmlFor="dateOfBirth">
-                            Дата рождения ребенка*
+                            Дата рождения ребенка* (ДД.ММ.ГГГГ)
                         </label>
                         <input
                             id="dateOfBirth"
                             name="dateOfBirth"
                             className='Date_of_birth'
-                            type='date'
+                            type='text'
+                            inputMode="numeric"
+                            placeholder='ДД.ММ.ГГГГ'
                             value={ChildDateBirth}
                             onChange={(e) => {
-                                const val = e.target.value;
-                                if (val === '' || /^\d{0,4}-?\d{0,2}-?\d{0,2}$/.test(val)) {
-                                    setChildDateBirth(val);
+                                const formatted = parseDateInput(e.target.value);
+                                setChildDateBirth(formatted);
+                                if (errors.childDateBirth) {
+                                    setErrors(prev => ({ ...prev, childDateBirth: '' }));
                                 }
                             }}
-                            onKeyDown={(e) => {
-                                const allowed = ['Backspace','Delete','Tab','ArrowLeft','ArrowRight','ArrowUp','ArrowDown','-','/'];
-                                if (!allowed.includes(e.key) && !/^\d$/.test(e.key)) {
-                                    e.preventDefault();
-                                }
-                            }}
-                            max={new Date().toISOString().split('T')[0]}
-                            required
+                            maxLength={10}
+                            autoComplete="off"
                         />
+                        {errors.childDateBirth && <span className="error-message">{errors.childDateBirth}</span>}
                     </div>
 
-                    <input
-                        id="fioParent"
-                        name="fioParent"
-                        className='FIO_parent'
-                        type='text'
-                        placeholder='ФИО родителя*'
-                        value={FIOparent}
-                        onChange={(e) => setFIOparent(e.target.value)}
-                        required
-                    />
+                    <div className={`input-group ${errors.fioParent ? 'error' : ''}`}>
+                        <input
+                            id="fioParent"
+                            name="fioParent"
+                            className='FIO_parent'
+                            type='text'
+                            placeholder='ФИО родителя*'
+                            value={FIOparent}
+                            onChange={(e) => {
+                                setFIOparent(e.target.value);
+                                if (errors.fioParent) {
+                                    setErrors(prev => ({ ...prev, fioParent: '' }));
+                                }
+                            }}
+                            autoComplete="off"
+                            autoCorrect="off"
+                            autoCapitalize="words"
+                        />
+                        {errors.fioParent && <span className="error-message">{errors.fioParent}</span>}
+                    </div>
 
-                    <input
-                        id="phone"
-                        name="phone"
-                        className='Phone_number'
-                        type='tel'
-                        value={Phone}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        placeholder='Номер телефона*'
-                        required
-                    />
+                    <div className={`input-group ${errors.phone ? 'error' : ''}`}>
+                        <input
+                            id="phone"
+                            name="phone"
+                            className='Phone_number'
+                            type='tel'
+                            inputMode="tel"
+                            value={Phone}
+                            onChange={handlePhoneChange}
+                            placeholder='+7 999 999 99 99'
+                            autoComplete="off"
+                            autoCorrect="off"
+                            autoCapitalize="none"
+                            spellCheck="false"
+                        />
+                        {errors.phone && <span className="error-message">{errors.phone}</span>}
+                    </div>
 
-                    <div className={`branch-wrapper ${isOpen ? 'open' : ''}`}>
-                        <div className='branch' onClick={toggleDropdown}>
-                            <p>{selectedBranch || 'Выберите филиал*'}</p>
-                            <img src={arrow} className={isOpen ? 'rotate' : ''} alt="arrow" />
+                    <div className={`input-group ${errors.branch ? 'error' : ''}`}>
+                        <div className={`branch-wrapper ${isOpen ? 'open' : ''}`}>
+                            <div className='branch' onClick={toggleDropdown}>
+                                <p>{selectedBranch || 'Выберите филиал*'}</p>
+                                <img src={arrow} className={isOpen ? 'rotate' : ''} alt="arrow" />
+                            </div>
+                            <div className={`dropdown-list ${isOpen ? 'active' : ''}`}>
+                                {branches.map((branch) => (
+                                    <p key={branch.id} onClick={() => handleSelectBranch(branch.name)}>
+                                        {branch.name}
+                                    </p>
+                                ))}
+                            </div>
                         </div>
-                        <div className={`dropdown-list ${isOpen ? 'active' : ''}`}>
-                            {branches.map((branch) => (
-                                <p key={branch.id} onClick={() => handleSelectBranch(branch.name)}>
-                                    {branch.name}
-                                </p>
-                            ))}
-                        </div>
+                        {errors.branch && <span className="error-message">{errors.branch}</span>}
                     </div>
 
                     <button
@@ -264,6 +366,26 @@ export default function FAQ() {
                         selectedBranch={selectedBranch}
                         mapCenter={mapCenter}
                     />
+                </div>
+            )}
+
+            {showRateLimitModal && (
+                <div className="modal-overlay" onClick={() => setShowRateLimitModal(false)}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <div className="modal-header">
+                            <h3>Слишком много попыток</h3>
+                            <button className="modal-close" onClick={() => setShowRateLimitModal(false)}>×</button>
+                        </div>
+                        <div className="modal-body">
+                            <p>{rateLimitMessage}</p>
+                            <p className="modal-hint">Пожалуйста, подождите 5 минут перед следующей попыткой.</p>
+                        </div>
+                        <div className="modal-footer">
+                            <button className="modal-btn" onClick={() => setShowRateLimitModal(false)}>
+                                Понятно
+                            </button>
+                        </div>
+                    </div>
                 </div>
             )}
         </section>
