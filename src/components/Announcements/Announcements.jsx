@@ -34,7 +34,7 @@ function MobileCarousel({ slidesData }) {
                         <div
                             key={slide.id}
                             className="mobile-slide"
-                            style={{ backgroundImage: `url(${slide.imagePath})` }}
+                            style={{ backgroundImage: `url(${slide.image})` }}
                         >
                             <div className="mobile-slide__overlay" />
                             <div className="mobile-slide__title">
@@ -115,7 +115,7 @@ function DesktopCarousel({ slidesData }) {
                         <div
                             key={slide._extKey}
                             className={isActive ? 'slide_active' : 'slide_inactive'}
-                            style={{ backgroundImage: `url(${slide.imagePath})` }}
+                            style={{ backgroundImage: `url(${slide.image})` }}
                         >
                             {isActive && (
                                 <>

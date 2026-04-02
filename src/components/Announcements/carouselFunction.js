@@ -1,5 +1,45 @@
 import { useState, useRef, useEffect, useLayoutEffect, useCallback, useMemo } from 'react';
 
+import img2  from './public/image/img2.png';
+import img10 from './public/image/img10.jpg';
+import img11 from './public/image/img11.jpg';
+import img12 from './public/image/img12.jpg';
+
+const imagesById = {
+    1: img2,
+    2: img12,
+    3: img10,
+    4: img11,
+};
+
+export const slidesData = [
+    {
+        id: 1,
+        title: "Новое отделение Царицыно",
+        description: "Осенью 2025 года футбольная школа «Адмирал-ВМФ» открыла новое отделение на базе современного стадиона «Огонёк» в районе Царицыно. Это значимый шаг в развитии школы.",
+        image: imagesById[1],
+    },
+    {
+        id: 2,
+        title: "Присоединиться к нам можно в любое время",
+        description: "Двери нашей школы открыты для ребят всех возрастов 365 дней в году! Мы ждем футболистов и футболисток от 3-х лет! Почему мы?\n- квалифицированный тренерский штаб\n- удобные локации\n- регулярная соревновательная деятельность\n- комфортная среда для развития способностей",
+        image: imagesById[2],
+        showButton: true,
+    },
+    {
+        id: 3,
+        title: "Команда 2014 — победитель плей-офф MCL!",
+        description: "Наши ребята выиграли серебряный плей-офф чемпионата MCL сезона зима 2025–2026. Спасибо ребятам за самоотдачу, а родителям за поддержку! Двигаемся дальше!",
+        image: imagesById[3],
+    },
+    {
+        id: 4,
+        title: "Ребята с характером",
+        description: "Минувшие выходные выдались жаркими: турнир, борьба, голы и 3 место в копилку «Адмирала»!",
+        image: imagesById[4],
+    },
+];
+
 const MOBILE_BREAKPOINT = 750;
 
 export const useIsMobile = (breakpoint = MOBILE_BREAKPOINT) => {
@@ -12,11 +52,13 @@ export const useIsMobile = (breakpoint = MOBILE_BREAKPOINT) => {
     return isMobile;
 };
 
+
 const clamp = (min, val, max) => Math.max(min, Math.min(val, max));
 
 const getActiveWidth  = () => clamp(280, window.innerWidth * 0.58, 8000);
 const getInactiveWidth = () => clamp(160, window.innerWidth * 0.38, 5060);
 const getGap          = () => clamp(10,  window.innerWidth * 0.03, 48);
+
 
 const calcOffset = (extIndex, containerWidth) => {
     const aw  = getActiveWidth();
@@ -28,7 +70,7 @@ const calcOffset = (extIndex, containerWidth) => {
 };
 
 export const useMobileCarousel = (options = {}) => {
-    const { slidesData = [], animationDuration = 400 } = options;
+    const { animationDuration = 400 } = options;
     const [activeIndex, setActiveIndex] = useState(0);
     const animatingRef  = useRef(false);
     const touchStartX   = useRef(0);
@@ -40,8 +82,8 @@ export const useMobileCarousel = (options = {}) => {
         setTimeout(() => { animatingRef.current = false; }, animationDuration);
     }, [animationDuration]);
 
-    const nextSlide = useCallback(() => go((activeIndex + 1) % slidesData.length), [activeIndex, go, slidesData.length]);
-    const prevSlide = useCallback(() => go((activeIndex - 1 + slidesData.length) % slidesData.length), [activeIndex, go, slidesData.length]);
+    const nextSlide = useCallback(() => go((activeIndex + 1) % slidesData.length), [activeIndex, go]);
+    const prevSlide = useCallback(() => go((activeIndex - 1 + slidesData.length) % slidesData.length), [activeIndex, go]);
 
     const handleTouchStart = useCallback((e) => { touchStartX.current = e.touches[0].clientX; }, []);
     const handleTouchEnd   = useCallback((e) => {
@@ -52,15 +94,18 @@ export const useMobileCarousel = (options = {}) => {
     return { activeIndex, nextSlide, prevSlide, handleTouchStart, handleTouchEnd, animationDuration };
 };
 
+
+
 export const useDesktopCarousel = (options = {}) => {
-    const { slidesData = [], animationDuration = 600 } = options;
+    const { animationDuration = 600 } = options;
     const n = slidesData.length;
+
 
     const extSlides = useMemo(() => [
         { ...slidesData[n - 1], _extKey: 'clone-last'  },
         ...slidesData.map((s) => ({ ...s, _extKey: `real-${s.id}` })),
         { ...slidesData[0],     _extKey: 'clone-first' }
-    ], [slidesData]);
+    ], []);
 
     const [extIndex,    setExtIndex]    = useState(1);      
     const [offset,      setOffset]      = useState(0);
@@ -69,6 +114,7 @@ export const useDesktopCarousel = (options = {}) => {
     const containerRef  = useRef(null);
     const touchStartX   = useRef(0);
     const animatingRef  = useRef(false);
+
 
     const recomputeOffset = useCallback((idx) => {
         if (!containerRef.current) return;
@@ -83,6 +129,7 @@ export const useDesktopCarousel = (options = {}) => {
         return () => window.removeEventListener('resize', onResize);
     }, [extIndex, recomputeOffset]);
 
+
     useEffect(() => {
         if (!noTransition) return;
         let id1, id2;
@@ -91,6 +138,7 @@ export const useDesktopCarousel = (options = {}) => {
         });
         return () => { cancelAnimationFrame(id1); cancelAnimationFrame(id2); };
     }, [noTransition]);
+
 
     const handleTransitionEnd = useCallback(() => {
         if (extIndex === 0) {

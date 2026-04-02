@@ -3,7 +3,7 @@ import './FAQ.css'
 import arrow from './public/arrow.svg'
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
 import { checkApiConnection, sendFAQForm } from '../../RouterAPI';
-import { useScrollAnimation } from '../../useScrollAnimation.js'; 
+import { useScrollAnimation } from '../../useScrollAnimation.js';
 
 const MapComponent = ({ branches, selectedBranch, mapCenter }) => (
     <YMaps>
@@ -37,13 +37,15 @@ export default function FAQ() {
     const [FIOparent, setFIOparent] = useState('');
     const [Phone, setPhone] = useState('');
     const [selectedBranch, setSelectedBranch] = useState('');
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState(null);
 
     const [errors, setErrors] = useState({});
     const [isOpen, setIsOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
     const [isConnected, setIsConnected] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
-    
+
     const [showRateLimitModal, setShowRateLimitModal] = useState(false);
     const [rateLimitMessage, setRateLimitMessage] = useState('');
 
@@ -79,28 +81,28 @@ export default function FAQ() {
 
     const formatPhone = (value) => {
         let digits = value.replace(/[^\d+]/g, '');
-        
+
         if (digits.startsWith('8') && digits.length === 11) {
             digits = '+7' + digits.slice(1);
         }
-        
+
         if (digits.startsWith('7') && !digits.startsWith('+7')) {
             digits = '+7' + digits.slice(1);
         }
-        
+
         if (digits.length === 0 || digits === '+') return '+7';
-        
+
         let cleanDigits = digits.replace(/\D/g, '');
         if (cleanDigits.startsWith('7')) {
             cleanDigits = cleanDigits.slice(1);
         }
-        
+
         let formatted = '+7';
         if (cleanDigits.length > 0) formatted += ' ' + cleanDigits.slice(0, 3);
         if (cleanDigits.length > 3) formatted += ' ' + cleanDigits.slice(3, 6);
         if (cleanDigits.length > 6) formatted += ' ' + cleanDigits.slice(6, 8);
         if (cleanDigits.length > 8) formatted += ' ' + cleanDigits.slice(8, 10);
-        
+
         return formatted;
     };
 
@@ -124,30 +126,30 @@ export default function FAQ() {
 
     const parseDateInput = (value) => {
         const digits = value.replace(/\D/g, '').slice(0, 8);
-        
+
         if (digits.length === 0) return '';
-        
+
         let day = digits.slice(0, 2);
         let month = digits.slice(2, 4);
         let year = digits.slice(4, 8);
-        
+
         if (day.length === 1 && parseInt(day) > 3) day = '0' + day;
         if (month.length === 1 && parseInt(month) > 1) month = '0' + month;
-        
+
         let result = day;
         if (month) result += '.' + month;
         if (year) result += '.' + year;
-        
+
         return result;
     };
 
     const validateForm = () => {
         const newErrors = {};
-        
+
         if (!FIOchildren.trim()) {
             newErrors.fioChildren = 'ФИО ребенка не заполнено';
         }
-        
+
         if (!ChildDateBirth) {
             newErrors.childDateBirth = 'Дата рождения не выбрана';
         } else {
@@ -163,13 +165,13 @@ export default function FAQ() {
                 }
             }
         }
-        
+
         if (!FIOparent.trim()) {
             newErrors.fioParent = 'ФИО родителя не заполнено';
         }
-        
+
         const phoneDigits = Phone.replace(/\D/g, '');
-        
+
         if (phoneDigits.length !== 11) {
             newErrors.phone = 'Телефон должен содержать 11 цифр (пример: +7 999 999 99 99)';
         } else if (!Phone.startsWith('+7')) {
@@ -177,11 +179,11 @@ export default function FAQ() {
         } else if (phoneDigits[1] !== '9') {
             newErrors.phone = 'Телефон должен начинаться с +7 9 (например: +7 916 123 45 67)';
         }
-        
+
         if (!selectedBranch) {
             newErrors.branch = 'Филиал не выбран';
         }
-        
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -189,7 +191,8 @@ export default function FAQ() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
-        
+        setSubmitStatus(null);
+
         if (!validateForm()) {
             return;
         }
@@ -212,19 +215,22 @@ export default function FAQ() {
             setPhone('');
             setSelectedBranch('');
             setErrors({});
+            setSubmitStatus('success');
+            setTimeout(() => setSubmitStatus(null), 3000);
         } catch (error) {
             if (error.status === 429 || error.message.includes('429') || error.message.includes('слишком много')) {
                 setRateLimitMessage(error.message || 'Слишком много попыток. Попробуйте через 5 минут.');
                 setShowRateLimitModal(true);
             } else if (error.status === 400 || error.message.includes('Телефон должен начинаться')) {
-                setErrors(prev => ({ 
-                    ...prev, 
-                    phone: 'Телефон должен начинаться с +7 9 (например: +7 916 123 45 67)' 
+                setErrors(prev => ({
+                    ...prev,
+                    phone: 'Телефон должен начинаться с +7 9 (например: +7 916 123 45 67)'
                 }));
             }
         } finally {
-            setIsSubmitting(false);
+            setIsSubmitting(false)
         }
+
     };
 
     const mapCenter = selectedBranchData?.coords || [55.657702, 37.669949];
@@ -321,7 +327,7 @@ export default function FAQ() {
                         />
                         {errors.phone && <span className="error-message">{errors.phone}</span>}
                     </div>
-
+                            
                     <div className={`input-group ${errors.branch ? 'error' : ''}`}>
                         <div className={`branch-wrapper ${isOpen ? 'open' : ''}`}>
                             <div className='branch' onClick={toggleDropdown}>
@@ -344,7 +350,15 @@ export default function FAQ() {
                         type='submit'
                         disabled={isSubmitting}
                     >
-                        {isSubmitting ? <p>Отправка...</p> : <p>Записаться на пробное занятие</p>}
+                        {isSubmitting ? (
+                            <p>Отправка...</p>
+                        ) : submitStatus === 'success' ? (
+                            <p>Заявка успешно отправленна</p>
+                        ) : submitStatus === 'error' ? (
+                            <p>Ошибка отправки заявки</p>
+                        ) : (
+                            <p>Записаться на пробное занятие</p>
+                        )}
                     </button>
                 </form>
 

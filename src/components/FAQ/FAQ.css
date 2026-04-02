@@ -42,9 +42,9 @@ input:focus {
 
 .input-group.error input,
 .input-group.error .branch {
-    outline: 2px solid #ff4444;
+    outline: 2px solid #c73b3b;
     outline-offset: -2px;
-    border-radius: 4px;
+    border-radius: .2vw;
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -58,14 +58,14 @@ input:focus {
 }
 
 .input-group.error .Date_of_birth_label {
-    color: #ff4444;
+    color: #c73b3b;
     font-family: 'Montserrat', sans-serif;
 }
 
 .error-message {
-    color: #ff4444;
-    font-size: clamp(11px, 0.8vw, 14px);
-    margin-top: 5px;
+    color: #c73b3b;
+    font-size: clamp(11px, 0.8vw, 30px);
+    margin-top: .3vw;
     min-height: 16px;
     padding-left: 12px;
     font-family: 'Montserrat', sans-serif;
@@ -113,7 +113,7 @@ input:focus {
 
 .Date_of_birth::placeholder {
     color: #888;
-    font-size: clamp(14px, 0.9vw, 16px);
+    font-size: clamp(14px, .9vw, 100px);
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -420,11 +420,7 @@ input {
     font-family: 'Montserrat', sans-serif;
 }
 
-.Phone_number {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 16px !important;
-    -webkit-text-size-adjust: 100%;
-}
+
 
 input[type="tel"]::-webkit-outer-spin-button,
 input[type="tel"]::-webkit-inner-spin-button {

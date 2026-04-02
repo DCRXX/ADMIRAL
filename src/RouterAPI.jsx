@@ -115,11 +115,11 @@ export const sendFAQForm = async (formData) => {
     }
 };
 
-{/*
+
 // aboutUs
 export const getAboutUs = async () => {
     try {
-        return await apiRequest('/abouUs', { 
+        return await apiRequest('/aboutUs', { 
             method: 'GET', 
             headers: {
             'Content-Type': 'application/json',
@@ -241,4 +241,3 @@ export const getContactDetails = async () => {
         throw error;
     }
 };
-*/}
