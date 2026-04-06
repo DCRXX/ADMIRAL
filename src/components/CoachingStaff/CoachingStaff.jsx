@@ -88,7 +88,7 @@ export default function CoachingStaff() {
                         {coaches.map((coach, index) => (
                             <div className='Block_Coaching' key={index}>
                                 <img className='Coaching_image' src={coach.imagePathCoaching} alt='' />
-                                <img className='card-flag' src={coach.countryImagePath} alt='' />
+                                <img className='card-flag' src={coach.imagePathContry} alt='' />
                                 <img className='ball_1' src={ball} alt="" draggable="false" />
                                 <img className='ball_2' src={ball2} alt="" draggable="false" />
                                 <div className='description_Coaching'>
