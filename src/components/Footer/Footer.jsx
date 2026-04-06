@@ -1,17 +1,31 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Footer.css';
 
 import logo from './public/logo.svg';
 import vkIcon from './public/vk.png';
-
-const PHONE = '8-926-597-57-57';
-const EMAIL = 'fc-admiral@mail.ru';
+import { getContactDetails } from '../../RouterAPI.jsx';
 
 const isMobile = () =>
   typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0;
 
 export default function Footer() {
   const [copied, setCopied] = useState(null);
+  const [contact, setContact] = useState({ phone: '', email: '' });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getContactDetails();
+        // Если API возвращает объект напрямую:
+        if (data) {
+          setContact(data);
+        }
+      } catch (error) {
+        console.error('Ошибка загрузки contactDetails:', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const copyToClipboard = (text, type) => {
     navigator.clipboard.writeText(text).then(() => {
@@ -23,14 +37,14 @@ export default function Footer() {
   const handlePhone = (e) => {
     if (!isMobile()) {
       e.preventDefault();
-      copyToClipboard(PHONE, 'phone');
+      copyToClipboard(contact.phone, 'phone');
     }
   };
 
   const handleEmail = (e) => {
     if (!isMobile()) {
       e.preventDefault();
-      copyToClipboard(EMAIL, 'email');
+      copyToClipboard(contact.email, 'email');
     }
   };
 
@@ -46,11 +60,11 @@ export default function Footer() {
           <span style={{ position: 'relative' }}>
             <a
               className="footer__phone"
-              href={`tel:${PHONE}`}
+              href={`tel:${contact.phone}`}
               onClick={handlePhone}
               style={{ textDecoration: 'none', cursor: 'pointer' }}
             >
-              {PHONE}
+              {contact.phone}
             </a>
             {copied === 'phone' && (
               <span className="copied-toast">Скопировано</span>
@@ -60,10 +74,10 @@ export default function Footer() {
           <span style={{ position: 'relative' }}>
             <a
               className="footer__email"
-              href={`mailto:${EMAIL}`}
+              href={`mailto:${contact.email}`}
               onClick={handleEmail}
             >
-              {EMAIL}
+              {contact.email}
             </a>
             {copied === 'email' && (
               <span className="copied-toast">Скопировано</span>
@@ -71,7 +85,7 @@ export default function Footer() {
           </span>
 
           <div className="footer__socials">
-            <a href="https://vk.com/fcadmiral" className="footer__social-link">
+            <a href="https://vk.com/fcadmiral " className="footer__social-link">
               <img src={vkIcon} alt="VK" />
             </a>
           </div>

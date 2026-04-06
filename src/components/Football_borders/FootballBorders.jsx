@@ -1,19 +1,39 @@
 import './FootballBorders.css'
-import  { useState} from 'react';
-import videoSrc from './video/IMG.mp4'
+import { useState, useEffect } from 'react';
 import { useScrollAnimation } from '../../useScrollAnimation.js';
+import { getFootbalBorders } from '../../RouterAPI.jsx';
 
 export default function FootballBorders() {
     const [aboutData, setAboutData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const sectionRef = useScrollAnimation([isLoading, aboutData]);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await getFootbalBorders();
+                if (data && data.length > 0) {
+                    setAboutData(data[0]);
+                }
+            } catch (error) {
+                console.error('Ошибка загрузки FootballBorders:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchData();
+    }, []);
+
+    if (!aboutData) {
+        return null;
+    }
+
     return (
         <section className='Football_borders' ref={sectionRef}>
             <div className='Football_main'>
                 <video
                     className='video_Football'
-                    src={videoSrc}
+                    src={aboutData.videoPathFile}
                     preload="auto"
                     playsInline
                     autoPlay
@@ -21,8 +41,8 @@ export default function FootballBorders() {
                     loop
                 />
                 <div className='Football_text'>
-                    <div className='head_Announcements'><h1>Футбол без границ</h1></div>
-                    <p>Футбол — игра равных возможностей. В футбольной школе «Адмирал-ВМФ» спорт доступен каждому, независимо от физических возможностей. Программа «Футбол без границ» — это уникальный проект, который помогает детям с особенностями развития раскрыть свой потенциал через любимую игру миллионов. Наши профессиональные тренеры создают комфортную и поддерживающую атмосферу, где каждый юный спортсмен чувствует себя частью команды.</p>
+                    <div className='head_Announcements'><h1>{aboutData.title}</h1></div>
+                    <p>{aboutData.description}</p>
                 </div>
             </div>
         </section>

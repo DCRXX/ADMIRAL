@@ -3,24 +3,31 @@ import './theFirstStep.css';
 
 import arrow from "./public/arrow.svg";
 import admiralLogo from "./public/admiral_logo.svg";
-import dinamoLogo from "./public/dinamo.svg";
-import csk from "./public/csk.svg";
-import fkT from "./public/fkT.svg";
-import firstBoy from "./public/boy1.svg";
-import secondBoy from "./public/boy2.svg";
-import thirdBoy from "./public/boy3.svg";
-import zaglushka from "./public/zaglushka.svg"
-
 import { useScrollAnimation } from '../../useScrollAnimation.js';
+import { getTheFirstStep } from '../../RouterAPI.jsx';
 
 export default function theFirstStep() {
     const trackRef = useRef(null);
     const prevBtnRef = useRef(null);
     const nextBtnRef = useRef(null);
 
-    const [aboutData, setAboutData] = useState(null);
+    const [players, setPlayers] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const sectionRef = useScrollAnimation([isLoading, aboutData]);
+    const sectionRef = useScrollAnimation([isLoading, players]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await getTheFirstStep();
+                setPlayers(data);
+            } catch (error) {
+                console.error('Ошибка загрузки theFirstStep:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchData();
+    }, []);
 
     useEffect(() => {
         const track = trackRef.current;
@@ -57,7 +64,11 @@ export default function theFirstStep() {
             prevBtnRef.current?.removeEventListener('click', handlePrev);
             nextBtnRef.current?.removeEventListener('click', handleNext);
         };
-    }, []);
+    }, [players]);
+
+    if (players.length === 0) {
+        return null;
+    }
 
     return (
         <section className='theFirstStep' ref={sectionRef}>
@@ -68,104 +79,24 @@ export default function theFirstStep() {
             <div className="firstLayer">
                 <div className="carousel-wrapper-thefirst">
                     <div className="boys-track" ref={trackRef}>
-                        <div className="boysblocks">
-                            <div className="info">
-                                <div className="fromAndAfter">
-                                    <img src={admiralLogo} alt="Admiral" className="admiral" />
-                                    <img src={arrow} alt="" className="arrow" />
-                                    <img src={dinamoLogo} alt="Dinamo" className="otherLogo" />
+                        {players.map((player) => (
+                            <div className="boysblocks" key={player.id}>
+                                <div className="info">
+                                    <div className="fromAndAfter">
+                                        <img src={admiralLogo} alt="Admiral" className="admiral" />
+                                        <img src={arrow} alt="" className="arrow" />
+                                        <img src={player.imageFootballTeam} alt="" className="otherLogo" />
+                                    </div>
+                                    <div className="NameAndAge">
+                                        <p>{player.year}</p>
+                                        <h3>{player.FIOPlayer}</h3>
+                                    </div>
                                 </div>
-                                <div className="NameAndAge">
-                                    <p>2015</p>
-                                    <h3>Геркен Евгений</h3>
-                                </div>
-                            </div>
-                            <div className="boys">
-                                <img src={zaglushka} alt="Геркен Евгений" className="boy" />
-                            </div>
-                        </div>
-                        <div className="boysblocks">
-                            <div className="info">
-                                <div className="fromAndAfter">
-                                    <img src={admiralLogo} alt="Admiral" className="admiral" />
-                                    <img src={arrow} alt="" className="arrow" />
-                                    <img src={csk} alt="CSK" className="otherLogo" />
-                                </div>
-                                <div className="NameAndAge">
-                                    <p>2014</p>
-                                    <h3>Белобров Степан</h3>
+                                <div className="boys">
+                                    <img src={player.imagePlayer} alt={player.FIOPlayer} className="boy" />
                                 </div>
                             </div>
-                            <div className="boys">
-                                <img src={zaglushka} alt="Белобров Степан" className="boy" />
-                            </div>
-                        </div>
-                        <div className="boysblocks">
-                            <div className="info">
-                                <div className="fromAndAfter">
-                                    <img src={admiralLogo} alt="Admiral" className="admiral" />
-                                    <img src={arrow} alt="" className="arrow" />
-                                    <img src={fkT} alt="fkT" className="otherLogo" />
-                                </div>
-                                <div className="NameAndAge">
-                                    <p>2012</p>
-                                    <h3>Горбунов Ярослав</h3>
-                                </div>
-                            </div>
-                            <div className="boys">
-                                <img src={zaglushka} alt="Горбунов Ярослав" className="boy" />
-                            </div>
-                        </div>
-                        <div className="boysblocks">
-                            <div className="info">
-                                <div className="fromAndAfter">
-                                    <img src={admiralLogo} alt="Admiral" className="admiral" />
-                                    <img src={arrow} alt="" className="arrow" />
-                                    <img src={csk} alt="CSK" className="otherLogo" />
-                                </div>
-                                <div className="NameAndAge">
-                                    <p>2014</p>
-                                    <h3>Белобров Степан</h3>
-                                </div>
-                            </div>
-                            <div className="boys">
-                                <img src={zaglushka} alt="Белобров Степан" className="boy" />
-                            </div>
-                        </div>
-
-                        <div className="boysblocks">
-                            <div className="info">
-                                <div className="fromAndAfter">
-                                    <img src={admiralLogo} alt="Admiral" className="admiral" />
-                                    <img src={arrow} alt="" className="arrow" />
-                                    <img src={dinamoLogo} alt="Dinamo" className="otherLogo" />
-                                </div>
-                                <div className="NameAndAge">
-                                    <p>2015</p>
-                                    <h3>Геркен Евгений</h3>
-                                </div>
-                            </div>
-                            <div className="boys">
-                                <img src={zaglushka} alt="Геркен Евгений" className="boy" />
-                            </div>
-                        </div>
-
-                        <div className="boysblocks">
-                            <div className="info">
-                                <div className="fromAndAfter">
-                                    <img src={admiralLogo} alt="Admiral" className="admiral" />
-                                    <img src={arrow} alt="" className="arrow" />
-                                    <img src={fkT} alt="fkT" className="otherLogo" />
-                                </div>
-                                <div className="NameAndAge">
-                                    <p>2012</p>
-                                    <h3>Горбунов Ярослав</h3>
-                                </div>
-                            </div>
-                            <div className="boys">
-                                <img src={zaglushka} alt="Горбунов Ярослав" className="boy" />
-                            </div>
-                        </div>
+                        ))}
                     </div>
 
                     <button ref={prevBtnRef} className="arrow-btn arrow-btn--prev" aria-label="Предыдущий">

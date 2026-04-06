@@ -5,9 +5,7 @@ import VK from './public/VK.svg'
 import ADMIRAL from './public/АДМИРАЛ.svg'
 import foot_players from './public/Group 166 1.png'
 import { Link } from 'react-scroll'
-
-const PHONE = '8-926-597-57-57';
-const EMAIL = 'fc-admiral@mail.ru';
+import { getContactDetails } from '../../RouterAPI.jsx';
 
 const isMobile = () =>
   typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0;
@@ -16,9 +14,24 @@ export default function HeaderHero() {
   const [copied, setCopied] = useState(null);
   const [showAdmiral, setShowAdmiral] = useState(false);
   const [showPlayers, setShowPlayers] = useState(false);
+  const [contact, setContact] = useState({ phone: '', email: '' });
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+         const data = await getContactDetails();
+         // Если API возвращает объект напрямую:
+         if (data) {
+          setContact(data);
+        }
+       } catch (error) {
+         console.error('Ошибка загрузки contactDetails:', error);
+       }
+     };
+    fetchData();
+  }, []);
 
+  useEffect(() => {
     const admiralTimer = setTimeout(() => {
       setShowAdmiral(true);
     }, 400);
@@ -43,14 +56,14 @@ export default function HeaderHero() {
   const handlePhone = (e) => {
     if (!isMobile()) {
       e.preventDefault();
-      copyToClipboard(PHONE, 'phone');
+      copyToClipboard(contact.phone, 'phone');
     }
   };
 
   const handleEmail = (e) => {
     if (!isMobile()) {
       e.preventDefault();
-      copyToClipboard(EMAIL, 'email');
+      copyToClipboard(contact.email, 'email');
     }
   };
 
@@ -70,16 +83,16 @@ export default function HeaderHero() {
 
           <div className="nav-2">
             <li style={{ position: 'relative' }}>
-              <a href={`tel:${PHONE}`} onClick={handlePhone} style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
-                {PHONE}
+              <a href={`tel:${contact.phone}`} onClick={handlePhone} style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
+                {contact.phone}
               </a>
               {copied === 'phone' && (
                 <span className="copied-toast">Скопировано</span>
               )}
             </li>
             <li style={{ position: 'relative' }}>
-              <a href={`mailto:${EMAIL}`} onClick={handleEmail} style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
-                {EMAIL}
+              <a href={`mailto:${contact.email}`} onClick={handleEmail} style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
+                {contact.email}
               </a>
               {copied === 'email' && (
                 <span className="copied-toast">Скопировано</span>
@@ -87,7 +100,7 @@ export default function HeaderHero() {
             </li>
           </div>
           <div className="nav-3">
-            <a href='https://vk.com/fcadmiral '>
+            <a href='https://vk.com/fcadmiral  '>
               <img src={VK} alt="ВКонтакте" />
             </a>
           </div>

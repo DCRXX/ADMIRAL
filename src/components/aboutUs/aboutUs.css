@@ -112,15 +112,15 @@
 }
 
 .allTables {
-    display: grid;
-    grid-template-rows: min-content auto;
+    display: flex;
+    flex-direction: column;
     gap: clamp(10px, 2vw, 40px);
     transition: all 0.3s ease;
 }
 
 .allTogether {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .firstTable {
