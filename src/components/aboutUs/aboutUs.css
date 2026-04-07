@@ -114,22 +114,20 @@
 .allTables {
     display: flex;
     flex-direction: column;
-    gap: clamp(10px, 2vw, 40px);
     transition: all 0.3s ease;
 }
 
 .allTogether {
     display: flex;
     justify-content: space-around;
+    align-items: stretch;
+    gap: clamp(20px, 4vw, 60px);
 }
 
 .firstTable {
-    display: grid;
-    padding: clamp(20px, 5vw, 50px) clamp(20px, 6vw, 80px);
-    padding-bottom: 0px;
-    grid-row: 2;
-    top: 0;
-    height: fit-content;
+    display: flex;
+    padding: clamp(20px, 5vw, 50px);
+    align-items: flex-end;
 }
 
 .firstTable img {
@@ -138,7 +136,7 @@
     grid-row: 2;
     -webkit-mask-image: linear-gradient(to top, transparent, black 50%);
     mask-image: linear-gradient(to top, transparent, black 50%);
-    width: clamp(600px, 25vw, 100vw);
+    width: clamp(600px, 25vw, 1000px);
     height: auto;
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
@@ -154,7 +152,6 @@
 .secondTable {
     display: grid;
     padding: clamp(20px, 5vw, 50px);
-    margin-top: clamp(25px, 5vw, 55px);
     gap: clamp(22.2px, 2vw, 28px);
     position: relative;
     z-index: 1;
@@ -169,6 +166,7 @@
     flex-direction: column;
     gap: clamp(21.2px, 1vw, 100px);
     width: clamp(100px, 40vw, 100vw);
+    justify-content: center;
     transition: transform 0.3s ease;
 }
 

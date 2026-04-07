@@ -133,7 +133,7 @@
     width: 100%;
     height: clamp(50px, 12vw, 100vw);
     background-color: #000000;
-    filter: blur(5vh);
+    filter: blur(6vh);
     border-radius: 30%;
     opacity: 0.65;
 }

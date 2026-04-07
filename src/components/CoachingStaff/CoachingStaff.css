@@ -37,7 +37,7 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    padding-left: clamp(5px, 6vw, 100vw);
+    padding-left: clamp(5px, 6vw, 70px);
     scroll-snap-type: x mandatory;
     touch-action: pan-x;
 }
@@ -190,6 +190,9 @@
 }
 
 @media screen and (max-width: 930px) {
+    .overflow_carusel {
+        padding-left: clamp(5px, 2vw, 10px);
+    }
     .description_Coaching {
         grid-template-columns: 1fr;
     }
@@ -233,10 +236,10 @@
     }
 
     .card-flag {
-        width: clamp(15px, 2.5vw, 100px);
+        width: clamp(15px, 3vw, 100px);
     }
 
     .description_Coaching {
-        min-height: 200px;
+        min-height: 180px;
     }
 }
