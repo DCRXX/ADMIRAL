@@ -45,6 +45,25 @@ input {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.__ymDebugger,
+.__ym_wv_ign,
+[class^="__ym"],
+[class*=" __ym"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+  width: 0 !important;
+  height: 0 !important;
+  pointer-events: none !important;
+  z-index: -9999 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
 /* анимации */
 
 .aboutUs,
@@ -67,12 +86,13 @@ input {
 .CoachingStaff.visible,
 .theFirstStep.visible,
 .parents.visible,
-.FAQ.visible{
+.FAQ.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .aboutUs,
   .Announcements,
   .advantages,
@@ -80,7 +100,7 @@ input {
   .CoachingStaff,
   .theFirstStep,
   .parents,
-  .FAQ{
+  .FAQ {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
