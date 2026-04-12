@@ -349,6 +349,7 @@ export default function FAQ() {
                         className='submitting_the_form'
                         type='submit'
                         disabled={isSubmitting}
+                        onClick={ym(108501890,'reachGoal','MainbuttonClick')}
                     >
                         {isSubmitting ? (
                             <p>Отправка...</p>
