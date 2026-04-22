@@ -12,18 +12,18 @@ function AboutUs() {
 
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                const data = await getAboutUs();
-                if (data && data.length > 0) {
-                    setAboutData(data[0]);
-                }
-            } catch (error) {
-                console.error('Ошибка загрузки AboutUs:', error);
-            } finally {
-                setIsLoading(false);
+        try {
+            const data = await getAboutUs();
+            if (data) {
+                setAboutData(data);
             }
-        };
-        fetchData();
+        } catch (error) {
+            console.error('Ошибка загрузки AboutUs:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+    fetchData();
     }, []);
 
     if (isLoading) {

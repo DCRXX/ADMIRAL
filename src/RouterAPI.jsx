@@ -119,13 +119,15 @@ export const sendFAQForm = async (formData) => {
 // aboutUs
 export const getAboutUs = async () => {
     try {
-        return await apiRequest('/aboutUs', { 
-            method: 'GET', 
+        const data = await apiRequest('/aboutUs', { 
+            method: 'GET',
             headers: {
-            'Content-Type': 'application/json',
-            'x-api-key': API_KEY,
-        },
+                'Content-Type': 'application/json',
+                'x-api-key': API_KEY,
+            },
         });
+        
+        return data;
     } catch (error) {
         console.error('Ошибка получения AboutUs:', error);
         throw error;
