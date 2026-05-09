@@ -1,0 +1,8 @@
+meta:
+  environment: static_web
+  toolchain:
+    name: npm
+    version: "20"
+build:
+  additionalCommands: npx vite build
+run: {}
