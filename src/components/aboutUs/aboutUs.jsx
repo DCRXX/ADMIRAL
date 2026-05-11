@@ -14,9 +14,7 @@ function AboutUs() {
         const fetchData = async () => {
             try {
                 const data = await getAboutUs();
-                if (data && data.length > 0) {
-                    setAboutData(data[0]);
-                }
+                setAboutData(data);
             } catch (error) {
                 console.error('Ошибка загрузки AboutUs:', error);
             } finally {
